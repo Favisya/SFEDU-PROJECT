@@ -1,0 +1,16 @@
+{
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dmitriy Vikulin",
+            "email": "dvikulin@lachestry.com"
+        }
+    ],
+    "require": {
+        "squizlabs/php_codesniffer": "*"
+    }
+}
