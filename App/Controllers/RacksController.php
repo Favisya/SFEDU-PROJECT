@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Racks
+class RacksController
 {
     public function showControllerName()
     {

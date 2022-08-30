@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Countries
+class CountriesController
 {
     public function showControllerName()
     {

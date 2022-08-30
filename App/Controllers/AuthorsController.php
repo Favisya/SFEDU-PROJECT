@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Authors
+class AuthorsController
 {
     public function showControllerName()
     {

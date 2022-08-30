@@ -7,4 +7,8 @@ use App\Router\Router;
 $requestPath = $_SERVER['REQUEST_URI'] ?? '';
 
 $routerObject = new Router();
-$routerObject->parseControllers($requestPath);
+$controller = $routerObject->parseControllers($requestPath);
+
+if ($controller !== false) {
+    $controller->showControllerName();
+}

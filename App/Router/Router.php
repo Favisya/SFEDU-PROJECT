@@ -9,42 +9,42 @@ class Router
     public function parseControllers (string $path)
     {
         switch ($path) {
-            case '/':
+            case '/': {
                 echo 'Welcome to homepage';
-                break;
+                return false;
+            }
 
-            case '/Authors':
-                $controller = new Controllers\Authors();
-                $controller->showControllerName();
-                break;
+            case '/authors': {
+                return new Controllers\AuthorsController();
+            }
 
-            case '/Books':
-                $controller = new Controllers\Books();
-                $controller->showControllerName();
-                break;
-            case '/Categories':
-                $controller = new Controllers\Categories();
-                $controller->showControllerName();
-                break;
-            case '/Countries':
-                $controller = new Controllers\Countries();
-                $controller->showControllerName();
-                break;
-            case '/Libraries':
-                $controller = new Controllers\Libraries();
-                $controller->showControllerName();
-                break;
-            case '/Publishers':
-                $controller = new Controllers\Publishers();
-                $controller->showControllerName();
-                break;
-            case '/Racks':
-                $controller = new Controllers\Racks();
-                $controller->showControllerName();
-                break;
-            default:
-                echo '404' . PHP_EOL;
-                break;
+            case '/books': {
+                return new Controllers\BooksController();
+            }
+
+            case '/categories': {
+                return new Controllers\CategoriesController();
+            }
+
+            case '/countries': {
+                return new Controllers\CountriesController();
+            }
+
+            case '/libraries': {
+                return new Controllers\LibrariesController();
+            }
+
+            case '/publishers': {
+                return new Controllers\PublishersController();
+            }
+
+            case '/racks': {
+                return new Controllers\RacksController();
+            }
+
+            default: {
+                return new Controllers\Error404Controller();
+            }
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Books
+class BooksController
 {
     public function showControllerName()
     {
