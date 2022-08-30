@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class CategoriesController
+class CategoriesController implements ControllerInterface
 {
     public function showControllerName()
     {

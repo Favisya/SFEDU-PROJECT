@@ -2,7 +2,7 @@
 
 namespace App\controllers;
 
-class PublishersController
+class PublishersController implements ControllerInterface
 {
     public function showControllerName()
     {

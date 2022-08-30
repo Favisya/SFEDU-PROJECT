@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class RacksController
+class RacksController implements ControllerInterface
 {
     public function showControllerName()
     {

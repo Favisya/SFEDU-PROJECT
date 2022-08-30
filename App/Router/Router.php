@@ -6,12 +6,12 @@ use App\Controllers;
 
 class Router
 {
-    public function parseControllers (string $path)
+    public function parseControllers (string $path): ?Controllers\ControllerInterface
     {
         switch ($path) {
             case '/': {
                 echo 'Welcome to homepage';
-                return false;
+                return null;
             }
 
             case '/authors': {

@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-class Error404Controller
+class Error404Controller implements ControllerInterface
 {
     public function showControllerName()
     {
