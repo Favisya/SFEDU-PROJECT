@@ -6,7 +6,7 @@ use App\Controllers;
 
 class Router
 {
-    public function parseControllers (string $path): ?Controllers\ControllerInterface
+    public function parseControllers(string $path): ?Controllers\ControllerInterface
     {
         switch ($path) {
             case '/': {
@@ -21,6 +21,11 @@ class Router
             case '/books': {
                 return new Controllers\BooksController();
             }
+
+            case '/book': {
+                return new Controllers\BookController();
+            }
+
 
             case '/categories': {
                 return new Controllers\CategoriesController();

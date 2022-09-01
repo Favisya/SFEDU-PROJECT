@@ -2,10 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Blocks\LibrariesBlock;
+
 class LibrariesController implements ControllerInterface
 {
-    public function showControllerName()
+    public function execute()
     {
-        echo 'This is controller for libraries' . PHP_EOL;
+        $block = new LibrariesBlock();
+        $block->render();
     }
 }

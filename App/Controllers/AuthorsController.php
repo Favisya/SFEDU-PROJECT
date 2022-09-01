@@ -2,10 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Blocks\AuthorsBlock;
+
 class AuthorsController implements ControllerInterface
 {
-    public function showControllerName()
+    public function execute()
     {
-        echo 'This is controller for authors' . PHP_EOL;
+        $block = new AuthorsBlock();
+        $block->render();
     }
 }

@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 class RacksController implements ControllerInterface
 {
-    public function showControllerName()
+    public function execute()
     {
         echo 'This is controller for racks' . PHP_EOL;
     }

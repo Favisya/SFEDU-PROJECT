@@ -1,0 +1,32 @@
+.table {
+    display: flex;
+    flex-direction: column;
+}
+
+.table__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    padding: 5px;
+
+    font-weight: bold;
+}
+
+.table__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    padding: 5px;
+}
+
+.table__row_even {
+    border-radius: 30px;
+    background: #495b6c;
+}
+
+.table__field {
+    width: 60px;
+    flex: 1;
+}

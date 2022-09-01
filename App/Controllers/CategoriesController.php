@@ -2,10 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Blocks\CategoriesBlock;
+
 class CategoriesController implements ControllerInterface
 {
-    public function showControllerName()
+    public function execute()
     {
-        echo 'This is controller for categories' . PHP_EOL;
+        $block = new CategoriesBlock();
+        $block->render();
     }
 }

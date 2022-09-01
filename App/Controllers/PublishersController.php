@@ -1,11 +1,14 @@
 <?php
 
-namespace App\controllers;
+namespace App\Controllers;
+
+use App\Blocks\PublishersBlock;
 
 class PublishersController implements ControllerInterface
 {
-    public function showControllerName()
+    public function execute()
     {
-        echo 'This is controller for publishers' . PHP_EOL;
+        $block = new PublishersBlock();
+        $block->render();
     }
 }

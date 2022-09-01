@@ -1,0 +1,29 @@
+.recommend-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px 0;
+
+    padding: 16px;
+    height: 70%;
+
+    border-radius: 12px;
+    background-color: #DCD8CB;
+}
+
+.recommend-list__element {
+    display: block;
+    text-align: center;
+
+    padding: 10px 38px;
+
+    text-decoration: none;
+    color: black;
+
+    border-radius: 12px;
+    background-color: #D3C2C2;
+}
+
+.recommend-list__element:hover {
+    transition: .3s;
+    background-color: #ab9b9b;
+}

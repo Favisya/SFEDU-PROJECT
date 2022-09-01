@@ -2,10 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Blocks\BooksBlock;
+
 class BooksController implements ControllerInterface
 {
-    public function showControllerName()
+    public function execute()
     {
-        echo 'This is controller for books' . PHP_EOL;
+        $block = new BooksBlock();
+        $block->render();
     }
 }

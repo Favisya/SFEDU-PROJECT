@@ -1,0 +1,27 @@
+.navigation {
+}
+
+.navigation__marker {
+    list-style-type: none;
+}
+
+.navigation__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 35px;
+}
+
+.navigation__link {
+    align-items: flex-end;
+
+    font-weight: 300;
+    font-size: 32px;
+    text-decoration: none;
+    color: black;
+}
+
+.navigation__link:hover {
+    transition: .3s;
+    color: #67696c;
+}

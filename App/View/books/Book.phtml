@@ -1,0 +1,92 @@
+<?php
+/**
+ * @var App\Blocks\BookBlock $this
+ */
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book</title>
+
+    <?php include 'App/templates/stylesTemplate.php'?>
+</head>
+<body>
+<?php include 'App/templates/headerTemplate.phtml'?>
+
+<div class="content-container">
+
+    <div class="entity-container">
+
+        <div class="entity-container__left-block">
+
+            <?php
+                $data = $this->getData();
+            ?>
+            <div class="entity-container__info-block">
+                <h2><?= $data['bookData']['name'] ?></h2>
+                <p><?= $data['bookData']['author'] ?></p>
+            </div>
+
+            <div class="entity-container__info-block">
+                <p>
+                    <?= $data['bookData']['category'] ?>
+                </p>
+                <p>
+                    <?= $data['bookData']['country'] . ' ' . $data['bookData']['year'] ?>
+                </p>
+                <p>
+                    <?= 'Издатель: ' . $data['bookData']['publisher']?>
+                </p>
+                <p>
+                    <?= 'Цена: ' . $data['bookData']['price']?>
+                </p>
+            </div>
+
+            <div class="entity-container__left-buttons">
+                <a
+                    href=""
+                    class="entity-container__button"
+                >
+                    Жанр
+                </a>
+
+                <a
+                    href=""
+                    class="entity-container__button"
+                >
+                    Автор
+                </a>
+            </div>
+        </div>
+
+        <div class="entity-container__right-block">
+            <div class="entity-container__info-block entity-container__info-block_table">
+                <div class="table">
+                    <div class="table__header">
+                        <div class="table__field">кол-во</div>
+                        <div class="table__field">библиотека</div>
+                    </div>
+                    <?php foreach ($data['Libs'][0] as $field): ?>
+                    <div class="table__row">
+                        <div class="table__field"><?=$field['quantity'] ?></div>
+                        <div class="table__field"><?=$field['libName'] ?></div>
+                    </div>
+                    <?php endforeach;?>
+                </div>
+            </div>
+
+            <a
+                href=""
+                class="entity-container__button">
+                Весь список
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+<?php include 'App/templates/footerTemplate.phtml'?>
+</body>
+</html>
