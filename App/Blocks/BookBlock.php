@@ -6,7 +6,8 @@ class BookBlock implements BlocksInterface
 {
     public function render()
     {
-        require APP_ROOT . '/App/View/books/Book.phtml';
+        require_once APP_ROOT . '/App/templates/layout.phtml';
+        renderPage('book', $this);
     }
 
     public function getData(): array
@@ -21,14 +22,10 @@ class BookBlock implements BlocksInterface
             'category'  => 'Художественная литература',
         ];
 
-        $temp = [];
-
-        for ($i = 0; $i < 6; $i++) {
-            $temp[] = [
-                'quantity' => '123',
-                'libName'  => 'Chekhov',
-            ];
-        }
+        $temp = array_fill(0,8, [
+            'quantity' => '123',
+            'libName'  => 'Chekhov',
+        ]);
 
         $data['Libs'] = [$temp];
 

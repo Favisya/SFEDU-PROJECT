@@ -8,48 +8,22 @@ class Router
 {
     public function parseControllers(string $path): ?Controllers\ControllerInterface
     {
-        switch ($path) {
-            case '/': {
-                echo 'Welcome to homepage';
-                return null;
-            }
+        $uri = explode('/', $path);
 
-            case '/authors': {
-                return new Controllers\AuthorsController();
-            }
-
-            case '/books': {
-                return new Controllers\BooksController();
-            }
-
-            case '/book': {
-                return new Controllers\BookController();
-            }
-
-
-            case '/categories': {
-                return new Controllers\CategoriesController();
-            }
-
-            case '/countries': {
-                return new Controllers\CountriesController();
-            }
-
-            case '/libraries': {
-                return new Controllers\LibrariesController();
-            }
-
-            case '/publishers': {
-                return new Controllers\PublishersController();
-            }
-
-            case '/racks': {
-                return new Controllers\RacksController();
-            }
-
-            default: {
-                return new Controllers\Error404Controller();
-            }
+        if ($uri[1] == "") {
+            return new Controllers\HomePageController();
         }
+
+        $class = ucfirst($uri[1]);
+        $class = $class . 'Controller';
+
+        $class = 'App\Controllers\\' . $class;
+
+        if (class_exists($class)) {
+            return new $class();
+        } else {
+            return new Controllers\Error404Controller();
+        }
+
     }
 }

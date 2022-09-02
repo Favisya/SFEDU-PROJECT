@@ -6,18 +6,17 @@ class AuthorsBlock implements BlocksInterface
 {
     public function render()
     {
-        require APP_ROOT . '/App/View/authors/authors.phtml';
+        require_once APP_ROOT . '/App/templates/layout.phtml';
+        renderPage('authors', $this);
     }
 
     public function getData(): array
     {
-        $data = [
+        return [
             'Пушкин',
             'Чехов',
             'Достоевский',
             'Лермонтов',
         ];
-
-        return $data;
     }
 }

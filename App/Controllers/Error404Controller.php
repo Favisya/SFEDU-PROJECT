@@ -2,10 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Blocks\Error404Block;
+
 class Error404Controller implements ControllerInterface
 {
     public function execute()
     {
-        echo 'This is controller for 404 error' . PHP_EOL;
+        $block = new Error404Block();
+        $block->render();
     }
 }

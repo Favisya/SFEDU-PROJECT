@@ -6,18 +6,17 @@ class PublishersBlock implements BlocksInterface
 {
     public function render()
     {
-        require APP_ROOT . '/App/View/publishers/publishers.phtml';
+        require_once APP_ROOT . '/App/templates/layout.phtml';
+        renderPage('publishers', $this);
     }
 
     public function getData(): array
     {
-        $data = [
+        return [
             'Эскма',
             'Приколы',
             'фывфыв',
             'Приколыв 12321',
         ];
-
-        return $data;
     }
 }

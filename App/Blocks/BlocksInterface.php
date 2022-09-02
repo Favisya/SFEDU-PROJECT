@@ -6,5 +6,5 @@ interface BlocksInterface
 {
     public function render();
 
-    public function getData();
+    public function getData(): array;
 }

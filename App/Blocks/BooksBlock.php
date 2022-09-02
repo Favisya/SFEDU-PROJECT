@@ -6,18 +6,16 @@ class BooksBlock implements BlocksInterface
 {
     public function render()
     {
-        require APP_ROOT . '/App/View/books/Books.phtml';
+        require_once APP_ROOT . '/App/templates/layout.phtml';
+        renderPage('books', $this);
     }
 
     public function getData(): array
     {
-        $data = [];
-        for ($i = 0; $i < 12; $i++) {
-            $data[] = [
-                'name'    => 'Идиот',
-                'author'  => 'Достоевский Ф.М.',
-            ];
-        }
+        $data = array_fill(0,30, [
+            'name'    => 'Идиот',
+            'author'  => 'Достоевский Ф.М.',
+        ]);
 
         return $data;
     }

@@ -6,12 +6,13 @@ class CategoriesBlock implements BlocksInterface
 {
     public function render()
     {
-        require APP_ROOT . '/App/View/categories/categories.phtml';
+        require_once APP_ROOT . '/App/templates/layout.phtml';
+        renderPage('categories', $this);
     }
 
     public function getData(): array
     {
-        $data = [
+        return [
             'худ литература1',
             'худ литература2',
             'худ литература3',

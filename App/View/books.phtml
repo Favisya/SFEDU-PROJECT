@@ -1,0 +1,51 @@
+<?php
+/**
+ * @var App\Blocks\BlocksInterface $block $this of block class for books
+ */
+?>
+
+<div class="content-container content-container_list">
+
+    <div class="entity-container entity-container_list">
+        <?php foreach ($block->getData() as $book): ?>
+            <a href="../book" class="entity-container__button">
+                <h2><?= $book['name']?></h2>
+                <h3><?= $book['author']?></h3>
+            </a>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="recommend-list">
+        <a href="" class="recommend-list__element">
+            Худ. литература
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Научная литература
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Отечественная
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Зарубежная
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Достоевский
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Пушкин
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Философия
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Другое
+        </a>
+    </div>
+</div>

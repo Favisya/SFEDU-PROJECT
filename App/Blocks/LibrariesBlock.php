@@ -6,18 +6,17 @@ class LibrariesBlock implements BlocksInterface
 {
     public function render()
     {
-        require APP_ROOT . '/App/View/libraries/libraries.phtml';
+        require_once APP_ROOT . '/App/templates/layout.phtml';
+        renderPage('libraries', $this);
     }
 
     public function getData(): array
     {
-        $data = [
+        return [
             'библиотека имени Чехова1',
             'библиотека имени Чехова2',
             'библиотека имени Чехова3',
             'библиотека имени Чехова4',
         ];
-
-        return $data;
     }
 }
