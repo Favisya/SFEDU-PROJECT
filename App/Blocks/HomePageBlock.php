@@ -4,11 +4,13 @@ namespace App\Blocks;
 
 class HomePageBlock implements BlocksInterface
 {
+    private $fileToRender = APP_ROOT . '/App/View/homepage.phtml';
 
     public function render()
     {
+        $footer = new FooterBlock();
+        $header = new HeaderBlock();
         require_once APP_ROOT . '/App/templates/layout.phtml';
-        renderPage('homepage', $this);
     }
 
     public function getData(): array

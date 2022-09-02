@@ -1,13 +1,13 @@
 <?php
 /**
- * @var App\Blocks\BlocksInterface $block $this of block class for books
+ * @var App\Blocks\BlocksInterface $this $this of block class for books
  */
 ?>
 
 <div class="content-container content-container_list">
 
     <div class="entity-container entity-container_list">
-        <?php foreach ($block->getData() as $book): ?>
+        <?php foreach ($this->getData() as $book): ?>
             <a href="../book" class="entity-container__button">
                 <h2><?= $book['name']?></h2>
                 <h3><?= $book['author']?></h3>

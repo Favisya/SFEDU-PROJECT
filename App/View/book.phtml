@@ -1,6 +1,6 @@
 <?php
 /**
- * @var App\Blocks\BlocksInterface $block $this of block class for book
+ * @var App\Blocks\BlocksInterface $this $this of block class for book
  */
 ?>
 
@@ -9,7 +9,7 @@
         <div class="entity-container__side-block">
 
             <?php
-                $data = $block->getData();
+                $data = $this->getData();
             ?>
             <div class="entity-container__info-block">
                 <h2><?= $data['bookData']['name'] ?></h2>

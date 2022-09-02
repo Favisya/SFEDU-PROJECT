@@ -3,6 +3,8 @@
     justify-content: center;
 
     margin: 120px auto;
+
+    box-sizing: border-box;
 }
 
 .content-container_list {

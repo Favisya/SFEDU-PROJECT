@@ -4,10 +4,13 @@ namespace App\Blocks;
 
 class BookBlock implements BlocksInterface
 {
+    private $fileToRender = APP_ROOT . '/App/View/book.phtml';
+
     public function render()
     {
+        $footer = new FooterBlock();
+        $header = new HeaderBlock();
         require_once APP_ROOT . '/App/templates/layout.phtml';
-        renderPage('book', $this);
     }
 
     public function getData(): array

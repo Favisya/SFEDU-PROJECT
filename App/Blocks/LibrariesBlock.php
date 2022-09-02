@@ -4,10 +4,13 @@ namespace App\Blocks;
 
 class LibrariesBlock implements BlocksInterface
 {
+    private $fileToRender = APP_ROOT . '/App/View/libraries.phtml';
+
     public function render()
     {
+        $footer = new FooterBlock();
+        $header = new HeaderBlock();
         require_once APP_ROOT . '/App/templates/layout.phtml';
-        renderPage('libraries', $this);
     }
 
     public function getData(): array

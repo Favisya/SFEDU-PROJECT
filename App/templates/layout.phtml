@@ -1,25 +1,23 @@
 <?php
+/**
+ * @var App\Blocks\BlocksInterface $header
+ * @var App\Blocks\BlocksInterface $footer
+ */
+?>
 
-use App\Blocks\BlocksInterface;
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Book society</title>
+  <?php include 'App/templates/stylesTemplate.php' ?>
+</head>
+<body>
+  <?php $header->render() ?>
 
-function renderPage($templateName, BlocksInterface $block)
-{
-    echo '<!DOCTYPE html>
-        <html lang="ru">
-        <head>
-            <meta charset="UTF-8">
-            <title>Book society</title>';
+  <?php require_once ($this->fileToRender); ?>
 
-    include 'App/templates/stylesTemplate.php';
-    echo '</head>';
-    echo '<body>';
+  <?php $footer->render() ?>
+</body>
+</html>
 
-    include 'App/templates/headerTemplate.phtml';
-
-    include "App/View/$templateName.phtml";
-
-    include 'App/templates/footerTemplate.phtml';
-
-    echo '</body>';
-    echo '</html>';
-}
