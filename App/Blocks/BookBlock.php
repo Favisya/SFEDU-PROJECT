@@ -4,7 +4,7 @@ namespace App\Blocks;
 
 class BookBlock extends BlocksAbstract
 {
-    protected $template = APP_ROOT . '/App/View/book.phtml';
+    protected $template = 'book';
 
     public function getData(): array
     {

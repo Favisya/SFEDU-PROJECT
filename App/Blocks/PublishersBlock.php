@@ -4,7 +4,7 @@ namespace App\Blocks;
 
 class PublishersBlock extends BlocksAbstract
 {
-    protected $fileToRender = APP_ROOT . '/App/View/publishers.phtml';
+    protected $template = 'publishers';
 
     public function getData(): array
     {

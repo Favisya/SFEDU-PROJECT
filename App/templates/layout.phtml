@@ -9,7 +9,7 @@
 <body>
   <?php require_once 'headerTemplate.phtml'?>
 
-  <?php require_once ($this->template); ?>
+  <?php require_once APP_ROOT . '/App/View/' . $this->template . '.phtml'; ?>
 
   <?php require_once 'footerTemplate.phtml'?>
 </body>

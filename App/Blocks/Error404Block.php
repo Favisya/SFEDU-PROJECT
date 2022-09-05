@@ -4,7 +4,7 @@ namespace App\Blocks;
 
 class Error404Block extends BlocksAbstract
 {
-    protected $template = APP_ROOT . '/App/View/404.phtml';
+    protected $template = '404';
 
     public function getData(): array
     {

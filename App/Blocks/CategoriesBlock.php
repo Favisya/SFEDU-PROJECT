@@ -4,7 +4,7 @@ namespace App\Blocks;
 
 class CategoriesBlock extends BlocksAbstract
 {
-    protected $template = APP_ROOT . '/App/View/categories.phtml';
+    protected $template = 'categories';
 
     public function getData(): array
     {
