@@ -2,16 +2,9 @@
 
 namespace App\Blocks;
 
-class PublishersBlock implements BlocksInterface
+class PublishersBlock extends BlocksAbstract
 {
-    private $fileToRender = APP_ROOT . '/App/View/publishers.phtml';
-
-    public function render()
-    {
-        $footer = new FooterBlock();
-        $header = new HeaderBlock();
-        require_once APP_ROOT . '/App/templates/layout.phtml';
-    }
+    protected $fileToRender = APP_ROOT . '/App/View/publishers.phtml';
 
     public function getData(): array
     {

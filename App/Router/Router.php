@@ -10,7 +10,7 @@ class Router
     {
         $uri = explode('/', $path);
 
-        if ($uri[1] == "") {
+        if ($uri[1] == '') {
             return new Controllers\HomePageController();
         }
 
@@ -21,9 +21,7 @@ class Router
 
         if (class_exists($class)) {
             return new $class();
-        } else {
-            return new Controllers\Error404Controller();
         }
-
+        return new Controllers\Error404Controller();
     }
 }

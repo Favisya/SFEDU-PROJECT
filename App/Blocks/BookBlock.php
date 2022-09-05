@@ -2,16 +2,9 @@
 
 namespace App\Blocks;
 
-class BookBlock implements BlocksInterface
+class BookBlock extends BlocksAbstract
 {
-    private $fileToRender = APP_ROOT . '/App/View/book.phtml';
-
-    public function render()
-    {
-        $footer = new FooterBlock();
-        $header = new HeaderBlock();
-        require_once APP_ROOT . '/App/templates/layout.phtml';
-    }
+    protected $template = APP_ROOT . '/App/View/book.phtml';
 
     public function getData(): array
     {
@@ -25,7 +18,7 @@ class BookBlock implements BlocksInterface
             'category'  => 'Художественная литература',
         ];
 
-        $temp = array_fill(0,8, [
+        $temp = array_fill(0, 8, [
             'quantity' => '123',
             'libName'  => 'Chekhov',
         ]);

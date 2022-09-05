@@ -2,11 +2,11 @@
 
 namespace App\Blocks;
 
-class FooterBlock implements BlocksInterface
+abstract class BlocksAbstract
 {
     public function render()
     {
-        require_once APP_ROOT . "/App/templates/footerTemplate.phtml";
+        require_once APP_ROOT . '/App/templates/layout.phtml';
     }
 
     public function getData(): array

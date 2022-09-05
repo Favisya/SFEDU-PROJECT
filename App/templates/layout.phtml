@@ -1,9 +1,3 @@
-<?php
-/**
- * @var App\Blocks\BlocksInterface $header
- * @var App\Blocks\BlocksInterface $footer
- */
-?>
 
 <!DOCTYPE html>
 <html lang="ru">
@@ -13,11 +7,11 @@
   <?php include 'App/templates/stylesTemplate.php' ?>
 </head>
 <body>
-  <?php $header->render() ?>
+  <?php require_once 'headerTemplate.phtml'?>
 
-  <?php require_once ($this->fileToRender); ?>
+  <?php require_once ($this->template); ?>
 
-  <?php $footer->render() ?>
+  <?php require_once 'footerTemplate.phtml'?>
 </body>
 </html>
 
