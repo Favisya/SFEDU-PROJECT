@@ -1,0 +1,50 @@
+<?php
+/**
+ * @var App\Blocks\BlockAbstract $this $this of block class for creation
+ * @var App\Blocks\BlockAbstract $authors $this of block class for authors
+ * @var App\Blocks\BlockAbstract $countries $this of block class for countries
+ * @var App\Blocks\BlockAbstract $publishers $this of block class for publishers
+ */
+?>
+<form method="post" action="<?php $this->createBook() ?>">
+    <input name="bookName" placeholder="Book name">
+
+    <input name="bookPrice" placeholder="price">
+
+    <select name="authorId">
+        <option disabled>Выберите Автора</option>
+        <?php foreach ($authors->getData() as $author):?>
+        <option
+            value="<?= $author['id']?>"
+        >
+            <?= $author['author']?>
+        </option>
+        <?php endforeach;?>
+    </select>
+
+    <select name="countryId">
+        <option disabled>Выберите страну</option>
+        <?php foreach ($countries->getData() as $country):?>
+            <option
+                    value="<?= $country['id']?>"
+            >
+                <?= $country['country']?>
+            </option>
+        <?php endforeach;?>
+    </select>
+
+    <select name="publisherId">
+        <option disabled>Выберите издателя</option>
+        <?php foreach ($publishers->getData() as $publisher):?>
+            <option
+                    value="<?= $publisher['id']?>"
+            >
+                <?= $publisher['publisher']?>
+            </option>
+        <?php endforeach;?>
+    </select>
+
+    <input type="date" name="bookDate">
+
+    <input type="submit">
+</form>

@@ -1,11 +1,11 @@
 <?php
 /**
- * @var App\Blocks\BlocksAbstract $this of block class for publishers
+ * @var App\Blocks\BlockAbstract $this of block class for publishers
  */
 ?>
 
 <ul>
     <?php foreach ($this->getData() as $item):?>
-        <li><?= $item ?></li>
+        <li><?= $item['publisher'] ?></li>
     <?php endforeach; ?>
 </ul>

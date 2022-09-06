@@ -4,22 +4,20 @@ namespace App\Blocks;
 
 use App\Database\Database;
 
-class PublishersBlock extends BlockAbstract
+class CountriesBlock extends BlockAbstract
 {
-    protected $template = 'publishers';
-
     public function getData(): array
     {
         $db = Database::getInstance()->connectDB();
 
-        $query = 'SELECT name, id from publishers;';
+        $query = 'SELECT * from countries;';
         $stmt  = $db->query($query);
 
         $data = [];
         while ($row = $stmt->fetch())
         {
-            $temp['publisher'] = $row['name'];
-            $temp['id']        = $row['id'];
+            $temp['country'] = $row['name'];
+            $temp['id']      = $row['id'];
 
             $data[] = $temp;
         }

@@ -2,7 +2,7 @@
 
 namespace App\Blocks;
 
-class BookBlock extends BlocksAbstract
+class BookBlock extends BlockAbstract
 {
     protected $template = 'book';
 

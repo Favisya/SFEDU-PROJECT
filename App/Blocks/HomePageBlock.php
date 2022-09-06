@@ -2,7 +2,7 @@
 
 namespace App\Blocks;
 
-class HomePageBlock extends BlocksAbstract
+class HomePageBlock extends BlockAbstract
 {
     protected $template = APP_ROOT . 'homepage';
 

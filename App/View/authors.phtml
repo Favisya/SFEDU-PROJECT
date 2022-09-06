@@ -1,11 +1,11 @@
 <?php
 /**
- * @var App\Blocks\BlocksAbstract $this $this of block class for authors
+ * @var App\Blocks\BlockAbstract $this $this of block class for authors
  */
 ?>
 
 <ul>
     <?php foreach ($this->getData() as $item):?>
-        <li><?= $item ?></li>
+        <li><?= $item['author'] ?></li>
     <?php endforeach; ?>
 </ul>

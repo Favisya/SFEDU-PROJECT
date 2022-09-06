@@ -2,7 +2,7 @@
 
 namespace App\Blocks;
 
-class CategoriesBlock extends BlocksAbstract
+class CategoriesBlock extends BlockAbstract
 {
     protected $template = 'categories';
 

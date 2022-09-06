@@ -2,7 +2,7 @@
 
 namespace App\Blocks;
 
-abstract class BlocksAbstract
+abstract class BlockAbstract
 {
     public function render()
     {

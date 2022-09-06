@@ -2,7 +2,7 @@
 
 namespace App\Blocks;
 
-class LibrariesBlock extends BlocksAbstract
+class LibrariesBlock extends BlockAbstract
 {
     protected $template = 'libraries';
 

@@ -2,7 +2,7 @@
 
 namespace App\Blocks;
 
-class Error404Block extends BlocksAbstract
+class Error404Block extends BlockAbstract
 {
     protected $template = '404';
 
