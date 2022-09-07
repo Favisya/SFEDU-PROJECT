@@ -20,6 +20,10 @@ class CreateLibraryController implements ControllerInterface
 
     private function createLibrary()
     {
+        if (!isset($_POST['libName'], $_POST['libAddress'])) {
+            return false;
+        }
+
         $libName     = htmlspecialchars($_POST['libName']);
         $libAddress  = htmlspecialchars($_POST['libAddress']);
 
@@ -35,11 +39,9 @@ class CreateLibraryController implements ControllerInterface
         $stmtSecond = $stmt->prepare($query);
         $stmtSecond->execute([$libName, $libAddress]);
 
-        $id = null;
-        while ($row = $stmtSecond->fetch()) {
-            $id = $row['id'];
-        }
+        $id = $stmtSecond->fetch()['id'];
 
         header("Location: http://localhost:3000/library?id=$id");
+        return true;
     }
 }

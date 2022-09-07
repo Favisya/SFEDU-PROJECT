@@ -15,15 +15,6 @@ class LibrariesBlock extends BlockAbstract
 
         $stmt = $db->query($query);
 
-        $data = [];
-        while ($row = $stmt->fetch()) {
-            $temp['name']    = $row['name'];
-            $temp['address'] = $row['address'];
-            $temp['id']      = $row['id'];
-
-            $data[] = $temp;
-        }
-
-        return $data;
+        return $stmt->fetchAll();
     }
 }

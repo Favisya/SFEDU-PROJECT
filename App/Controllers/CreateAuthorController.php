@@ -18,8 +18,12 @@ class CreateAuthorController implements ControllerInterface
         }
     }
 
-    private function createAuthor()
+    private function createAuthor(): bool
     {
+        if (!isset($_POST['authorName'])) {
+            return false;
+        }
+
         $authorName  = htmlspecialchars($_POST['authorName']);
 
         $db   = Database::getInstance();
@@ -30,15 +34,13 @@ class CreateAuthorController implements ControllerInterface
         $stmtFirst = $stmt->prepare($query);
         $stmtFirst->execute([$authorName]);
 
-        $query      = 'SELECT id FROM authors WHERE name = ?;';
+        $query = 'SELECT id FROM authors WHERE name = ?;';
         $stmtSecond = $stmt->prepare($query);
         $stmtSecond->execute([$authorName]);
 
-        $id = null;
-        while ($row = $stmtSecond->fetch()) {
-            $id = $row['id'];
-        }
+        $id = $stmtSecond->fetch()['id'];
 
         header("Location: http://localhost:3000/author?id=$id");
+        return true;
     }
 }

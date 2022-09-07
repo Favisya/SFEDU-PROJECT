@@ -7,9 +7,9 @@
 <div class="content-container content-container_list">
 
     <div class="entity-container entity-container_list">
-        <?php foreach ($this->getData() as $item): ?>
-            <a href="../book" class="entity-container__button">
-                <h2><?= $item['publisher']?></h2>
+        <?php foreach ($this->getData() as $publisher): ?>
+            <a href="../publisher?id=<?= $publisher['id']?>" class="entity-container__button">
+                <h2><?= $publisher['name']?></h2>
             </a>
         <?php endforeach; ?>
     </div>

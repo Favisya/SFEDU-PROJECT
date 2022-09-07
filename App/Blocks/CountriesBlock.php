@@ -13,14 +13,6 @@ class CountriesBlock extends BlockAbstract
         $query = 'SELECT * from countries;';
         $stmt  = $db->query($query);
 
-        $data = [];
-        while ($row = $stmt->fetch()) {
-            $temp['country'] = $row['name'];
-            $temp['id']      = $row['id'];
-
-            $data[] = $temp;
-        }
-
-        return $data;
+        return $stmt->fetchAll();
     }
 }

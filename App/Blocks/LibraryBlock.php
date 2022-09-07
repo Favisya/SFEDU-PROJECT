@@ -17,13 +17,6 @@ class LibraryBlock extends BlockAbstract
         $stmt = $db->prepare($query);
         $stmt->execute([$_GET['id']]);
 
-        $data = [];
-        while ($row = $stmt->fetch()) {
-            $data['name']     = $row['name'];
-            $data['address']  = $row['address'];
-            $data['id']       = $row['id'];
-        }
-
-        return $data;
+        return $stmt->fetch();
     }
 }

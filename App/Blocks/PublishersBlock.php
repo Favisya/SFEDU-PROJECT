@@ -15,14 +15,6 @@ class PublishersBlock extends BlockAbstract
         $query = 'SELECT name, id from publishers;';
         $stmt  = $db->query($query);
 
-        $data = [];
-        while ($row = $stmt->fetch()) {
-            $temp['publisher'] = $row['name'];
-            $temp['id']        = $row['id'];
-
-            $data[] = $temp;
-        }
-
-        return $data;
+        return $stmt->fetchAll();
     }
 }

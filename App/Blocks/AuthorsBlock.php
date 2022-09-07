@@ -15,14 +15,6 @@ class AuthorsBlock extends BlockAbstract
         $query = 'SELECT * from authors;';
         $stmt  = $db->query($query);
 
-        $data = [];
-        while ($row = $stmt->fetch()) {
-            $temp['author'] = $row['name'];
-            $temp['id']     = $row['id'];
-
-            $data[] = $temp;
-        }
-
-        return $data;
+        return $stmt->fetchAll();
     }
 }

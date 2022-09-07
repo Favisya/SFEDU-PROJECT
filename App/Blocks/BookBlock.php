@@ -29,18 +29,7 @@ class BookBlock extends BlockAbstract
         $stmtFirst = $db->prepare($query);
         $stmtFirst->execute([$_GET['id']]);
 
-        $data = [];
-        while ($row = $stmtFirst->fetch()) {
-            $data['bookName']  = $row['book_name'];
-            $data['authorId']  = $row['author_id'];
-            $data['bookPrice'] = $row['book_price'];
-            $data['bookDate']  = $row['book_date'];
-            $data['author']    = $row['author'];
-            $data['publisher'] = $row['publisher'];
-            $data['country']   = $row['country'];
-        }
-
-        return $data;
+        return $stmtFirst->fetch();
     }
 
     public function getLibs(): array
@@ -55,15 +44,6 @@ class BookBlock extends BlockAbstract
         $stmtSecond = $db->prepare($query);
         $stmtSecond->execute([$_GET['id']]);
 
-        $data = [];
-        while ($row = $stmtSecond->fetch()) {
-            $data[] = [
-                'count'   => $row['count'],
-                'libName' => $row['library'],
-                'id'      => $row['id'],
-            ];
-        }
-
-        return $data;
+        return $stmtSecond->fetchAll();
     }
 }

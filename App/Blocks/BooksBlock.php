@@ -8,7 +8,6 @@ class BooksBlock extends BlockAbstract
 {
     protected $template = 'books';
 
-
     public function getData(): array
     {
         $db = Database::getInstance()->connectDB();
@@ -26,15 +25,6 @@ class BooksBlock extends BlockAbstract
             $stmt->execute([$_GET['author_id']]);
         }
 
-        $data = [];
-        while ($row = $stmt->fetch()) {
-            $temp['id']     = $row['id'];
-            $temp['name']   = $row['name'];
-            $temp['author'] = $row['author'];
-
-            $data[] = $temp;
-        }
-
-        return $data;
+        return $stmt->fetchAll();
     }
 }

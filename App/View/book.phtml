@@ -12,7 +12,7 @@
                 $data = $this->getData();
             ?>
             <div class="entity-container__info-block">
-                <h2><?= $data['bookName'] ?></h2>
+                <h2><?= $data['book_name'] ?></h2>
                 <p><?= $data['author'] ?></p>
             </div>
 
@@ -52,7 +52,7 @@
                     <?php foreach ($this->getLibs() as $library): ?>
                         <div class="table__row">
                             <div class="table__field"><?=$library['count'] ?></div>
-                            <div class="table__field"><?=$library['libName'] ?></div>
+                            <div class="table__field"><?=$library['library'] ?></div>
                         </div>
                     <?php endforeach;?>
                 </div>

@@ -4,7 +4,7 @@ namespace App\Blocks;
 
 class HomePageBlock extends BlockAbstract
 {
-    protected $template = APP_ROOT . 'homepage';
+    protected $template = 'homepage';
 
     public function getData(): array
     {

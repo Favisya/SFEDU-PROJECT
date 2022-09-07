@@ -8,14 +8,20 @@ class Router
 {
     public function parseControllers(string $path): ?Controllers\ControllerInterface
     {
-        $uri = explode('/', $path);
-        $uri = explode('?', $uri[1]);
+        $firstSymbol  = strpos($path, '/');
+        $secondSymbol = strpos($path, '?');
 
-        if ($uri[0] == '') {
+        if ($secondSymbol === false) {
+            $uri = substr($path, $firstSymbol + 1);
+        } else {
+            $uri = substr($path, $firstSymbol + 1, $secondSymbol - 1);
+        }
+
+        if ($uri == '') {
             return new Controllers\HomePageController();
         }
 
-        $class = ucfirst($uri[0]);
+        $class = ucfirst($uri);
         $class = $class . 'Controller';
 
         $class = 'App\Controllers\\' . $class;
@@ -23,6 +29,7 @@ class Router
         if (class_exists($class)) {
             return new $class();
         }
+
         return new Controllers\Error404Controller();
     }
 }

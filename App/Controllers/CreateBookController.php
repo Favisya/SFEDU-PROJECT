@@ -18,8 +18,19 @@ class CreateBookController implements ControllerInterface
         }
     }
 
-    private function createBook()
+    private function createBook(): bool
     {
+        if (
+            !isset($_POST['bookName'])
+            || !isset($_POST['bookPrice'])
+            || !isset($_POST['authorId'])
+            || !isset($_POST['countryId'])
+            || !isset($_POST['publisherId'])
+            || !isset($_POST['bookDate'])
+        ) {
+            return false;
+        }
+
         $bookName  = htmlspecialchars($_POST['bookName']);
         $price     = htmlspecialchars($_POST['bookPrice']);
         $author    = $_POST['authorId'];
@@ -27,24 +38,20 @@ class CreateBookController implements ControllerInterface
         $publisher = $_POST['publisherId'];
         $date      = $_POST['bookDate'];
 
-        $db = Database::getInstance();
+        $db   = Database::getInstance();
         $stmt = $db->connectDB();
 
-        $query = 'INSERT INTO books (name, price, year, author_id, publisher_id, country_id) values (?, ?, ?, ?, ?, ?)';
+        $query = 'INSERT INTO books (name, price, year, author_id, publisher_id, country_id) VALUES (?, ?, ?, ?, ?, ?)';
 
         $stmtFirst = $stmt->prepare($query);
         $stmtFirst->execute([$bookName, $price, $date, $author, $publisher, $country]);
 
-
-        $query      = 'SELECT id FROM books WHERE name = ? AND author_id = ? AND publisher_id = ?;';
+        $query = 'SELECT id FROM books WHERE name = ? AND author_id = ? AND publisher_id = ? LIMIT 1;';
         $stmtSecond = $stmt->prepare($query);
         $stmtSecond->execute([$bookName, $author, $publisher]);
 
-        $id = null;
-        while ($row = $stmtSecond->fetch()) {
-            $id = $row['id'];
-        }
-
+        $id = $stmtSecond->fetch()['id'];
         header("Location: http://localhost:3000/book?id=$id");
+        return true;
     }
 }

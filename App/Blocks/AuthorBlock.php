@@ -17,12 +17,6 @@ class AuthorBlock extends BlockAbstract
         $stmt = $db->prepare($query);
         $stmt->execute([$_GET['id']]);
 
-        $data = [];
-        while ($row = $stmt->fetch()) {
-            $data['authorName']  = $row['name'];
-            $data['id']          = $row['id'];
-        }
-
-        return $data;
+        return $stmt->fetch();
     }
 }
