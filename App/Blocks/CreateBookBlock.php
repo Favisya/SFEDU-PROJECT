@@ -2,23 +2,48 @@
 
 namespace App\Blocks;
 
-use App\Database\Database;
 
 class CreateBookBlock extends BlockAbstract
 {
+    private $countries  = [];
+    private $publishers = [];
+    private $authors    = [];
+
     protected $template = 'createBook';
 
-    public function render()
+    public function setCountries()
     {
-        $authors     = new AuthorsBlock();
-        $countries   = new CountriesBlock();
-        $publishers  = new PublishersBlock();
-
-        require_once APP_ROOT . '/App/templates/layout.phtml';
+        $block = new CountriesBlock();
+        $block->setData();
+        $this->countries = $block->getData();
     }
 
-    public function getData(): array
+    public function setPublishers()
     {
-        return [''];
+        $block = new PublishersBlock();
+        $block->setData();
+        $this->publishers = $block->getData();
+    }
+
+    public function setAuthors()
+    {
+        $block = new AuthorsBlock();
+        $block->setData();
+        $this->authors = $block->getData();
+    }
+
+    public function getCountries(): array
+    {
+        return $this->countries;
+    }
+
+    public function getPublishers(): array
+    {
+        return $this->publishers;
+    }
+
+    public function getAuthors(): array
+    {
+        return $this->authors;
     }
 }

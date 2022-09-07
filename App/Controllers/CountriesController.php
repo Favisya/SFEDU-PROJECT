@@ -2,10 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Blocks\CountriesBlock;
+
 class CountriesController implements ControllerInterface
 {
     public function execute()
     {
-        echo 'This is controller for countries' . PHP_EOL;
+        $block = new CountriesBlock();
+        $block->setData();
     }
 }

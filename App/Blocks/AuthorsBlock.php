@@ -6,15 +6,22 @@ use App\Database\Database;
 
 class AuthorsBlock extends BlockAbstract
 {
+    private $data = [];
+
     protected $template = 'authors';
 
     public function getData(): array
     {
-        $db = Database::getInstance()->connectDB();
+        return $this->data;
+    }
+
+    public function setData()
+    {
+        $db = Database::getInstance()->getConnection();
 
         $query = 'SELECT * from authors;';
         $stmt  = $db->query($query);
 
-        return $stmt->fetchAll();
+        $this->data = $stmt->fetchAll();
     }
 }

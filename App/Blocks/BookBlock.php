@@ -6,11 +6,24 @@ use App\Database\Database;
 
 class BookBlock extends BlockAbstract
 {
+    private $data = [];
+    private $libs = [];
+
     protected $template = 'book';
 
     public function getData(): array
     {
-        $db = Database::getInstance()->connectDB();
+       return $this->data;
+    }
+
+    public function getLibs(): array
+    {
+        return $this->libs;
+    }
+
+    public function setData($id)
+    {
+        $db = Database::getInstance()->getConnection();
 
         $query = 'SELECT
                     a.name AS book_name,
@@ -26,24 +39,23 @@ class BookBlock extends BlockAbstract
                   JOIN countries AS d ON a.country_id = d.id
                   WHERE a.id = ?;';
 
-        $stmtFirst = $db->prepare($query);
-        $stmtFirst->execute([$_GET['id']]);
+        $stmt = $db->prepare($query);
+        $stmt->execute([$id]);
 
-        return $stmtFirst->fetch();
+        $this->data = $stmt->fetch();
     }
 
-    public function getLibs(): array
+    public function setLibs($id)
     {
-
         $query = 'SELECT count(books_libraries.book_id) as count,libraries.name AS library, libraries.id AS id
                   FROM libraries
                   JOIN books_libraries ON libraries.id = books_libraries.library_id
                   WHERE books_libraries.book_id = ? GROUP BY id LIMIT 6;';
 
-        $db = Database::getInstance()->connectDB();
-        $stmtSecond = $db->prepare($query);
-        $stmtSecond->execute([$_GET['id']]);
+        $db = Database::getInstance()->getConnection();
+        $stmt = $db->prepare($query);
+        $stmt->execute([$id]);
 
-        return $stmtSecond->fetchAll();
+        $this->libs = $stmt->fetchAll();
     }
 }

@@ -27,7 +27,7 @@ class CreateAuthorController implements ControllerInterface
         $authorName  = htmlspecialchars($_POST['authorName']);
 
         $db   = Database::getInstance();
-        $stmt = $db->connectDB();
+        $stmt = $db->getConnection();
 
         $query = 'INSERT INTO authors (name) values (?)';
 

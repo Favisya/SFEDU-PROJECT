@@ -28,7 +28,7 @@ class CreateLibraryController implements ControllerInterface
         $libAddress  = htmlspecialchars($_POST['libAddress']);
 
         $db   = Database::getInstance();
-        $stmt = $db->connectDB();
+        $stmt = $db->getConnection();
 
         $query = 'INSERT INTO libraries (name, address) values (?, ?)';
 

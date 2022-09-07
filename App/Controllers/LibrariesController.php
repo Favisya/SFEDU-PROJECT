@@ -9,6 +9,7 @@ class LibrariesController implements ControllerInterface
     public function execute()
     {
         $block = new LibrariesBlock();
+        $block->setData();
         $block->render();
     }
 }

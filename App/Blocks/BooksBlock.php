@@ -6,13 +6,20 @@ use App\Database\Database;
 
 class BooksBlock extends BlockAbstract
 {
+    private $data = [];
+
     protected $template = 'books';
 
     public function getData(): array
     {
-        $db = Database::getInstance()->connectDB();
+        return $this->data;
+    }
 
-        if (!isset($_GET['author_id'])) {
+    public function setData($id)
+    {
+        $db = Database::getInstance()->getConnection();
+
+        if (!isset($id)) {
             $query = 'SELECT books.id, books.name, authors.name as author FROM books
             JOIN authors ON books.author_id = authors.id;';
 
@@ -22,9 +29,9 @@ class BooksBlock extends BlockAbstract
                       JOIN authors ON books.author_id = authors.id where books.author_id = ?;';
 
             $stmt = $db->prepare($query);
-            $stmt->execute([$_GET['author_id']]);
+            $stmt->execute([$id]);
         }
 
-        return $stmt->fetchAll();
+        $this->data = $stmt->fetchAll();
     }
 }

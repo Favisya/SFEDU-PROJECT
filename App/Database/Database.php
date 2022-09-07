@@ -21,7 +21,7 @@ class Database
         return self::$instance;
     }
 
-    public function connectDB(): \PDO
+    public function getConnection(): \PDO
     {
         $dsn = "mysql:host=$this->host;dbname=$this->db;charset=$this->charset";
         $opt = [

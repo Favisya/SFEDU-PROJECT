@@ -6,15 +6,22 @@ use App\Database\Database;
 
 class LibrariesBlock extends BlockAbstract
 {
+    private $data = [];
+
     protected $template = 'libraries';
 
     public function getData(): array
     {
-        $db    = Database::getInstance()->connectDB();
+        return $this->data;
+    }
+
+    public function setData()
+    {
+        $db = Database::getInstance()->getConnection();
         $query = 'SELECT * FROM libraries;';
 
         $stmt = $db->query($query);
 
-        return $stmt->fetchAll();
+        $this->data = $stmt->fetchAll();
     }
 }

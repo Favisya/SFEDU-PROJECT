@@ -1,19 +1,21 @@
 <?php
 /**
- * @var App\Blocks\BlockAbstract $this $this of block class for creation
- * @var App\Blocks\BlockAbstract $authors $this of block class for authors
- * @var App\Blocks\BlockAbstract $countries $this of block class for countries
- * @var App\Blocks\BlockAbstract $publishers $this of block class for publishers
+ * @var App\Blocks\CreateBookBlock $this $this of block class for creation
  */
 ?>
 <form method="post" action="">
     <input name="bookName" placeholder="Book name" required>
 
-    <input name="bookPrice" placeholder="price" required>
+    <input
+        type="number"
+        name="bookPrice"
+        placeholder="price"
+        required
+    >
 
     <select name="authorId" required>
         <option disabled>Выберите Автора</option>
-        <?php foreach ($authors->getData() as $author):?>
+        <?php foreach ($this->getAuthors() as $author):?>
         <option
             value="<?= $author['id']?>"
         >
@@ -24,7 +26,7 @@
 
     <select name="countryId">
         <option disabled>Выберите страну</option>
-        <?php foreach ($countries->getData() as $country):?>
+        <?php foreach ($this->getCountries() as $country):?>
             <option
                     value="<?= $country['id']?>"
             >
@@ -35,11 +37,11 @@
 
     <select name="publisherId" required>
         <option disabled>Выберите издателя</option>
-        <?php foreach ($publishers->getData() as $publisher):?>
+        <?php foreach ($this->getPublishers() as $publisher):?>
             <option
                     value="<?= $publisher['id']?>"
             >
-                <?= $publisher['publisher']?>
+                <?= $publisher['name']?>
             </option>
         <?php endforeach;?>
     </select>

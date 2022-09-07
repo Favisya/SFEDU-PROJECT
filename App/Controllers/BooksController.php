@@ -10,6 +10,7 @@ class BooksController implements ControllerInterface
     public function execute()
     {
         $block = new BooksBlock();
+        $block->setData($_GET['author_id']);
         $block->render();
     }
 }

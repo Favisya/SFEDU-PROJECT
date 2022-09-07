@@ -6,17 +6,24 @@ use App\Database\Database;
 
 class AuthorBlock extends BlockAbstract
 {
+    private $data = [];
+
     protected $template = 'author';
 
     public function getData(): array
     {
-        $db = Database::getInstance()->cONnectDB();
+        return $this->data;
+    }
+
+    public function setData($id)
+    {
+        $db = Database::getInstance()->getConnection();
 
         $query = 'SELECT * from authors WHERE id = ?;';
 
         $stmt = $db->prepare($query);
-        $stmt->execute([$_GET['id']]);
+        $stmt->execute([$id]);
 
-        return $stmt->fetch();
+        $this->data = $stmt->fetch();
     }
 }

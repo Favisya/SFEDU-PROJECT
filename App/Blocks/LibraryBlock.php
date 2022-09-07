@@ -6,17 +6,24 @@ use App\Database\Database;
 
 class LibraryBlock extends BlockAbstract
 {
+    private $data = [];
+
     protected $template = 'library';
 
     public function getData(): array
     {
-        $db = Database::getInstance()->connectDB();
+        return $this->data;
+    }
+
+    public function setData($id)
+    {
+        $db = Database::getInstance()->getConnection();
 
         $query = 'SELECT * from libraries WHERE id = ?;';
 
         $stmt = $db->prepare($query);
         $stmt->execute([$_GET['id']]);
 
-        return $stmt->fetch();
+        $this->data = $stmt->fetch();
     }
 }

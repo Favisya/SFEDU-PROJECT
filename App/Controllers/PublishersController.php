@@ -9,6 +9,7 @@ class PublishersController implements ControllerInterface
     public function execute()
     {
         $block = new PublishersBlock();
+        $block->setData();
         $block->render();
     }
 }

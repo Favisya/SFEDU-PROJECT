@@ -12,6 +12,10 @@ class CreateBookController implements ControllerInterface
         $block = new CreateBookBlock();
 
         if (REQUEST_METHOD == 'GET') {
+            $block->setAuthors();
+            $block->setCountries();
+            $block->setPublishers();
+
             $block->render();
         } else {
             $this->createBook();
@@ -39,7 +43,7 @@ class CreateBookController implements ControllerInterface
         $date      = $_POST['bookDate'];
 
         $db   = Database::getInstance();
-        $stmt = $db->connectDB();
+        $stmt = $db->getConnection();
 
         $query = 'INSERT INTO books (name, price, year, author_id, publisher_id, country_id) VALUES (?, ?, ?, ?, ?, ?)';
 

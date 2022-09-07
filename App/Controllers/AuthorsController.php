@@ -9,6 +9,7 @@ class AuthorsController implements ControllerInterface
     public function execute()
     {
         $block = new AuthorsBlock();
+        $block->setData();
         $block->render();
     }
 }

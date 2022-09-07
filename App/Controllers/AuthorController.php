@@ -10,6 +10,7 @@ class AuthorController implements ControllerInterface
     public function execute()
     {
         $block = new AuthorBlock();
+        $block->setData($_GET['id']);
         $block->render();
     }
 }

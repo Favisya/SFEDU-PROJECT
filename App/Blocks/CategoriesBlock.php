@@ -6,15 +6,22 @@ use App\Database\Database;
 
 class CategoriesBlock extends BlockAbstract
 {
+    private $data = [];
+
     protected $template = 'categories';
 
     public function getData(): array
     {
+        return $this->data;
+    }
+
+    public function setData()
+    {
         $query = 'SELECT * FROM categories;';
 
-        $db   = Database::getInstance()->connectDB();
+        $db   = Database::getInstance()->getConnection();
         $stmt = $db->query($query);
 
-        return $stmt->fetchAll();
+        $this->data = $stmt->fetchAll();
     }
 }
