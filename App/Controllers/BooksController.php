@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Blocks\BooksBlock;
+use App\Blocks\BookBlock;
 
 class BooksController implements ControllerInterface
 {

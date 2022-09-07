@@ -4,8 +4,48 @@
  */
 ?>
 
-<ul>
-    <?php foreach ($this->getData() as $item):?>
-        <li><?= $item ?></li>
-    <?php endforeach; ?>
-</ul>
+<div class="content-container content-container_list">
+
+    <div class="entity-container entity-container_list">
+        <?php foreach ($this->getData() as $library): ?>
+            <a href="/library?id=<?= $library['id'] ?>" class="entity-container__button">
+                <h2><?= $library['name'] ?></h2>
+                <h3><?= $library['address'] ?></h3>
+            </a>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="recommend-list">
+        <a href="" class="recommend-list__element">
+            Худ. литература
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Научная литература
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Отечественная
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Зарубежная
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Достоевский
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Пушкин
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Философия
+        </a>
+
+        <a href="../createLibrary" class="recommend-list__element">
+            Добавить библиотеку
+        </a>
+    </div>
+</div>

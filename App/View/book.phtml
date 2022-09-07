@@ -12,22 +12,22 @@
                 $data = $this->getData();
             ?>
             <div class="entity-container__info-block">
-                <h2><?= $data['bookData']['name'] ?></h2>
-                <p><?= $data['bookData']['author'] ?></p>
+                <h2><?= $data['bookName'] ?></h2>
+                <p><?= $data['author'] ?></p>
             </div>
 
             <div class="entity-container__info-block">
                 <p>
-                    <?= $data['bookData']['category'] ?>
+                    category
                 </p>
                 <p>
-                    <?= $data['bookData']['country'] . ' ' . $data['bookData']['year'] ?>
+                    <?= $data['country'] . ' ' . $data['bookDate'] ?>
                 </p>
                 <p>
-                    <?= 'Издатель: ' . $data['bookData']['publisher']?>
+                    <?= 'Издатель: ' . $data['publisher']?>
                 </p>
                 <p>
-                    <?= 'Цена: ' . $data['bookData']['price']?>
+                    <?= 'Цена: ' . $data['bookPrice'] . 'p'?>
                 </p>
             </div>
 
@@ -36,7 +36,7 @@
                     Жанр
                 </a>
 
-                <a href="" class="entity-container__button">
+                <a href="/author?id=<?= $data['authorId'] ?>" class="entity-container__button">
                     Автор
                 </a>
             </div>
@@ -49,10 +49,10 @@
                         <div class="table__field">кол-во</div>
                         <div class="table__field">библиотека</div>
                     </div>
-                    <?php foreach ($data['Libs'][0] as $field): ?>
+                    <?php foreach ($this->getLibs() as $library): ?>
                         <div class="table__row">
-                            <div class="table__field"><?=$field['quantity'] ?></div>
-                            <div class="table__field"><?=$field['libName'] ?></div>
+                            <div class="table__field"><?=$library['count'] ?></div>
+                            <div class="table__field"><?=$library['libName'] ?></div>
                         </div>
                     <?php endforeach;?>
                 </div>

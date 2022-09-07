@@ -14,8 +14,7 @@ class CountriesBlock extends BlockAbstract
         $stmt  = $db->query($query);
 
         $data = [];
-        while ($row = $stmt->fetch())
-        {
+        while ($row = $stmt->fetch()) {
             $temp['country'] = $row['name'];
             $temp['id']      = $row['id'];
 

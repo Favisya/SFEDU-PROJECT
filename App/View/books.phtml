@@ -8,7 +8,7 @@
 
     <div class="entity-container entity-container_list">
         <?php foreach ($this->getData() as $book): ?>
-            <a href="../book" class="entity-container__button">
+            <a href="/book?id=<?= $book['id'] ?>" class="entity-container__button">
                 <h2><?= $book['name']?></h2>
                 <h3><?= $book['author']?></h3>
             </a>
@@ -44,8 +44,8 @@
             Философия
         </a>
 
-        <a href="" class="recommend-list__element">
-            Другое
+        <a href="../createBook" class="recommend-list__element">
+            Добавить книгу
         </a>
     </div>
 </div>

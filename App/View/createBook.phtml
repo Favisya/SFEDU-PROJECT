@@ -6,12 +6,12 @@
  * @var App\Blocks\BlockAbstract $publishers $this of block class for publishers
  */
 ?>
-<form method="post" action="<?php $this->createBook() ?>">
-    <input name="bookName" placeholder="Book name">
+<form method="post" action="">
+    <input name="bookName" placeholder="Book name" required>
 
-    <input name="bookPrice" placeholder="price">
+    <input name="bookPrice" placeholder="price" required>
 
-    <select name="authorId">
+    <select name="authorId" required>
         <option disabled>Выберите Автора</option>
         <?php foreach ($authors->getData() as $author):?>
         <option
@@ -33,7 +33,7 @@
         <?php endforeach;?>
     </select>
 
-    <select name="publisherId">
+    <select name="publisherId" required>
         <option disabled>Выберите издателя</option>
         <?php foreach ($publishers->getData() as $publisher):?>
             <option
@@ -44,7 +44,7 @@
         <?php endforeach;?>
     </select>
 
-    <input type="date" name="bookDate">
+    <input type="date" name="bookDate" required>
 
-    <input type="submit">
+    <input type="submit" name="newBook">
 </form>

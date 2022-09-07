@@ -4,8 +4,47 @@
  */
 ?>
 
-<ul>
-    <?php foreach ($this->getData() as $item):?>
-        <li><?= $item['author'] ?></li>
-    <?php endforeach; ?>
-</ul>
+<div class="content-container content-container_list">
+
+    <div class="entity-container entity-container_list">
+        <?php foreach ($this->getData() as $item): ?>
+            <a href="../author?id=<?= $item['id'] ?>" class="entity-container__button">
+                <h2><?= $item['author']?></h2>
+            </a>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="recommend-list">
+        <a href="" class="recommend-list__element">
+            Худ. литература
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Научная литература
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Отечественная
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Зарубежная
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Достоевский
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Пушкин
+        </a>
+
+        <a href="" class="recommend-list__element">
+            Философия
+        </a>
+
+        <a href="../createAuthor" class="recommend-list__element">
+            Добавить писателя
+        </a>
+    </div>
+</div>

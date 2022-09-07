@@ -56,6 +56,7 @@
 .entity-container__left-buttons {
     display: flex;
     justify-content: space-between;
+    gap: 10px;
 }
 
 .entity-container_list {
