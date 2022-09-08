@@ -10,6 +10,14 @@
     border-radius: 12px;
 }
 
+.entity-container_column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px 0;
+
+    height: auto;
+}
+
 .entity-container__side-block {
     display: flex;
     flex-direction: column;
@@ -43,6 +51,7 @@
     text-decoration: none;
     color: black;
 
+    border: none;
     border-radius: 12px;
     background-color: #BCB0B0;
 }
@@ -78,4 +87,14 @@
 
     border-radius: 12px;
     background-color: #D3C2C2;
+}
+
+.entity-container__button_small {
+    padding: 5px;
+}
+
+.entity-container__input-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

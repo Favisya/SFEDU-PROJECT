@@ -3,50 +3,79 @@
  * @var App\Blocks\CreateBookBlock $this $this of block class for creation
  */
 ?>
-<form method="post" action="">
-    <input name="bookName" placeholder="Book name" required>
 
-    <input
-        type="number"
-        name="bookPrice"
-        placeholder="price"
-        required
-    >
+<div class="content-container">
+    <form method="post" action="">
+        <div class="entity-container entity-container_column">
 
-    <select name="authorId" required>
-        <option disabled>Выберите Автора</option>
-        <?php foreach ($this->getAuthors() as $author):?>
-        <option
-            value="<?= $author['id']?>"
-        >
-            <?= $author['name']?>
-        </option>
-        <?php endforeach;?>
-    </select>
+            <span class="entity-container__input-row">
+                <label for="bookName"> Название книги:</label>
+                <input
+                    id="bookName"
+                    name="bookName"
+                    placeholder="Book name"
+                    required
+                >
+            </span>
 
-    <select name="countryId">
-        <option disabled>Выберите страну</option>
-        <?php foreach ($this->getCountries() as $country):?>
-            <option
-                    value="<?= $country['id']?>"
-            >
-                <?= $country['name']?>
-            </option>
-        <?php endforeach;?>
-    </select>
+            <span class="entity-container__input-row">
+                <label for="price"> Цена: </label>
+                <input
+                    id="price"
+                    type="number"
+                    name="bookPrice"
+                    placeholder="price"
+                    required
+                >
+            </span>
 
-    <select name="publisherId" required>
-        <option disabled>Выберите издателя</option>
-        <?php foreach ($this->getPublishers() as $publisher):?>
-            <option
-                    value="<?= $publisher['id']?>"
-            >
-                <?= $publisher['name']?>
-            </option>
-        <?php endforeach;?>
-    </select>
+            <span class="entity-container__input-row">
+                <label for="author"> Автор:</label>
+                <select name="authorId" required id="author">
+                    <option disabled>Выберите Автора</option>
+                    <?php foreach ($this->getAuthors() as $author): ?>
+                        <option value="<?= $author['id'] ?>">
+                            <?= $author['name'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </span>
 
-    <input type="date" name="bookDate" required>
+            <span class="entity-container__input-row">
+                <label for="country">Страна: </label>
+                <select name="countryId" id="country">
+                    <option disabled>Выберите страну</option>
+                    <?php foreach ($this->getCountries() as $country): ?>
+                        <option value="<?= $country['id'] ?>">
+                            <?= $country['name'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </span>
 
-    <input type="submit" name="newBook">
-</form>
+            <span class="entity-container__input-row">
+                <label for="publisher"> Издатель: </label>
+                <select id="publisher" name="publisherId" required>
+                    <option disabled>Выберите издателя</option>
+                    <?php foreach ($this->getPublishers() as $publisher): ?>
+                        <option value="<?= $publisher['id'] ?>">
+                            <?= $publisher['name'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </span>
+
+            <span class="entity-container__input-row">
+                <label for="date"> Дата написания</label>
+                <input
+                    id="date"
+                    type="date"
+                    name="bookDate"
+                    required
+                >
+            </span>
+
+            <input type="submit" name="newBook" class="entity-container__button entity-container__button_small">
+        </div>
+    </form>
+</div>

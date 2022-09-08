@@ -6,8 +6,27 @@
  * @var App\Blocks\BlockAbstract $publishers $this of block class for publishers
  */
 ?>
-<form method="post" action="">
-    <input name="authorName" placeholder="ФИО автора" required>
 
-    <input type="submit" name="newLib">
-</form>
+<div class="content-container">
+    <div class="entity-container">
+            <form method="post" action="">
+                <div class="entity-container__input-row">
+                    <label for="authorName">
+                        ФИО автора:
+                    </label>
+                    <input
+                        id="authorName"
+                        name="authorName"
+                        placeholder="ФИО автора"
+                        required
+                    >
+
+                    <input
+                        class="entity-container__button entity-container__button_small"
+                        type="submit"
+                        name="newLib"
+                    >
+                </div>
+            </form>
+        </div>
+</div>

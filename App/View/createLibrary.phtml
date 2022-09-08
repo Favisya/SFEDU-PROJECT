@@ -6,10 +6,36 @@
  * @var App\Blocks\BlockAbstract $publishers $this of block class for publishers
  */
 ?>
-<form method="post" action="">
-    <input name="libName" placeholder="Название библиотеки" required>
+<div class="content-container">
 
-    <input name="libAddress" placeholder="Адрес" required>
+    <form method="post" action="">
+        <div class="entity-container entity-container_column">
 
-    <input type="submit" name="newLib">
-</form>
+            <div class="entity-container__input-row">
+                <label for="libName"> Название библиотеки</label>
+                <input
+                    id="libName"
+                    name="libName"
+                    placeholder="Название библиотеки"
+                    required
+                >
+            </div>
+
+            <div class="entity-container__input-row">
+                <label for="address"> Адрес</label>
+                <input
+                    id="address"
+                    name="libAddress"
+                    placeholder="Адрес"
+                    required
+                >
+            </div>
+
+            <input
+                class="entity-container__button entity-container__button_small"
+                type="submit"
+                  name="newLib"
+            >
+        </div>
+    </form>
+</div>
