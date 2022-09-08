@@ -6,7 +6,8 @@ use App\Database\Database;
 
 class AuthorBlock extends BlockAbstract
 {
-    private $data = [];
+    private $data  = [];
+    private $books = [];
 
     protected $template = 'author';
 
@@ -25,5 +26,22 @@ class AuthorBlock extends BlockAbstract
         $stmt->execute([$id]);
 
         $this->data = $stmt->fetch();
+    }
+
+    public function setBooks($id)
+    {
+        $db = Database::getInstance()->getConnection();
+
+        $query = 'SELECT name, year FROM books  WHERE author_id = ? limit 3;';
+
+        $stmt = $db->prepare($query);
+        $stmt->execute([$id]);
+
+        $this->books = $stmt->fetchAll();
+    }
+
+    public function getBooks()
+    {
+        return $this->books;
     }
 }

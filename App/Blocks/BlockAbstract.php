@@ -14,8 +14,4 @@ abstract class BlockAbstract
         return [''];
     }
 
-    public function setData()
-    {
-
-    }
 }

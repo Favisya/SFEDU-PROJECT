@@ -10,6 +10,7 @@ class LibraryController implements ControllerInterface
     {
         $block = new LibraryBlock();
         $block->setData($_GET['id']);
+        $block->setBooks($_GET['id']);
         $block->render();
     }
 }

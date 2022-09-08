@@ -6,10 +6,10 @@ class Database
 {
     private static $instance;
 
-    private $host = '127.0.0.1';
-    private $db   = 'books_3V';
-    private $user = 'dima';
-    private $pass = 'fuckme420';
+    private $host    = '127.0.0.1';
+    private $db      = 'books_3V';
+    private $user    = 'dima';
+    private $pass    = 'fuckme420';
     private $charset = 'utf8';
 
     public static function getInstance(): self

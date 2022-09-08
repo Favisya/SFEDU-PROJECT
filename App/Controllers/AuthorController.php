@@ -11,6 +11,7 @@ class AuthorController implements ControllerInterface
     {
         $block = new AuthorBlock();
         $block->setData($_GET['id']);
+        $block->setBooks($_GET['id']);
         $block->render();
     }
 }

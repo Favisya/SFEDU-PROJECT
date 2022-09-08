@@ -16,7 +16,7 @@
             </div>
 
             <div class="entity-container__info-block">
-                <h2><?= $data['address'] ?></h2>
+                <h2> Адрес: <?= $data['address'] ?></h2>
             </div>
 
             <div class="entity-container__left-buttons">
@@ -32,11 +32,21 @@
 
         <div class="entity-container__side-block">
             <div class="entity-container__info-block entity-container__info-block_table">
-
+                <div class="table">
+                    <div class="table__header">
+                        <div class="table__field">кол-во</div>
+                        <div class="table__field">Книга</div>
+                    </div>
+                    <?php foreach ($this->getBooks() as $library): ?>
+                        <div class="table__row">
+                            <div class="table__field"><?=$library['count'] ?></div>
+                            <div class="table__field"><?=$library['book'] ?></div>
+                        </div>
+                    <?php endforeach;?>
+                </div>
             </div>
-
             <a href="" class="entity-container__button">
-                Все писатели
+                Все книги
             </a>
         </div>
     </div>
