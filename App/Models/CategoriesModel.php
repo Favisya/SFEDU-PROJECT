@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Blocks;
+namespace App\Models;
 
 use App\Database\Database;
 
-class CategoriesBlock extends BlockAbstract
+class CategoriesModel extends ModelAbstract
 {
     private $data = [];
-
-    protected $template = 'categories';
 
     public function getData(): array
     {

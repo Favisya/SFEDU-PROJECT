@@ -2,15 +2,19 @@
 
 namespace App\Controllers;
 
-use App\Blocks\BooksBlock;
-use App\Blocks\BookBlock;
+use App\Blocks\Block;
+use App\Models\BooksModel;
 
 class BooksController implements ControllerInterface
 {
     public function execute()
     {
-        $block = new BooksBlock();
-        $block->setData($_GET['author_id']);
+        $model = new BooksModel();
+        $model->setData($_GET['author_id'] ?? 0);
+
+        $block = new Block();
+        $block->setModel($model);
+        $block->setTemplate('books');
         $block->render();
     }
 }

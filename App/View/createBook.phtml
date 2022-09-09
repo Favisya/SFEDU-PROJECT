@@ -1,6 +1,6 @@
 <?php
 /**
- * @var App\Blocks\CreateBookBlock $this $this of block class for creation
+ * @var App\Blocks\CreateBookBlock $this->model of block class for creation
  */
 ?>
 
@@ -33,7 +33,7 @@
                 <label for="author"> Автор:</label>
                 <select name="authorId" required id="author">
                     <option disabled>Выберите Автора</option>
-                    <?php foreach ($this->getAuthors() as $author): ?>
+                    <?php foreach ($this->model['AuthorsModel']->getData() as $author): ?>
                         <option value="<?= $author['id'] ?>">
                             <?= $author['name'] ?>
                         </option>
@@ -45,7 +45,7 @@
                 <label for="country">Страна: </label>
                 <select name="countryId" id="country">
                     <option disabled>Выберите страну</option>
-                    <?php foreach ($this->getCountries() as $country): ?>
+                    <?php foreach ($this->model['CountriesModel']->getData() as $country): ?>
                         <option value="<?= $country['id'] ?>">
                             <?= $country['name'] ?>
                         </option>
@@ -57,7 +57,7 @@
                 <label for="publisher"> Издатель: </label>
                 <select id="publisher" name="publisherId" required>
                     <option disabled>Выберите издателя</option>
-                    <?php foreach ($this->getPublishers() as $publisher): ?>
+                    <?php foreach ($this->model['PublishersModel']->getData() as $publisher): ?>
                         <option value="<?= $publisher['id'] ?>">
                             <?= $publisher['name'] ?>
                         </option>

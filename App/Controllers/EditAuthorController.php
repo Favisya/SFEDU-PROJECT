@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Blocks\Block;
 use App\Models\AuthorModel;
 
-class CreateAuthorController implements ControllerInterface
+class EditAuthorController implements ControllerInterface
 {
     public function execute()
     {
@@ -15,9 +15,11 @@ class CreateAuthorController implements ControllerInterface
             $block->setTemplate('createAuthor');
             $block->setModel($model);
 
+            $model->setData($_GET['id']);
+
             $block->render();
         } else {
-            $model->createAuthor($_POST['authorName']);
+            $model->editAuthor($_POST['authorName'], $_GET['id']);
         }
     }
 }

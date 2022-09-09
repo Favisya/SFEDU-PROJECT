@@ -1,9 +1,6 @@
 <?php
 /**
- * @var App\Blocks\BlockAbstract $this $this of block class for creation
- * @var App\Blocks\BlockAbstract $authors $this of block class for authors
- * @var App\Blocks\BlockAbstract $countries $this of block class for countries
- * @var App\Blocks\BlockAbstract $publishers $this of block class for publishers
+ * @var App\Blocks\Block $this->model $this of block class for creation
  */
 ?>
 <div class="content-container">
@@ -17,6 +14,7 @@
                     id="libName"
                     name="libName"
                     placeholder="Название библиотеки"
+                    value="<?= $this->model->getData()['name']?>"
                     required
                 >
             </div>
@@ -27,6 +25,7 @@
                     id="address"
                     name="libAddress"
                     placeholder="Адрес"
+                    value="<?= $this->model->getData()['address']?>"
                     required
                 >
             </div>

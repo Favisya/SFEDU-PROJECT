@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Blocks;
+namespace App\Models;
 
 use App\Database\Database;
 
-class LibrariesBlock extends BlockAbstract
+class PublishersModel extends ModelAbstract
 {
     private $data = [];
-
-    protected $template = 'libraries';
 
     public function getData(): array
     {
@@ -18,10 +16,16 @@ class LibrariesBlock extends BlockAbstract
     public function setData()
     {
         $db = Database::getInstance()->getConnection();
-        $query = 'SELECT * FROM libraries;';
 
-        $stmt = $db->query($query);
+        $query = 'SELECT name, id from publishers;';
+        $stmt  = $db->query($query);
 
         $this->data = $stmt->fetchAll();
+    }
+
+    public function __toString()
+    {
+        $class = explode('\\', get_class());
+        return end($class);
     }
 }

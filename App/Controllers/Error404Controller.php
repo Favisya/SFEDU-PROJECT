@@ -2,13 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Blocks\Error404Block;
+use App\Blocks\Block;
 
 class Error404Controller implements ControllerInterface
 {
     public function execute()
     {
-        $block = new Error404Block();
+        $block = new Block();
+        $block->setTemplate('404');
         $block->render();
     }
 }

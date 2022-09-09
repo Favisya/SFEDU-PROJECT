@@ -1,6 +1,6 @@
 <?php
 /**
- * @var App\Blocks\BlockAbstract $this $this of block class for author
+ * @var App\Blocks\Block $this->model $this of block class for author
  */
 ?>
 
@@ -9,15 +9,15 @@
         <div class="entity-container__side-block">
 
             <?php
-            $data = $this->getData();
+            $data = $this->model->getData();
             ?>
             <div class="entity-container__info-block">
                 <h2><?= $data['name'] ?></h2>
             </div>
 
             <div class="entity-container__left-buttons">
-                <a href="" class="entity-container__button">
-                    Жанры
+                <a href="/editAuthor?id=<?= $data['id']?>" class="entity-container__button">
+                    Редактировать
                 </a>
 
                 <a href="" class="entity-container__button">
@@ -33,7 +33,7 @@
                         <div class="table__field">кол-во</div>
                         <div class="table__field">Книга</div>
                     </div>
-                    <?php foreach ($this->getBooks() as $author): ?>
+                    <?php foreach ($this->model->getBooks() as $author): ?>
                         <div class="table__row">
                             <div class="table__field"><?=$author['year'] ?></div>
                             <div class="table__field"><?=$author['name'] ?></div>

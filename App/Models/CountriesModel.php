@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Blocks;
+namespace App\Models;
 
 use App\Database\Database;
 
-class CountriesBlock extends BlockAbstract
+class CountriesModel extends ModelAbstract
 {
     private $data = [];
 
@@ -21,5 +21,11 @@ class CountriesBlock extends BlockAbstract
         $stmt  = $db->query($query);
 
         $this->data = $stmt->fetchAll();
+    }
+
+    public function __toString()
+    {
+        $class = explode('\\', get_class());
+        return end($class);
     }
 }

@@ -2,14 +2,19 @@
 
 namespace App\Controllers;
 
-use App\Blocks\PublishersBlock;
+use App\Blocks\Block;
+use App\Models\PublishersModel;
 
 class PublishersController implements ControllerInterface
 {
     public function execute()
     {
-        $block = new PublishersBlock();
-        $block->setData();
+        $model = new PublishersModel();
+        $model->setData();
+
+        $block = new Block();
+        $block->setModel($model);
+        $block->setTemplate('publishers');
         $block->render();
     }
 }

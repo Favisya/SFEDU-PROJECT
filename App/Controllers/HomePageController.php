@@ -2,13 +2,14 @@
 
 namespace App\Controllers;
 
-use App\Blocks\HomePageBlock;
+use App\Blocks\Block;
 
 class HomePageController implements ControllerInterface
 {
     public function execute()
     {
-        $block = new HomePageBlock();
+        $block = new Block();
+        $block->setTemplate('homepage');
         $block->render();
     }
 }

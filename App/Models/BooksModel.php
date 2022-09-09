@@ -1,25 +1,23 @@
 <?php
 
-namespace App\Blocks;
+namespace App\Models;
 
 use App\Database\Database;
 
-class BooksBlock extends BlockAbstract
+class BooksModel extends ModelAbstract
 {
     private $data = [];
-
-    protected $template = 'books';
 
     public function getData(): array
     {
         return $this->data;
     }
 
-    public function setData($id)
+    public function setData(int $id)
     {
         $db = Database::getInstance()->getConnection();
 
-        if (!isset($id)) {
+        if ($id === 0) {
             $query = 'SELECT books.id, books.name, authors.name as author FROM books
             JOIN authors ON books.author_id = authors.id;';
 

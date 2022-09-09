@@ -1,13 +1,13 @@
 <?php
 /**
- * @var App\Blocks\BlockAbstract $this $this of block class for authors
+ * @var App\Blocks\Block $this $this of block class for authors
  */
 ?>
 
 <div class="content-container content-container_list">
 
     <div class="entity-container entity-container_list">
-        <?php foreach ($this->getData() as $item): ?>
+        <?php foreach ($this->model->getData() as $item): ?>
             <a href="../author?id=<?= $item['id'] ?>" class="entity-container__button">
                 <h2><?= $item['name']?></h2>
             </a>

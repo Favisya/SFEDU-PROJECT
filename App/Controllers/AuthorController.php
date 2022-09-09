@@ -2,16 +2,20 @@
 
 namespace App\Controllers;
 
-use App\Blocks\AuthorBlock;
-use App\Blocks\AuthorsBlock;
+use App\Blocks\Block;
+use App\Models\AuthorModel;
 
 class AuthorController implements ControllerInterface
 {
     public function execute()
     {
-        $block = new AuthorBlock();
-        $block->setData($_GET['id']);
-        $block->setBooks($_GET['id']);
+        $model = new AuthorModel();
+        $model->setData($_GET['id']);
+        $model->setBooks($_GET['id']);
+
+        $block = new Block();
+        $block->setModel($model);
+        $block->setTemplate('author');
         $block->render();
     }
 }

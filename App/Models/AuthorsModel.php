@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Blocks;
+namespace App\Models;
 
 use App\Database\Database;
 
-class AuthorsBlock extends BlockAbstract
+class AuthorsModel extends ModelAbstract
 {
     private $data = [];
-
-    protected $template = 'authors';
 
     public function getData(): array
     {
@@ -23,5 +21,11 @@ class AuthorsBlock extends BlockAbstract
         $stmt  = $db->query($query);
 
         $this->data = $stmt->fetchAll();
+    }
+
+    public function __toString()
+    {
+        $class = explode('\\', get_class());
+        return end($class);
     }
 }

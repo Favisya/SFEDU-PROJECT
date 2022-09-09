@@ -1,6 +1,6 @@
 <?php
 /**
- * @var App\Blocks\BlockAbstract $this $this of block class for library
+ * @var App\Blocks\Block $this $this of block class for library
  */
 ?>
 
@@ -9,7 +9,7 @@
         <div class="entity-container__side-block">
 
             <?php
-            $data = $this->getData();
+            $data = $this->model->getData();
             ?>
             <div class="entity-container__info-block">
                 <h2><?= $data['name'] ?></h2>
@@ -20,8 +20,8 @@
             </div>
 
             <div class="entity-container__left-buttons">
-                <a href="" class="entity-container__button">
-                    Жанры
+                <a href="/editLibrary?id=<?= $data['id']?>" class="entity-container__button">
+                    Редактировать
                 </a>
 
                 <a href="/books?author_id=<?= $data['id']?>" class="entity-container__button">
@@ -37,7 +37,7 @@
                         <div class="table__field">кол-во</div>
                         <div class="table__field">Книга</div>
                     </div>
-                    <?php foreach ($this->getBooks() as $library): ?>
+                    <?php foreach ($this->model->getBooks() as $library): ?>
                         <div class="table__row">
                             <div class="table__field"><?=$library['count'] ?></div>
                             <div class="table__field"><?=$library['book'] ?></div>
