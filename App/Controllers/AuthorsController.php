@@ -4,18 +4,18 @@ namespace App\Controllers;
 
 use App\Blocks\Block;
 use App\Models\AuthorsModel;
+use App\Models\Resource\AuthorsResource;
 
-class AuthorsController implements ControllerInterface
+class AuthorsController extends AbstractController
 {
     public function execute()
     {
-        $model = new AuthorsModel();
-        $data = $model->executeQuery();
-        $model->setData($data);
+        $authorsModel = new AuthorsModel();
+        $authorsResource = new AuthorsResource();
 
-        $block = new Block();
-        $block->setModel($model);
-        $block->setTemplate('authors');
-        $block->render();
+        $data = $authorsResource->executeQuery();
+        $authorsModel->setData($data);
+
+        $this->commonExecute('authors', $authorsModel);
     }
 }

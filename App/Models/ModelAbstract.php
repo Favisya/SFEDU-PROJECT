@@ -2,10 +2,17 @@
 
 namespace App\Models;
 
-use App\Database\Database;
-
 abstract class ModelAbstract
 {
+    public function getData(): ?array
+    {
+        return null;
+    }
+
+    public function setData(array $data)
+    {
+    }
+
     public function __toString()
     {
         return get_class();

@@ -1,11 +1,9 @@
 <?php
 /**
- * @var App\Blocks\CreateBookBlock $this->model of block class for creation
+ * @var App\Blocks\BookFormBlock $this->model of block class for creation
  */
 ?>
-<?php
-    $bookInfo = $this->model['bookModel']->getData();
-?>
+<?php $data = $this->model['bookModel']->getData() ?>
 <div class="content-container">
     <form method="post" action="">
         <div class="entity-container entity-container_column">
@@ -16,7 +14,7 @@
                     id="bookName"
                     name="bookName"
                     placeholder="Book name"
-                    value="<?= $bookInfo['name']; ?>"
+                    value="<?= $data['name'] ?>"
                     required
                 >
             </span>
@@ -28,7 +26,7 @@
                     type="number"
                     name="bookPrice"
                     placeholder="price"
-                    value="<?= $bookInfo['price']; ?>"
+                    value="<?= $data['price'] ?>"
                     required
                 >
             </span>

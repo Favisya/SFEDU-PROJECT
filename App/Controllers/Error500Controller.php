@@ -4,12 +4,10 @@ namespace App\Controllers;
 
 use App\Blocks\Block;
 
-class Error500Controller implements ControllerInterface
+class Error500Controller extends AbstractController
 {
     public function execute()
     {
-        $block = new Block();
-        $block->setTemplate('500');
-        $block->render();
+        $this->commonExecute('500');
     }
 }

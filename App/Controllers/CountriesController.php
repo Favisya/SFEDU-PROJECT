@@ -4,16 +4,16 @@ namespace App\Controllers;
 
 use App\Blocks\Block;
 use App\Models\CountriesModel;
+use App\Models\Resource\CountriesResource;
 
-class CountriesController implements ControllerInterface
+class CountriesController extends AbstractController
 {
     public function execute()
     {
-        $model = new CountriesModel();
-        $data = $model->executeQuery();
-        $model->setData($data);
+        $countriesModel = new CountriesModel();
+        $countriesResource = new CountriesResource();
 
-        $block = new Block();
-        $block->setModel($model);
+        $data = $countriesResource->executeQuery();
+        $countriesModel->setData($data);
     }
 }

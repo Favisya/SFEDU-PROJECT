@@ -4,18 +4,18 @@ namespace App\Controllers;
 
 use App\Blocks\Block;
 use App\Models\CategoriesModel;
+use App\Models\Resource\CategoriesResource;
 
-class CategoriesController implements ControllerInterface
+class CategoriesController extends AbstractController
 {
     public function execute()
     {
-        $model = new CategoriesModel();
-        $data = $model->executeQuery();
-        $model->setData($data);
+        $categoriesModel = new CategoriesModel();
+        $categoriesResource = new CategoriesResource();
 
-        $block = new Block();
-        $block->setModel($model);
-        $block->setTemplate('categories');
-        $block->render();
+        $data = $categoriesResource->executeQuery();
+        $categoriesModel->setData($data);
+
+        $this->commonExecute('categories', $categoriesModel);
     }
 }

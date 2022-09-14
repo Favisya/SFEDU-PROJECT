@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Database\Database;
-
 class CountriesModel extends ModelAbstract
 {
     private $data = [];
@@ -16,16 +14,6 @@ class CountriesModel extends ModelAbstract
     public function setData(array $data)
     {
         $this->data = $data;
-    }
-
-    public function executeQuery()
-    {
-        $db = Database::getInstance()->getConnection();
-
-        $query = 'SELECT * from countries;';
-        $stmt  = $db->query($query);
-
-        return $stmt->fetchAll();
     }
 
     public function __toString()

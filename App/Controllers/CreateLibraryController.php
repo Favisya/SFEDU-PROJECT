@@ -4,19 +4,20 @@ namespace App\Controllers;
 
 use App\Blocks\Block;
 use App\Models\LibraryModel;
+use App\Models\Resource\LibraryResource;
 
-class CreateLibraryController implements ControllerInterface
+class CreateLibraryController extends AbstractController
 {
     public function execute()
     {
-        $model = new LibraryModel();
-        if (REQUEST_METHOD == 'GET') {
+        if ($this->isGetMethod()) {
             $block = new Block();
-            $block->setTemplate('createLibrary');
-            $block->setModel($model);
-            $block->render();
+            $libraryModel = new LibraryModel();
+
+            $this->commonExecute('createLibrary', $libraryModel);
         } else {
-            $model->createLibrary($_POST['libName'], $_POST['libAddress']);
+            $LibraryResource = new LibraryResource();
+            $LibraryResource->createLibrary($_POST['libName'], $_POST['libAddress']);
         }
     }
 }

@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Database\Database;
-
 class CategoriesModel extends ModelAbstract
 {
     private $data = [];
@@ -16,16 +14,6 @@ class CategoriesModel extends ModelAbstract
     public function setData(array $data)
     {
         $this->data = $data;
-    }
-
-    public function executeQuery()
-    {
-        $query = 'SELECT * FROM categories;';
-
-        $db   = Database::getInstance()->getConnection();
-        $stmt = $db->query($query);
-
-        return $stmt->fetchAll();
     }
 
     public function __toString()

@@ -3,11 +3,10 @@
 namespace App\Router;
 
 use App\Controllers;
-use App\Exceptions\MvcException;
 
 class Router
 {
-    public function parseControllers(string $path): ?Controllers\ControllerInterface
+    public function parseControllers(string $path): ?Controllers\AbstractController
     {
         $firstSymbol  = strpos($path, '/');
         $secondSymbol = strpos($path, '?');

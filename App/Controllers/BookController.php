@@ -4,20 +4,20 @@ namespace App\Controllers;
 
 use App\Blocks\Block;
 use App\Models\BookModel;
+use App\Models\Resource\BookResource;
 
-class BookController implements ControllerInterface
+class BookController extends AbstractController
 {
     public function execute()
     {
-        $model = new BookModel();
-        $data = $model->executeQuery($_GET['id']);
+        $bookModel = new BookModel();
+        $bookResource = new BookResource();
 
-        $model->setData($data['info']);
-        $model->setLibs($data['books']);
+        $data = $bookResource->executeQuery($_GET['id']);
 
-        $block = new Block();
-        $block->setModel($model);
-        $block->setTemplate('book');
-        $block->render();
+        $bookModel->setData($data['info']);
+        $bookModel->setLibs($data['books']);
+
+        $this->commonExecute('book', $bookModel);
     }
 }

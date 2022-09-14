@@ -5,20 +5,19 @@ namespace App\Controllers;
 use App\Blocks\Block;
 use App\Exceptions\MvcException;
 use App\Models\AuthorModel;
+use App\Models\Resource\AuthorResource;
 
-class CreateAuthorController implements ControllerInterface
+class CreateAuthorController extends AbstractController
 {
     public function execute()
     {
-        $model = new AuthorModel();
-        if (REQUEST_METHOD == 'GET') {
-            $block = new Block();
-            $block->setTemplate('createAuthor');
-            $block->setModel($model);
+        if ($this->isGetMethod()) {
+            $authorModel = new AuthorModel();
 
-            $block->render();
+            $this->commonExecute('createAuthor', $authorModel);
         } else {
-            $model->createAuthor($_POST['authorName']);
+            $authorResource = new AuthorResource();
+            $authorResource->createAuthor($_POST['authorName']);
         }
     }
 }

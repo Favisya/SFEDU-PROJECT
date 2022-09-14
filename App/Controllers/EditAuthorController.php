@@ -5,23 +5,22 @@ namespace App\Controllers;
 use App\Blocks\Block;
 use App\Exceptions\MvcException;
 use App\Models\AuthorModel;
+use App\Models\Resource\AuthorResource;
 
-class EditAuthorController implements ControllerInterface
+class EditAuthorController extends AbstractController
 {
     public function execute()
     {
-        $model = new AuthorModel();
-        if (REQUEST_METHOD == 'GET') {
-            $block = new Block();
-            $block->setTemplate('createAuthor');
-            $block->setModel($model);
+        $authorResource = new AuthorResource();
+        if ($this->isGetMethod()) {
+            $authorModel = new AuthorModel();
 
-            $data = $model->executeQuery($_GET['id']);
-            $model->setData($data['info']);
+            $data = $authorResource->executeQuery($_GET['id']);
+            $authorModel->setData($data['info']);
 
-            $block->render();
+            $this->commonExecute('createAuthor', $authorModel);
         } else {
-            $model->editAuthor($_POST['authorName'], $_GET['id']);
+            $authorResource->editAuthor($_POST['authorName'], $_GET['id']);
         }
     }
 }

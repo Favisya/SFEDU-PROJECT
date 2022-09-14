@@ -2,61 +2,41 @@
 
 namespace App\Controllers;
 
-use App\Blocks\CreateBookBlock;
+use App\Blocks\BookFormBlock;
 use App\Exceptions\MvcException;
-use App\Models\AuthorsModel;
-use App\Models\BookModel;
-use App\Models\CategoriesModel;
-use App\Models\CountriesModel;
-use App\Models\PublishersModel;
+use App\Models\Resource\EditBookResource;
 
-class EditBookController implements ControllerInterface
+class EditBookController extends AbstractController
 {
     public function execute()
     {
-        $bookModel = new BookModel();
-
-        if (REQUEST_METHOD == 'GET') {
-            $authorsModel    = new AuthorsModel();
-            $countriesModel  = new CountriesModel();
-            $publishersModel = new PublishersModel();
-            $categoriesModel = new CategoriesModel();
-
-            $book       = $bookModel->executeQuery($_GET['id']);
-            $authors    = $authorsModel->executeQuery();
-            $countries  = $countriesModel->executeQuery();
-            $publishers = $publishersModel->executeQuery();
-            $categories = $categoriesModel->executeQuery();
-
-            $bookModel->setData($book['info']);
-            $authorsModel->setData($authors);
-            $countriesModel->setData($countries);
-            $publishersModel->setData($publishers);
-            $categoriesModel->setData($categories);
-
-            $block = new CreateBookBlock();
+        $resource = new EditBookResource();
+        if ($this->isGetMethod()) {
+            $block = new BookFormBlock();
             $block->setTemplate('createBook');
 
-            $block->setModel($bookModel);
-            $block->setModel($authorsModel);
-            $block->setModel($countriesModel);
-            $block->setModel($publishersModel);
-            $block->setModel($categoriesModel);
+            $models = $resource->executeQuery($_GET['id']);
+
+            foreach ($models as $model) {
+                $block->setModel($model);
+            }
 
             $block->render();
         } else {
-            if (
-                gettype($_POST['bookDate']) != 'string'
-                || gettype($_POST['bookPrice'])   != 'integer'
-                || gettype($_POST['authorId'])    != 'integer'
-                || gettype($_POST['countryId'])   != 'integer'
-                || gettype($_POST['publisherId']) != 'integer'
-                || gettype($_POST['categoryId'])  != 'integer'
-            ) {
+            $checker = $this->getPostParam('bookName')
+                && $this->getPostParam('bookDate')
+                && $this->getPostParam('bookPrice')
+                && $this->getPostParam('authorId')
+                && $this->getPostParam('countryId')
+                && $this->getPostParam('publisherId')
+                && $this->getPostParam('categoryId')
+                && $_GET['id'];
+
+            if (!$checker) {
                 throw new MvcException('Input type is wrong');
             }
 
-            $bookModel->editBook(
+            $resource->editBook(
                 $_POST['bookName'],
                 $_POST['bookDate'],
                 $_POST['bookPrice'],

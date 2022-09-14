@@ -4,18 +4,17 @@ namespace App\Controllers;
 
 use App\Blocks\Block;
 use App\Models\PublishersModel;
+use App\Models\Resource\PublishersResource;
 
-class PublishersController implements ControllerInterface
+class PublishersController extends AbstractController
 {
     public function execute()
     {
-        $model = new PublishersModel();
-        $data = $model->executeQuery();
-        $model->setData($data);
+        $publishersModel = new PublishersModel();
+        $publishersResource = new PublishersResource();
+        $data = $publishersResource->executeQuery();
+        $publishersModel->setData($data);
 
-        $block = new Block();
-        $block->setModel($model);
-        $block->setTemplate('publishers');
-        $block->render();
+        $this->commonExecute('publishers', $publishersModel);
     }
 }

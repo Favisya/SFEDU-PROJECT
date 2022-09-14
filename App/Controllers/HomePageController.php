@@ -4,12 +4,10 @@ namespace App\Controllers;
 
 use App\Blocks\Block;
 
-class HomePageController implements ControllerInterface
+class HomePageController extends AbstractController
 {
     public function execute()
     {
-        $block = new Block();
-        $block->setTemplate('homepage');
-        $block->render();
+        $this->commonExecute('500');
     }
 }

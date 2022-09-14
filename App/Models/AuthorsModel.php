@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Database\Database;
-
 class AuthorsModel extends ModelAbstract
 {
     private $data = [];
@@ -16,16 +14,6 @@ class AuthorsModel extends ModelAbstract
     public function setData($data)
     {
         $this->data = $data;
-    }
-
-    public function executeQuery()
-    {
-        $db = Database::getInstance()->getConnection();
-        $query = 'SELECT * FROM authors';
-
-        $stmt = $db->query($query);
-
-        return $stmt->fetchAll();
     }
 
     public function __toString()

@@ -4,23 +4,23 @@ namespace App\Controllers;
 
 use App\Blocks\Block;
 use App\Models\LibraryModel;
+use App\Models\Resource\LibraryResource;
 
-class EditLibraryController implements ControllerInterface
+class EditLibraryController extends AbstractController
 {
     public function execute()
     {
-        $model = new LibraryModel();
-        if (REQUEST_METHOD == 'GET') {
+        $libraryResource = new LibraryResource();
+        if ($this->isGetMethod()) {
             $block = new Block();
-            $block->setTemplate('createLibrary');
-            $block->setModel($model);
+            $libraryModel = new LibraryModel();
 
-            $data = $model->executeQuery($_GET['id']);
-            $model->setData($data['info']);
+            $data = $libraryResource->executeQuery($_GET['id']);
+            $libraryModel->setData($data['info']);
 
-            $block->render();
+            $this->commonExecute('createLibrary', $libraryModel);
         } else {
-            $model->editLibrary($_POST['libName'], $_POST['libAddress'], $_GET['id']);
+            $libraryResource->editLibrary($_POST['libName'], $_POST['libAddress'], $_GET['id']);
         }
     }
 }

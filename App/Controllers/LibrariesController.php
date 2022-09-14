@@ -2,20 +2,19 @@
 
 namespace App\Controllers;
 
-use App\Blocks\Block;
 use App\Models\LibrariesModel;
+use App\Models\Resource\LibrariesResource;
 
-class LibrariesController implements ControllerInterface
+class LibrariesController extends AbstractController
 {
     public function execute()
     {
-        $model = new LibrariesModel();
-        $data = $model->executeQuery();
-        $model->setData($data);
+        $librariesModel = new LibrariesModel();
+        $librariesResource = new LibrariesResource();
 
-        $block = new Block();
-        $block->setModel($model);
-        $block->setTemplate('libraries');
-        $block->render();
+        $data = $librariesResource->executeQuery();
+        $librariesModel->setData($data);
+
+        $this->commonExecute('libraries', $librariesModel);
     }
 }

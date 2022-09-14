@@ -4,21 +4,20 @@ namespace App\Controllers;
 
 use App\Blocks\Block;
 use App\Models\LibraryModel;
+use App\Models\Resource\LibraryResource;
 
-class LibraryController implements ControllerInterface
+class LibraryController extends AbstractController
 {
     public function execute()
     {
-        $model = new LibraryModel();
+        $libraryModel = new LibraryModel();
+        $libraryResource = new LibraryResource();
 
-        $data = $model->executeQuery($_GET['id']);
+        $data = $libraryResource->executeQuery($_GET['id']);
 
-        $model->setData($data['info']);
-        $model->setBooks($data['books']);
+        $libraryModel->setData($data['info']);
+        $libraryModel->setBooks($data['books']);
 
-        $block = new Block();
-        $block->setModel($model);
-        $block->setTemplate('library');
-        $block->render();
+        $this->commonExecute('library', $libraryModel);
     }
 }
