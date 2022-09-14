@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Blocks\Block;
+use App\Exceptions\MvcException;
 use App\Models\AuthorModel;
 
 class EditAuthorController implements ControllerInterface
@@ -15,7 +16,8 @@ class EditAuthorController implements ControllerInterface
             $block->setTemplate('createAuthor');
             $block->setModel($model);
 
-            $model->setData($_GET['id']);
+            $data = $model->executeQuery($_GET['id']);
+            $model->setData($data['info']);
 
             $block->render();
         } else {

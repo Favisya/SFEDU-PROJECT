@@ -3,59 +3,69 @@
 namespace App\Models;
 
 use App\Database\Database;
+use App\Exceptions\MvcException;
 
 class LibraryModel extends ModelAbstract
 {
-
     private $data  = [];
     private $books = [];
 
-    public function getData(): array
-    {   if (empty($this->data)) {
-        return [null];
-    }
-        return $this->data;
+    public function getData(): ?array
+    {
+        return $this->data ?? null;
     }
 
-    public function setData($id)
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    public function setBooks($data)
+    {
+        $this->books = $data;
+    }
+
+    public function executeQuery($id)
     {
         $db = Database::getInstance()->getConnection();
 
         $query = 'SELECT * from libraries WHERE id = ?;';
 
-        $stmt = $db->prepare($query);
-        $stmt->execute([$_GET['id']]);
+        $stmtFirst = $db->prepare($query);
+        $stmtFirst->execute([$id]);
 
-        $this->data = $stmt->fetch();
-    }
+        $data['info'] = $stmtFirst->fetch();
 
-    public function setBooks($id)
-    {
+        if ($data['info'] === false) {
+            throw new MvcException('Info not found');
+        }
+
         $query = 'SELECT count(books_libraries.book_id) as count, books.name AS book
                   FROM books
                   JOIN books_libraries ON books.id = books_libraries.book_id
-                  WHERE books.author_id = ? GROUP BY books.name LIMIT 4;';
+                  WHERE library_id = ? GROUP BY books.name LIMIT 3;';
 
-        $db = Database::getInstance()->getConnection();
-        $stmt = $db->prepare($query);
-        $stmt->execute([$id]);
+        $stmtSecond = $db->prepare($query);
+        $stmtSecond->execute([$id]);
 
-        $this->books = $stmt->fetchAll();
+        $data['books'] = $stmtSecond->fetchAll();
+
+        return $data;
     }
 
-    public function getBooks(): array
+    public function getBooks(): ?array
     {
-        return $this->books;
+        return $this->books ?? null;
     }
 
-    public function createLibrary(string $libraryName, string $libraryAddress)
+    public function createLibrary(string $name, string $address)
     {
-        if (!isset($libraryName, $libraryAddress)) {
-            return false;
+        $libName     = htmlspecialchars($name);
+        $libAddress  = htmlspecialchars($address);
+
+        if (empty($name)  || empty($address)) {
+            throw new MvcException('input is empty');
         }
-
-        $libName     = htmlspecialchars($libraryName);
-        $libAddress  = htmlspecialchars($libraryAddress);
 
         $db   = Database::getInstance();
         $stmt = $db->getConnection();
@@ -75,20 +85,21 @@ class LibraryModel extends ModelAbstract
         return true;
     }
 
-    public function editLibrary(string $libraryName, string $libraryAddress , int $id): bool
+    public function editLibrary(string $name, string $address, int $id): bool
     {
-        if (!isset($libraryName,$libraryAddress, $id)) {
-            return false;
-        }
+        $name     = htmlspecialchars($name);
+        $address  = htmlspecialchars($address);
 
-        $libraryName  = htmlspecialchars($libraryName);
+        if (!isset($name, $address)) {
+            throw new MvcException('input is empty');
+        }
 
         $db   = Database::getInstance();
         $stmt = $db->getConnection();
 
         $query = 'UPDATE libraries SET name = ?, address = ? WHERE id = ?;';
         $stmt = $stmt->prepare($query);
-        $stmt->execute([$libraryName, $libraryAddress,  $id]);
+        $stmt->execute([$name, $address,  $id]);
 
         header("Location: http://localhost:3000/library?id=$id");
         return true;

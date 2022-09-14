@@ -10,7 +10,8 @@ class LibrariesController implements ControllerInterface
     public function execute()
     {
         $model = new LibrariesModel();
-        $model->setData();
+        $data = $model->executeQuery();
+        $model->setData($data);
 
         $block = new Block();
         $block->setModel($model);

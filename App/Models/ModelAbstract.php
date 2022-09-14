@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Database\Database;
+
 abstract class ModelAbstract
 {
     public function __toString()

@@ -3,41 +3,16 @@
 namespace App\Models;
 
 use App\Database\Database;
+use App\Exceptions\MvcException;
 
 class AuthorModel extends ModelAbstract
 {
-    protected $data  = [];
-    protected $books = [];
+    private $data  = [];
+    private $books = [];
 
-    public function getData(): array
-    {   if (empty($this->data)) {
-            return [null];
-        }
-        return $this->data;
-    }
-
-    public function setData($id)
+    public function getData(): ?array
     {
-        $db = Database::getInstance()->getConnection();
-
-        $query = 'SELECT * from authors WHERE id = ?;';
-
-        $stmt = $db->prepare($query);
-        $stmt->execute([$id]);
-
-        $this->data = $stmt->fetch();
-    }
-
-    public function setBooks($id)
-    {
-        $db = Database::getInstance()->getConnection();
-
-        $query = 'SELECT name, year FROM books  WHERE author_id = ? limit 3;';
-
-        $stmt = $db->prepare($query);
-        $stmt->execute([$id]);
-
-        $this->books = $stmt->fetchAll();
+        return $this->data ?? null;
     }
 
     public function getBooks()
@@ -45,10 +20,44 @@ class AuthorModel extends ModelAbstract
         return $this->books;
     }
 
+    public function setData(array $data)
+    {
+        $this->data = $data;
+    }
+
+    public function setBooks(array $data)
+    {
+        $this->books = $data;
+    }
+
+    public function executeQuery(int $id): array
+    {
+        if ($id == 0 || $id < 0 || !isset($id)) {
+            throw new MvcException('id is wrong');
+        }
+        $db = Database::getInstance()->getConnection();
+
+        $query = 'SELECT * FROM authors WHERE id = ?';
+        $stmtFirst = $db->prepare($query);
+        $stmtFirst->execute([$id]);
+        $data['info'] = $stmtFirst->fetch();
+
+        if ($data['info'] === false) {
+            throw new MvcException('Info not found');
+        }
+
+        $query = 'SELECT name, year FROM books WHERE author_id = ? limit 3';
+        $stmtSecond = $db->prepare($query);
+        $stmtSecond->execute([$id]);
+        $data['books'] = $stmtSecond->fetchAll();
+
+        return $data;
+    }
+
     public function createAuthor(string $authorName): bool
     {
-        if (!isset($authorName)) {
-            return false;
+        if (empty($authorName)) {
+            throw new MvcException('Input is empty');
         }
 
         $authorName  = htmlspecialchars($authorName);
@@ -74,7 +83,7 @@ class AuthorModel extends ModelAbstract
     public function editAuthor(string $authorName, int $id): bool
     {
         if (!isset($authorName, $id)) {
-            return false;
+            throw new MvcException('Input is empty');
         }
 
         $authorName  = htmlspecialchars($authorName);

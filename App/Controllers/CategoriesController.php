@@ -10,7 +10,8 @@ class CategoriesController implements ControllerInterface
     public function execute()
     {
         $model = new CategoriesModel();
-        $model ->setData();
+        $data = $model->executeQuery();
+        $model->setData($data);
 
         $block = new Block();
         $block->setModel($model);

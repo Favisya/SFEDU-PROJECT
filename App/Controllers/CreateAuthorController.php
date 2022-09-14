@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Blocks\Block;
+use App\Exceptions\MvcException;
 use App\Models\AuthorModel;
 
 class CreateAuthorController implements ControllerInterface

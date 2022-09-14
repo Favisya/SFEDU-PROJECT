@@ -13,19 +13,24 @@ class PublishersModel extends ModelAbstract
         return $this->data;
     }
 
-    public function setData()
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    public function executeQuery()
     {
         $db = Database::getInstance()->getConnection();
 
         $query = 'SELECT name, id from publishers;';
         $stmt  = $db->query($query);
 
-        $this->data = $stmt->fetchAll();
+        return $stmt->fetchAll();
     }
 
     public function __toString()
     {
         $class = explode('\\', get_class());
-        return end($class);
+        return $class = lcfirst(end($class));
     }
 }

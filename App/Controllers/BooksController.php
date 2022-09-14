@@ -10,7 +10,8 @@ class BooksController implements ControllerInterface
     public function execute()
     {
         $model = new BooksModel();
-        $model->setData($_GET['author_id'] ?? 0);
+        $data = $model->executeQuery($_GET['author_id'] ?? 0);
+        $model->setData($data);
 
         $block = new Block();
         $block->setModel($model);

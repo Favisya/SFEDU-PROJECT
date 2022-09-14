@@ -13,13 +13,18 @@ class LibrariesModel extends ModelAbstract
         return $this->data;
     }
 
-    public function setData()
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    public function executeQuery()
     {
         $db = Database::getInstance()->getConnection();
         $query = 'SELECT * FROM libraries;';
 
         $stmt = $db->query($query);
 
-        $this->data = $stmt->fetchAll();
+        return $stmt->fetchAll();
     }
 }

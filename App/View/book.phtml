@@ -1,6 +1,6 @@
 <?php
 /**
- * @var App\Blocks\Block $this $this of block class for book
+ * @var App\Blocks\Block $this->model $this of block class for book
  */
 ?>
 
@@ -12,7 +12,7 @@
                 $data = $this->model->getData();
             ?>
             <div class="entity-container__info-block">
-                <h2><?= $data['book_name'] ?></h2>
+                <h2><?= $data['name'] ?></h2>
                 <p><?= $data['author'] ?></p>
             </div>
 
@@ -21,19 +21,19 @@
                     category
                 </p>
                 <p>
-                    <?= $data['country'] . ' ' . $data['book_date'] ?>
+                    <?= $data['country'] . ' ' . $data['date'] ?>
                 </p>
                 <p>
                     <?= 'Издатель: ' . $data['publisher']?>
                 </p>
                 <p>
-                    <?= 'Цена: ' . $data['book_price'] . 'p'?>
+                    <?= 'Цена: ' . $data['price'] . 'p'?>
                 </p>
             </div>
 
             <div class="entity-container__left-buttons">
-                <a href="" class="entity-container__button">
-                    Жанр
+                <a href="/editBook?id=<?= $data['id'] ?>" class="entity-container__button">
+                    Редактировать
                 </a>
 
                 <a href="/author?id=<?= $data['author_id'] ?>" class="entity-container__button">

@@ -3,7 +3,9 @@
  * @var App\Blocks\CreateBookBlock $this->model of block class for creation
  */
 ?>
-
+<?php
+    $bookInfo = $this->model['bookModel']->getData();
+?>
 <div class="content-container">
     <form method="post" action="">
         <div class="entity-container entity-container_column">
@@ -14,6 +16,7 @@
                     id="bookName"
                     name="bookName"
                     placeholder="Book name"
+                    value="<?= $bookInfo['name']; ?>"
                     required
                 >
             </span>
@@ -25,6 +28,7 @@
                     type="number"
                     name="bookPrice"
                     placeholder="price"
+                    value="<?= $bookInfo['price']; ?>"
                     required
                 >
             </span>
@@ -33,7 +37,7 @@
                 <label for="author"> Автор:</label>
                 <select name="authorId" required id="author">
                     <option disabled>Выберите Автора</option>
-                    <?php foreach ($this->model['AuthorsModel']->getData() as $author): ?>
+                    <?php foreach ($this->model['authorsModel']->getData() as $author): ?>
                         <option value="<?= $author['id'] ?>">
                             <?= $author['name'] ?>
                         </option>
@@ -45,7 +49,7 @@
                 <label for="country">Страна: </label>
                 <select name="countryId" id="country">
                     <option disabled>Выберите страну</option>
-                    <?php foreach ($this->model['CountriesModel']->getData() as $country): ?>
+                    <?php foreach ($this->model['countriesModel']->getData() as $country): ?>
                         <option value="<?= $country['id'] ?>">
                             <?= $country['name'] ?>
                         </option>
@@ -57,9 +61,21 @@
                 <label for="publisher"> Издатель: </label>
                 <select id="publisher" name="publisherId" required>
                     <option disabled>Выберите издателя</option>
-                    <?php foreach ($this->model['PublishersModel']->getData() as $publisher): ?>
-                        <option value="<?= $publisher['id'] ?>">
-                            <?= $publisher['name'] ?>
+                    <?php foreach ($this->model['publishersModel']->getData() as $category): ?>
+                        <option value="<?= $category['id'] ?>">
+                            <?= $category['name'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </span>
+
+            <span class="entity-container__input-row">
+                <label for="category"> Жанр: </label>
+                <select id="category" name="categoryId" required>
+                    <option disabled>Выберите Жанр</option>
+                    <?php foreach ($this->model['categoriesModel']->getData() as $category): ?>
+                        <option value="<?= $category['id'] ?>">
+                            <?= $category['name'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

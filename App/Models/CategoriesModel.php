@@ -13,13 +13,24 @@ class CategoriesModel extends ModelAbstract
         return $this->data;
     }
 
-    public function setData()
+    public function setData(array $data)
+    {
+        $this->data = $data;
+    }
+
+    public function executeQuery()
     {
         $query = 'SELECT * FROM categories;';
 
         $db   = Database::getInstance()->getConnection();
         $stmt = $db->query($query);
 
-        $this->data = $stmt->fetchAll();
+        return $stmt->fetchAll();
+    }
+
+    public function __toString()
+    {
+        $class = explode('\\', get_class());
+        return $class = lcfirst(end($class));
     }
 }

@@ -10,22 +10,25 @@ use App\Models\CategoriesModel;
 use App\Models\CountriesModel;
 use App\Models\PublishersModel;
 
-class CreateBookController implements ControllerInterface
+class EditBookController implements ControllerInterface
 {
     public function execute()
     {
         $bookModel = new BookModel();
+
         if (REQUEST_METHOD == 'GET') {
             $authorsModel    = new AuthorsModel();
             $countriesModel  = new CountriesModel();
             $publishersModel = new PublishersModel();
             $categoriesModel = new CategoriesModel();
 
+            $book       = $bookModel->executeQuery($_GET['id']);
             $authors    = $authorsModel->executeQuery();
             $countries  = $countriesModel->executeQuery();
             $publishers = $publishersModel->executeQuery();
             $categories = $categoriesModel->executeQuery();
 
+            $bookModel->setData($book['info']);
             $authorsModel->setData($authors);
             $countriesModel->setData($countries);
             $publishersModel->setData($publishers);
@@ -34,11 +37,11 @@ class CreateBookController implements ControllerInterface
             $block = new CreateBookBlock();
             $block->setTemplate('createBook');
 
+            $block->setModel($bookModel);
             $block->setModel($authorsModel);
             $block->setModel($countriesModel);
             $block->setModel($publishersModel);
             $block->setModel($categoriesModel);
-            $block->setModel($bookModel);
 
             $block->render();
         } else {
@@ -53,14 +56,15 @@ class CreateBookController implements ControllerInterface
                 throw new MvcException('Input type is wrong');
             }
 
-            $bookModel->createBook(
+            $bookModel->editBook(
                 $_POST['bookName'],
                 $_POST['bookDate'],
                 $_POST['bookPrice'],
                 $_POST['authorId'],
                 $_POST['countryId'],
                 $_POST['publisherId'],
-                $_POST['categoryId']
+                $_POST['categoryId'],
+                $_GET['id']
             );
         }
     }

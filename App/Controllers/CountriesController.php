@@ -10,7 +10,8 @@ class CountriesController implements ControllerInterface
     public function execute()
     {
         $model = new CountriesModel();
-        $model->setData();
+        $data = $model->executeQuery();
+        $model->setData($data);
 
         $block = new Block();
         $block->setModel($model);

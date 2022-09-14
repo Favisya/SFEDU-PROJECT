@@ -10,8 +10,11 @@ class LibraryController implements ControllerInterface
     public function execute()
     {
         $model = new LibraryModel();
-        $model->setData($_GET['id']);
-        $model->setBooks($_GET['id']);
+
+        $data = $model->executeQuery($_GET['id']);
+
+        $model->setData($data['info']);
+        $model->setBooks($data['books']);
 
         $block = new Block();
         $block->setModel($model);

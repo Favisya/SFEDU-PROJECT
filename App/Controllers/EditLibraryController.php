@@ -15,7 +15,8 @@ class EditLibraryController implements ControllerInterface
             $block->setTemplate('createLibrary');
             $block->setModel($model);
 
-            $model->setData($_GET['id']);
+            $data = $model->executeQuery($_GET['id']);
+            $model->setData($data['info']);
 
             $block->render();
         } else {

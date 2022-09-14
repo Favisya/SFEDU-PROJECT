@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Blocks\Block;
+use App\Exceptions\MvcException;
 use App\Models\AuthorModel;
 
 class AuthorController implements ControllerInterface
@@ -10,8 +11,9 @@ class AuthorController implements ControllerInterface
     public function execute()
     {
         $model = new AuthorModel();
-        $model->setData($_GET['id']);
-        $model->setBooks($_GET['id']);
+        $data = $model->executeQuery($_GET['id']);
+        $model->setData($data['info']);
+        $model->setBooks($data['books']);
 
         $block = new Block();
         $block->setModel($model);

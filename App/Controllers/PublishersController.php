@@ -10,7 +10,8 @@ class PublishersController implements ControllerInterface
     public function execute()
     {
         $model = new PublishersModel();
-        $model->setData();
+        $data = $model->executeQuery();
+        $model->setData($data);
 
         $block = new Block();
         $block->setModel($model);

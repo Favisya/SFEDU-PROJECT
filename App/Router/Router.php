@@ -3,6 +3,7 @@
 namespace App\Router;
 
 use App\Controllers;
+use App\Exceptions\MvcException;
 
 class Router
 {
