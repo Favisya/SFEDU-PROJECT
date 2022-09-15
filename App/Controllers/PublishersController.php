@@ -12,6 +12,7 @@ class PublishersController extends AbstractController
     {
         $publishersModel = new PublishersModel();
         $publishersResource = new PublishersResource();
+
         $data = $publishersResource->executeQuery();
         $publishersModel->setData($data);
 

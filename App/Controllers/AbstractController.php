@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Blocks\Block;
 use App\Models\ModelAbstract;
 
 abstract class AbstractController
@@ -22,15 +21,6 @@ abstract class AbstractController
         }
 
         $block->render();
-    }
-
-    public function isGetMethod(): bool
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            return true;
-        }
-
-        return false;
     }
 
     public function getPostParam(string $key)

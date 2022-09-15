@@ -16,38 +16,15 @@ class CreateBookController extends AbstractController
     public function execute()
     {
         $resource = new CreateBookResource();
-        if ($this->isGetMethod()) {
-            $block = new BookFormBlock();
-            $block->setTemplate('createBook');
+        $block = new BookFormBlock();
+        $block->setTemplate('createBook');
 
-            $models = $resource->executeQuery();
+        $models = $resource->executeQuery();
 
-            foreach ($models as $model) {
-                $block->setModel($model);
-            }
-
-            $block->render();
-        } else {
-            $checker = $this->getPostParam('bookName')
-                && $this->getPostParam('bookDate')
-                && $this->getPostParam('bookPrice')
-                && $this->getPostParam('authorId')
-                && $this->getPostParam('countryId')
-                && $this->getPostParam('publisherId')
-                && $this->getPostParam('categoryId');
-
-            if (!$checker) {
-                throw new MvcException('Input type is wrong');
-            }
-            $resource->createBook(
-                $_POST['bookName'],
-                $_POST['bookDate'],
-                $_POST['bookPrice'],
-                $_POST['authorId'],
-                $_POST['countryId'],
-                $_POST['publisherId'],
-                $_POST['categoryId']
-            );
+        foreach ($models as $model) {
+            $block->setModel($model);
         }
+
+        $block->render();
     }
 }
