@@ -9,17 +9,11 @@ class PostEditBookController extends AbstractController
 {
     public function execute()
     {
-        $checker = $this->getPostParam('bookName')
-            && $this->getPostParam('bookDate')
-            && $this->getPostParam('bookPrice')
-            && $this->getPostParam('authorId')
-            && $this->getPostParam('countryId')
-            && $this->getPostParam('publisherId')
-            && $this->getPostParam('categoryId')
-            && $_GET['id'];
-
-        if (!$checker) {
-            throw new MvcException('Input type is wrong');
+        $keys = array_keys($_POST);
+        foreach ($keys as $key) {
+            if (!$this->getPostParam($key)) {
+                throw new MvcException('Input type is wrong');
+            }
         }
 
         $resource = new EditBookResource();
