@@ -2,9 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Blocks\Block;
-use App\Exceptions\MvcException;
-use App\Models\AuthorModel;
 use App\Models\Resource\AuthorResource;
 
 class EditAuthorController extends AbstractController

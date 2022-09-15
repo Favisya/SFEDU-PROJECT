@@ -3,16 +3,16 @@
 namespace App\Models\Resource;
 
 use App\Database\Database;
-use App\Exceptions\MvcException;
 use App\Models\AuthorsModel;
 use App\Models\BookModel;
 use App\Models\CategoriesModel;
 use App\Models\CountriesModel;
+use App\Models\ModelAbstract;
 use App\Models\PublishersModel;
 
 class CreateBookResource
 {
-    public function executeQuery()
+    public function executeQuery(): array
     {
         $db = Database::getInstance()->getConnection();
 
@@ -55,7 +55,7 @@ class CreateBookResource
         int $countryId,
         int $publisherId,
         int $categoryId
-    ): BookModel {
+    ): ModelAbstract {
         $name        = htmlspecialchars($name);
         $price       = htmlspecialchars($price);
         $authorId    = htmlspecialchars($authorId);
@@ -63,18 +63,6 @@ class CreateBookResource
         $publisherId = htmlspecialchars($publisherId);
         $date        = htmlspecialchars($date);
         $categoryId  = htmlspecialchars($categoryId);
-
-        if (
-            empty($name)
-            || empty($price)
-            || empty($authorId)
-            || empty($countryId)
-            || empty($publisherId)
-            || empty($date)
-            || empty($categoryId)
-        ) {
-            throw new MvcException('Input is empty');
-        }
 
         $db = Database::getInstance();
         $stmt = $db->getConnection();

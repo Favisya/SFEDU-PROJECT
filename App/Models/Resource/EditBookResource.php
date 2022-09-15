@@ -3,16 +3,16 @@
 namespace App\Models\Resource;
 
 use App\Database\Database;
-use App\Exceptions\MvcException;
 use App\Models\AuthorsModel;
 use App\Models\BookModel;
 use App\Models\CategoriesModel;
 use App\Models\CountriesModel;
+use App\Models\ModelAbstract;
 use App\Models\PublishersModel;
 
 class EditBookResource
 {
-    public function executeQuery(int $id)
+    public function executeQuery(int $id): array
     {
         $db = Database::getInstance()->getConnection();
 
@@ -60,28 +60,15 @@ class EditBookResource
         int $publisherId,
         int $categoryId,
         int $id
-    ): BookModel {
-        $name = htmlspecialchars($name);
-        $price = htmlspecialchars($price);
-        $authorId = htmlspecialchars($authorId);
-        $countryId = htmlspecialchars($countryId);
+    ): ModelAbstract {
+        $name        = htmlspecialchars($name);
+        $price       = htmlspecialchars($price);
+        $authorId    = htmlspecialchars($authorId);
+        $countryId   = htmlspecialchars($countryId);
         $publisherId = htmlspecialchars($publisherId);
-        $date = htmlspecialchars($date);
-        $categoryId = htmlspecialchars($categoryId);
-        $id = htmlspecialchars($id);
-
-        if (
-            empty($name)
-            || empty($price)
-            || empty($authorId)
-            || empty($countryId)
-            || empty($publisherId)
-            || empty($date)
-            || empty($categoryId)
-            || empty($id)
-        ) {
-            throw new MvcException('Input is empty');
-        }
+        $date        = htmlspecialchars($date);
+        $categoryId  = htmlspecialchars($categoryId);
+        $id          = htmlspecialchars($id);
 
         $db = Database::getInstance();
         $stmt = $db->getConnection();

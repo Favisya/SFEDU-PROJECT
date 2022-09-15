@@ -4,10 +4,11 @@ namespace App\Models\Resource;
 
 use App\Database\Database;
 use App\Models\CategoriesModel;
+use App\Models\ModelAbstract;
 
 class CategoriesResource
 {
-    public function executeQuery()
+    public function executeQuery(): ModelAbstract
     {
         $query = 'SELECT * FROM categories;';
 

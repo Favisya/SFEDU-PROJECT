@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\LibrariesModel;
 use App\Models\Resource\LibrariesResource;
 
 class LibrariesController extends AbstractController

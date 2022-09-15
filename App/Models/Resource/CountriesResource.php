@@ -4,10 +4,11 @@ namespace App\Models\Resource;
 
 use App\Database\Database;
 use App\Models\CountriesModel;
+use App\Models\ModelAbstract;
 
 class CountriesResource
 {
-    public function executeQuery()
+    public function executeQuery(): ModelAbstract
     {
         $db = Database::getInstance()->getConnection();
 

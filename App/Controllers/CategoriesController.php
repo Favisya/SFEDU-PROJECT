@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Blocks\Block;
-use App\Models\CategoriesModel;
 use App\Models\Resource\CategoriesResource;
 
 class CategoriesController extends AbstractController

@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Blocks\Block;
-use App\Models\CountriesModel;
 use App\Models\Resource\CountriesResource;
 
 class CountriesController extends AbstractController

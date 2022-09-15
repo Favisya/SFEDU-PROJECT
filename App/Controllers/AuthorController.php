@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Blocks\Block;
-use App\Models\AuthorModel;
 use App\Models\Resource\AuthorResource;
 
 class AuthorController extends AbstractController

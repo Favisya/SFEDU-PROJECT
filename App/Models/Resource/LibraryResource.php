@@ -4,12 +4,12 @@ namespace App\Models\Resource;
 
 use App\Database\Database;
 use App\Exceptions\MvcException;
-use App\Models\LibrariesModel;
 use App\Models\LibraryModel;
+use App\Models\ModelAbstract;
 
 class LibraryResource
 {
-    public function executeQuery(int $id, int $limit = 3): LibraryModel
+    public function executeQuery(int $id, int $limit = 3): ModelAbstract
     {
         $db = Database::getInstance()->getConnection();
 
@@ -41,7 +41,7 @@ class LibraryResource
         return $libraryModel;
     }
 
-    public function createLibrary(string $name, string $address): LibraryModel
+    public function createLibrary(string $name, string $address): ModelAbstract
     {
         $libName     = htmlspecialchars($name);
         $libAddress  = htmlspecialchars($address);
@@ -68,7 +68,7 @@ class LibraryResource
         return $libraryModel;
     }
 
-    public function editLibrary(string $name, string $address, int $id): LibraryModel
+    public function editLibrary(string $name, string $address, int $id): ModelAbstract
     {
         $name     = htmlspecialchars($name);
         $address  = htmlspecialchars($address);

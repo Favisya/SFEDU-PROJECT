@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Blocks\Block;
-use App\Models\LibraryModel;
 use App\Models\Resource\LibraryResource;
 
 class LibraryController extends AbstractController

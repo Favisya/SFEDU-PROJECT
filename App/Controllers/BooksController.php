@@ -2,8 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Blocks\Block;
-use App\Models\BooksModel;
 use App\Models\Resource\BooksResource;
 
 class BooksController extends AbstractController

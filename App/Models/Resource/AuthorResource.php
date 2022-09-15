@@ -5,10 +5,11 @@ namespace App\Models\Resource;
 use App\Database\Database;
 use App\Exceptions\MvcException;
 use App\Models\AuthorModel;
+use App\Models\ModelAbstract;
 
 class AuthorResource
 {
-    public function executeQuery(int $id, int $limit = 3): AuthorModel
+    public function executeQuery(int $id, int $limit = 3): ModelAbstract
     {
         if ($id == 0 || $id < 0 || !isset($id)) {
             throw new MvcException('id is wrong');
@@ -36,7 +37,7 @@ class AuthorResource
         return $authorModel;
     }
 
-    public function createAuthor(string $authorName): AuthorModel
+    public function createAuthor(string $authorName): ModelAbstract
     {
         if (empty($authorName)) {
             throw new MvcException('Input is empty');
@@ -62,7 +63,7 @@ class AuthorResource
         return $authorModel;
     }
 
-    public function editAuthor(string $authorName, int $id): AuthorModel
+    public function editAuthor(string $authorName, int $id): ModelAbstract
     {
         if (!isset($authorName, $id)) {
             throw new MvcException('Input is empty');
