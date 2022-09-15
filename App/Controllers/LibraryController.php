@@ -10,13 +10,8 @@ class LibraryController extends AbstractController
 {
     public function execute()
     {
-        $libraryModel = new LibraryModel();
         $libraryResource = new LibraryResource();
-
-        $data = $libraryResource->executeQuery($_GET['id']);
-
-        $libraryModel->setData($data['info']);
-        $libraryModel->setBooks($data['books']);
+        $libraryModel = $libraryResource->executeQuery($_GET['id']);
 
         $this->commonExecute('library', $libraryModel);
     }

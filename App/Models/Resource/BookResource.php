@@ -4,10 +4,11 @@ namespace App\Models\Resource;
 
 use App\Database\Database;
 use App\Exceptions\MvcException;
+use App\Models\BookModel;
 
 class BookResource
 {
-    public function executeQuery(int $id)
+    public function executeQuery(int $id, int $limit = 6): BookModel
     {
         if (!isset($id)) {
             throw new MvcException('id is wrong');
@@ -41,13 +42,17 @@ class BookResource
         $query = 'SELECT count(books_libraries.book_id) as count,libraries.name AS library, libraries.id AS id
                   FROM libraries
                   JOIN books_libraries ON libraries.id = books_libraries.library_id
-                  WHERE books_libraries.book_id = ? GROUP BY id LIMIT 6;';
+                  WHERE books_libraries.book_id = ? GROUP BY id LIMIT ?;';
 
         $stmtSecond = $db->prepare($query);
-        $stmtSecond->execute([$id]);
+        $stmtSecond->execute([$id, $limit]);
 
         $data['books'] = $stmtSecond->fetchAll();
 
-        return $data;
+        $bookModel = new BookModel();
+        $bookModel->setData($data['info']);
+        $bookModel->setLibs($data['books']);
+
+        return $bookModel;
     }
 }

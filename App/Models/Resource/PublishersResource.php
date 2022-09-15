@@ -3,6 +3,7 @@
 namespace App\Models\Resource;
 
 use App\Database\Database;
+use App\Models\PublishersModel;
 
 class PublishersResource
 {
@@ -13,6 +14,9 @@ class PublishersResource
         $query = 'SELECT name, id from publishers;';
         $stmt  = $db->query($query);
 
-        return $stmt->fetchAll();
+        $publishersModel = new PublishersModel();
+        $publishersModel->setData($stmt->fetchAll());
+
+        return $publishersModel;
     }
 }

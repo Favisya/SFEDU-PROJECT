@@ -4,10 +4,11 @@ namespace App\Models\Resource;
 
 use App\Database\Database;
 use App\Exceptions\MvcException;
+use App\Models\AuthorModel;
 
 class AuthorResource
 {
-    public function executeQuery(int $id): array
+    public function executeQuery(int $id, int $limit = 3): AuthorModel
     {
         if ($id == 0 || $id < 0 || !isset($id)) {
             throw new MvcException('id is wrong');
@@ -23,15 +24,19 @@ class AuthorResource
             throw new MvcException('Info not found');
         }
 
-        $query = 'SELECT name, year FROM books WHERE author_id = ? limit 3';
+        $query = 'SELECT name, year FROM books WHERE author_id = ? limit ?';
         $stmtSecond = $db->prepare($query);
-        $stmtSecond->execute([$id]);
+        $stmtSecond->execute([$id, $limit]);
         $data['books'] = $stmtSecond->fetchAll();
 
-        return $data;
+        $authorModel = new AuthorModel();
+        $authorModel->setData($data['info']);
+        $authorModel->setBooks($data['books']);
+
+        return $authorModel;
     }
 
-    public function createAuthor(string $authorName): bool
+    public function createAuthor(string $authorName): AuthorModel
     {
         if (empty($authorName)) {
             throw new MvcException('Input is empty');
@@ -51,13 +56,13 @@ class AuthorResource
         $stmtSecond = $stmt->prepare($query);
         $stmtSecond->execute([$authorName]);
 
-        $id = $stmtSecond->fetch()['id'];
+        $authorModel = new AuthorModel();
+        $authorModel->setData($stmtSecond->fetch());
 
-        header("Location: http://localhost:3000/author?id=$id");
-        return true;
+        return $authorModel;
     }
 
-    public function editAuthor(string $authorName, int $id): bool
+    public function editAuthor(string $authorName, int $id): AuthorModel
     {
         if (!isset($authorName, $id)) {
             throw new MvcException('Input is empty');
@@ -69,10 +74,16 @@ class AuthorResource
         $stmt = $db->getConnection();
 
         $query = 'UPDATE authors SET name = ? WHERE id = ?;';
-        $stmt = $stmt->prepare($query);
-        $stmt->execute([$authorName, $id]);
+        $stmtFirst = $stmt->prepare($query);
+        $stmtFirst->execute([$authorName, $id]);
 
-        header("Location: http://localhost:3000/author?id=$id");
-        return true;
+        $query = 'SELECT * FROM authors WHERE id = ?';
+        $stmtSecond = $stmt->prepare($query);
+        $stmtSecond->execute([$id]);
+
+        $authorModel = new AuthorModel();
+        $authorModel->setData($stmtSecond->fetch());
+
+        return $authorModel;
     }
 }

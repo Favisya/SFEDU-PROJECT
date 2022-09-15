@@ -17,7 +17,7 @@ class PostEditBookController extends AbstractController
         }
 
         $resource = new EditBookResource();
-        $resource->editBook(
+        $bookModel = $resource->editBook(
             $_POST['bookName'],
             $_POST['bookDate'],
             $_POST['bookPrice'],
@@ -27,5 +27,7 @@ class PostEditBookController extends AbstractController
             $_POST['categoryId'],
             $_GET['id']
         );
+
+        $this->redirect('book?id=' . $bookModel->getData()['id']);
     }
 }

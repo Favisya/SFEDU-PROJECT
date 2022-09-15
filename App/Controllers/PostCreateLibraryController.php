@@ -9,6 +9,7 @@ class PostCreateLibraryController extends AbstractController
     public function execute()
     {
         $LibraryResource = new LibraryResource();
-        $LibraryResource->createLibrary($_POST['libName'], $_POST['libAddress']);
+        $libraryModel = $LibraryResource->createLibrary($_POST['libName'], $_POST['libAddress']);
+        $this->redirect('library?id=' . $libraryModel->getData()['id']);
     }
 }

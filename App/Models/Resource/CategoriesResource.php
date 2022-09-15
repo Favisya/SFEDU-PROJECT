@@ -3,6 +3,7 @@
 namespace App\Models\Resource;
 
 use App\Database\Database;
+use App\Models\CategoriesModel;
 
 class CategoriesResource
 {
@@ -13,6 +14,9 @@ class CategoriesResource
         $db   = Database::getInstance()->getConnection();
         $stmt = $db->query($query);
 
-        return $stmt->fetchAll();
+        $categoriesModel = new CategoriesModel();
+        $categoriesModel->setData($stmt->fetchAll());
+
+        return $categoriesModel;
     }
 }

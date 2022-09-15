@@ -17,7 +17,7 @@ class PostCreateBookController extends AbstractController
         }
 
         $resource = new CreateBookResource();
-        $resource->createBook(
+        $bookModel = $resource->createBook(
             $_POST['bookName'],
             $_POST['bookDate'],
             $_POST['bookPrice'],
@@ -26,5 +26,7 @@ class PostCreateBookController extends AbstractController
             $_POST['publisherId'],
             $_POST['categoryId']
         );
+
+        $this->redirect('book?id=' . $bookModel->getData()['id']);
     }
 }

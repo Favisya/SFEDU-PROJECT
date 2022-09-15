@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Blocks\BookFormBlock;
-use App\Exceptions\MvcException;
 use App\Models\Resource\EditBookResource;
 
 class EditBookController extends AbstractController

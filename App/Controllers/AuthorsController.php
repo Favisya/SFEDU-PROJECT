@@ -10,11 +10,8 @@ class AuthorsController extends AbstractController
 {
     public function execute()
     {
-        $authorsModel = new AuthorsModel();
         $authorsResource = new AuthorsResource();
-
-        $data = $authorsResource->executeQuery();
-        $authorsModel->setData($data);
+        $authorsModel = $authorsResource->executeQuery();
 
         $this->commonExecute('authors', $authorsModel);
     }

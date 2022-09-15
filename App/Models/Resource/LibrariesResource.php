@@ -3,6 +3,7 @@
 namespace App\Models\Resource;
 
 use App\Database\Database;
+use App\Models\LibrariesModel;
 
 class LibrariesResource
 {
@@ -13,6 +14,9 @@ class LibrariesResource
 
         $stmt = $db->query($query);
 
-        return $stmt->fetchAll();
+        $librariesModel = new LibrariesModel();
+        $librariesModel->setData($stmt->fetchAll());
+
+        return $librariesModel;
     }
 }

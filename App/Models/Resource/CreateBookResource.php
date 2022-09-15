@@ -55,14 +55,14 @@ class CreateBookResource
         int $countryId,
         int $publisherId,
         int $categoryId
-    ): bool {
-        $name = htmlspecialchars($name);
-        $price = htmlspecialchars($price);
-        $authorId = htmlspecialchars($authorId);
-        $countryId = htmlspecialchars($countryId);
+    ): BookModel {
+        $name        = htmlspecialchars($name);
+        $price       = htmlspecialchars($price);
+        $authorId    = htmlspecialchars($authorId);
+        $countryId   = htmlspecialchars($countryId);
         $publisherId = htmlspecialchars($publisherId);
-        $date = htmlspecialchars($date);
-        $categoryId = htmlspecialchars($categoryId);
+        $date        = htmlspecialchars($date);
+        $categoryId  = htmlspecialchars($categoryId);
 
         if (
             empty($name)
@@ -84,18 +84,20 @@ class CreateBookResource
         $stmtFirst = $stmt->prepare($query);
         $stmtFirst->execute([$name, $price, $date, $authorId, $publisherId, $countryId]);
 
-        $query = 'SELECT id FROM books WHERE name = ? AND author_id = ? AND publisher_id = ? LIMIT 1;';
+        $query = 'SELECT * FROM books WHERE name = ? AND author_id = ? AND publisher_id = ? LIMIT 1;';
         $stmtSecond = $stmt->prepare($query);
         $stmtSecond->execute([$name, $authorId, $publisherId]);
 
-        $id = $stmtSecond->fetch()['id'];
+        $data = $stmtSecond->fetch();
 
         $query = 'INSERT INTO books_categories (book_id, category_id) VALUES (?, ?)';
 
         $stmtThird = $stmt->prepare($query);
-        $stmtThird->execute([$id, $categoryId]);
+        $stmtThird->execute([$data['id'], $categoryId]);
 
-        header("Location: http://localhost:3000/book?id=$id");
-        return true;
+        $bookModel = new BookModel();
+        $bookModel->setData($data);
+
+        return $bookModel;
     }
 }

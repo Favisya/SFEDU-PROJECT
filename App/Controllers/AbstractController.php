@@ -25,6 +25,11 @@ abstract class AbstractController
 
     public function getPostParam(string $key)
     {
-        return $_POST["$key"] ?? null;
+        return $_POST[$key] ?? null;
+    }
+
+    public function redirect(string $path)
+    {
+        header("Location: http://localhost:3000/$path");
     }
 }

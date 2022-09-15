@@ -4,6 +4,7 @@ namespace App\Models\Resource;
 
 use App\Database\Database;
 use App\Exceptions\MvcException;
+use App\Models\BooksModel;
 
 class BooksResource
 {
@@ -27,6 +28,9 @@ class BooksResource
             $stmt->execute([$id]);
         }
 
-        return $stmt->fetchAll();
+        $booksModel = new BooksModel();
+        $booksModel->setData($stmt->fetchAll());
+
+        return $booksModel;
     }
 }

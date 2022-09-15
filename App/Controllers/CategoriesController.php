@@ -10,11 +10,8 @@ class CategoriesController extends AbstractController
 {
     public function execute()
     {
-        $categoriesModel = new CategoriesModel();
         $categoriesResource = new CategoriesResource();
-
-        $data = $categoriesResource->executeQuery();
-        $categoriesModel->setData($data);
+        $categoriesModel = $categoriesResource->executeQuery();
 
         $this->commonExecute('categories', $categoriesModel);
     }

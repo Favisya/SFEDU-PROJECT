@@ -10,11 +10,8 @@ class PublishersController extends AbstractController
 {
     public function execute()
     {
-        $publishersModel = new PublishersModel();
         $publishersResource = new PublishersResource();
-
-        $data = $publishersResource->executeQuery();
-        $publishersModel->setData($data);
+        $publishersModel = $publishersResource->executeQuery();
 
         $this->commonExecute('publishers', $publishersModel);
     }

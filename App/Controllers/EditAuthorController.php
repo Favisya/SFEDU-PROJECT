@@ -12,10 +12,7 @@ class EditAuthorController extends AbstractController
     public function execute()
     {
         $authorResource = new AuthorResource();
-        $authorModel = new AuthorModel();
-
-        $data = $authorResource->executeQuery($_GET['id']);
-        $authorModel->setData($data['info']);
+        $authorModel = $authorResource->executeQuery($_GET['id']);
 
         $this->commonExecute('createAuthor', $authorModel);
     }

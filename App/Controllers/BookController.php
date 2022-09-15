@@ -10,13 +10,8 @@ class BookController extends AbstractController
 {
     public function execute()
     {
-        $bookModel = new BookModel();
         $bookResource = new BookResource();
-
-        $data = $bookResource->executeQuery($_GET['id']);
-
-        $bookModel->setData($data['info']);
-        $bookModel->setLibs($data['books']);
+        $bookModel = $bookResource->executeQuery($_GET['id']);
 
         $this->commonExecute('book', $bookModel);
     }

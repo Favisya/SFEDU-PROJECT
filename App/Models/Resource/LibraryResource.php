@@ -4,10 +4,12 @@ namespace App\Models\Resource;
 
 use App\Database\Database;
 use App\Exceptions\MvcException;
+use App\Models\LibrariesModel;
+use App\Models\LibraryModel;
 
 class LibraryResource
 {
-    public function executeQuery($id)
+    public function executeQuery(int $id, int $limit = 3): LibraryModel
     {
         $db = Database::getInstance()->getConnection();
 
@@ -25,17 +27,21 @@ class LibraryResource
         $query = 'SELECT count(books_libraries.book_id) as count, books.name AS book
                   FROM books
                   JOIN books_libraries ON books.id = books_libraries.book_id
-                  WHERE library_id = ? GROUP BY books.name LIMIT 3;';
+                  WHERE library_id = ? GROUP BY books.name LIMIT ?;';
 
         $stmtSecond = $db->prepare($query);
-        $stmtSecond->execute([$id]);
+        $stmtSecond->execute([$id, $limit]);
 
         $data['books'] = $stmtSecond->fetchAll();
 
-        return $data;
+        $libraryModel = new LibraryModel();
+        $libraryModel->setData($data['info']);
+        $libraryModel->setBooks($data['books']);
+
+        return $libraryModel;
     }
 
-    public function createLibrary(string $name, string $address)
+    public function createLibrary(string $name, string $address): LibraryModel
     {
         $libName     = htmlspecialchars($name);
         $libAddress  = htmlspecialchars($address);
@@ -52,17 +58,17 @@ class LibraryResource
         $stmtFirst = $stmt->prepare($query);
         $stmtFirst->execute([$libName, $libAddress]);
 
-        $query      = 'SELECT id FROM libraries WHERE name = ? AND address = ?;';
+        $query      = 'SELECT * FROM libraries WHERE name = ? AND address = ?;';
         $stmtSecond = $stmt->prepare($query);
         $stmtSecond->execute([$libName, $libAddress]);
 
-        $id = $stmtSecond->fetch()['id'];
+        $libraryModel = new LibraryModel();
+        $libraryModel->setData($stmtSecond->fetch());
 
-        header("Location: http://localhost:3000/library?id=$id");
-        return true;
+        return $libraryModel;
     }
 
-    public function editLibrary(string $name, string $address, int $id): bool
+    public function editLibrary(string $name, string $address, int $id): LibraryModel
     {
         $name     = htmlspecialchars($name);
         $address  = htmlspecialchars($address);
@@ -75,10 +81,16 @@ class LibraryResource
         $stmt = $db->getConnection();
 
         $query = 'UPDATE libraries SET name = ?, address = ? WHERE id = ?;';
-        $stmt = $stmt->prepare($query);
-        $stmt->execute([$name, $address,  $id]);
+        $stmtFirst = $stmt->prepare($query);
+        $stmtFirst->execute([$name, $address,  $id]);
 
-        header("Location: http://localhost:3000/library?id=$id");
-        return true;
+        $query      = 'SELECT * FROM libraries WHERE name = ? AND address = ?;';
+        $stmtSecond = $stmt->prepare($query);
+        $stmtSecond->execute([$name, $address]);
+
+        $libraryModel = new LibraryModel();
+        $libraryModel->setData($stmtSecond->fetch());
+
+        return $libraryModel;
     }
 }

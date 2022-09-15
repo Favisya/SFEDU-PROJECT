@@ -10,10 +10,7 @@ class CountriesController extends AbstractController
 {
     public function execute()
     {
-        $countriesModel = new CountriesModel();
         $countriesResource = new CountriesResource();
-
-        $data = $countriesResource->executeQuery();
-        $countriesModel->setData($data);
+        $countriesResource->executeQuery();
     }
 }

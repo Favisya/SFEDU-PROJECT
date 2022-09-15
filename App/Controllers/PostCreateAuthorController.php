@@ -9,6 +9,7 @@ class PostCreateAuthorController extends AbstractController
     public function execute()
     {
         $authorResource = new AuthorResource();
-        $authorResource->createAuthor($_POST['authorName']);
+        $authorModel = $authorResource->createAuthor($_POST['authorName']);
+        $this->redirect('author?id=' . $authorModel->getData()['id']);
     }
 }

@@ -60,7 +60,7 @@ class EditBookResource
         int $publisherId,
         int $categoryId,
         int $id
-    ): bool {
+    ): BookModel {
         $name = htmlspecialchars($name);
         $price = htmlspecialchars($price);
         $authorId = htmlspecialchars($authorId);
@@ -100,10 +100,16 @@ class EditBookResource
 
         $query = 'UPDATE books_categories  SET category_id = ? WHERE book_id = ?';
 
-        $stmtThird = $stmt->prepare($query);
-        $stmtThird->execute([$categoryId, $id]);
+        $stmtSecond = $stmt->prepare($query);
+        $stmtSecond->execute([$categoryId, $id]);
 
-        header("Location: http://localhost:3000/book?id=$id");
-        return true;
+        $query = 'SELECT * FROM books WHERE id = ? LIMIT 1;';
+        $stmtThird = $stmt->prepare($query);
+        $stmtThird->execute([$id]);
+
+        $bookModel = new BookModel();
+        $bookModel->setData($stmtThird->fetch());
+
+        return $bookModel;
     }
 }
