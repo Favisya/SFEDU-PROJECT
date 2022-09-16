@@ -2,7 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Models\ModelAbstract;
+use App\Models\AbstractModel;
+use App\Models\Resource\Environment;
 
 abstract class AbstractController
 {
@@ -10,7 +11,7 @@ abstract class AbstractController
     {
     }
 
-    public function commonExecute(string $template, ModelAbstract $model = null, string $blockName = 'Block')
+    public function commonExecute(string $template, AbstractModel $model = null, string $blockName = 'Block')
     {
         $blockName = '\App\Blocks\\' . $blockName;
 
@@ -30,6 +31,7 @@ abstract class AbstractController
 
     public function redirect(string $path)
     {
-        header("Location: http://localhost:3000/$path");
+        $environment = new Environment();
+        header("Location: " . $environment->getUri() . $path);
     }
 }

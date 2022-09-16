@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class CategoriesModel extends ModelAbstract
+class CategoriesModel extends AbstractModel
 {
     private $data = [];
 

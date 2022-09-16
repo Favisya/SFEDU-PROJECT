@@ -3,12 +3,12 @@
 namespace App\Models\Resource;
 
 use App\Database\Database;
-use App\Models\ModelAbstract;
+use App\Models\AbstractModel;
 use App\Models\PublishersModel;
 
 class PublishersResource
 {
-    public function executeQuery(): ModelAbstract
+    public function executeQuery(): AbstractModel
     {
         $db = Database::getInstance()->getConnection();
 

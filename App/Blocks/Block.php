@@ -2,7 +2,7 @@
 
 namespace App\Blocks;
 
-use App\Models\ModelAbstract;
+use App\Models\AbstractModel;
 
 class Block
 {
@@ -14,7 +14,7 @@ class Block
         require_once APP_ROOT . '/App/templates/layout.phtml';
     }
 
-    public function setModel(ModelAbstract $model)
+    public function setModel(AbstractModel $model)
     {
         $this->model = $model;
     }

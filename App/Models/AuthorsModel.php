@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class AuthorsModel extends ModelAbstract
+class AuthorsModel extends AbstractModel
 {
     private $data = [];
 

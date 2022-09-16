@@ -7,7 +7,7 @@ use App\Models\AuthorsModel;
 use App\Models\BookModel;
 use App\Models\CategoriesModel;
 use App\Models\CountriesModel;
-use App\Models\ModelAbstract;
+use App\Models\AbstractModel;
 use App\Models\PublishersModel;
 
 class CreateBookResource
@@ -55,7 +55,7 @@ class CreateBookResource
         int $countryId,
         int $publisherId,
         int $categoryId
-    ): ModelAbstract {
+    ): AbstractModel {
         $name        = htmlspecialchars($name);
         $price       = htmlspecialchars($price);
         $authorId    = htmlspecialchars($authorId);

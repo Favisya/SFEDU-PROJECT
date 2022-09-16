@@ -2,11 +2,11 @@
 
 namespace App\Blocks;
 
-use App\Models\ModelAbstract;
+use App\Models\AbstractModel;
 
 class BookFormBlock extends Block
 {
-    public function setModel(ModelAbstract $model)
+    public function setModel(AbstractModel $model)
     {
         $this->model["$model"] = $model;
     }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class CountriesModel extends ModelAbstract
+class CountriesModel extends AbstractModel
 {
     private $data = [];
 

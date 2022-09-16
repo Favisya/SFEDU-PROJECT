@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\Resource\BookResource;
-use App\Models\Resource\LibraryResource;
 
 class DeleteBookController extends AbstractController
 {

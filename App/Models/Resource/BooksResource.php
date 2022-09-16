@@ -5,11 +5,11 @@ namespace App\Models\Resource;
 use App\Database\Database;
 use App\Exceptions\MvcException;
 use App\Models\BooksModel;
-use App\Models\ModelAbstract;
+use App\Models\AbstractModel;
 
 class BooksResource
 {
-    public function executeQuery(int $id): ModelAbstract
+    public function executeQuery(int $id): AbstractModel
     {
         if (!isset($id)) {
             throw new MvcException('Id is wrong');

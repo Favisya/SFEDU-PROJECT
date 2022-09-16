@@ -16,4 +16,8 @@ class Environment
         return $this->settings['DATABASE'];
     }
 
+    public function getUri()
+    {
+        return $this->settings['URI'];
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-abstract class ModelAbstract
+abstract class AbstractModel
 {
     public function getData(): ?array
     {

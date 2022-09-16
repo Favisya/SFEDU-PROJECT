@@ -21,8 +21,6 @@ class Router
             return new Controllers\HomePageController();
         }
 
-
-
         $class = ucfirst($uri);
         $class = $class . 'Controller';
 
