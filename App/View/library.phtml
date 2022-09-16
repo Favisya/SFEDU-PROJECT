@@ -24,8 +24,8 @@
                     Редактировать
                 </a>
 
-                <a href="/books?author_id=<?= $data['id']?>" class="entity-container__button">
-                    Книги
+                <a href="/deleteLibrary?id=<?= $data['id']?>" class="entity-container__button">
+                    Удалить
                 </a>
             </div>
         </div>
@@ -45,7 +45,7 @@
                     <?php endforeach;?>
                 </div>
             </div>
-            <a href="" class="entity-container__button">
+            <a href="/books?author_id=<?= $data['id']?>" class="entity-container__button">
                 Все книги
             </a>
         </div>

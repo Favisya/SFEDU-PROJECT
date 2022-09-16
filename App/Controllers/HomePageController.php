@@ -8,6 +8,6 @@ class HomePageController extends AbstractController
 {
     public function execute()
     {
-        $this->commonExecute('500');
+        $this->commonExecute('homepage');
     }
 }

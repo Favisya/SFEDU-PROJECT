@@ -93,4 +93,18 @@ class LibraryResource
 
         return $libraryModel;
     }
+
+    public function deleteLibrary(int $id)
+    {
+        $db = Database::getInstance()->getConnection();
+
+        $query = 'DELETE FROM books_libraries where library_id = ?';
+
+        $stmt = $db->prepare($query);
+        $stmt->execute([$id]);
+
+        $query = 'DELETE FROM libraries WHERE id = ?';
+        $stmt = $db->prepare($query);
+        $stmt->execute([$id]);
+    }
 }

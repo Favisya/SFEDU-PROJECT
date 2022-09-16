@@ -56,4 +56,13 @@ class BookResource
 
         return $bookModel;
     }
+
+    public function deleteBook(int $id): void
+    {
+        $db = Database::getInstance()->getConnection();
+
+        $query = 'DELETE FROM books WHERE id = ?';
+        $stmt = $db->prepare($query);
+        $stmt->execute($id);
+    }
 }
