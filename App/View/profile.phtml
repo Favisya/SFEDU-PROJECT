@@ -1,0 +1,34 @@
+<?php
+/**
+ * @var App\Blocks\Block $this->model $this of block class for user session
+ */
+?>
+
+<?php $data = $this->model->getData() ?>
+
+<div class="content-container">
+    <div class="entity-container">
+        <div class="entity-container__side-block">
+
+            <div class="entity-container__info-block">
+                <h2><?= $data['name'] ?> <?= $data['surname'] ?></h2>
+            </div>
+
+            <div class="entity-container__left-buttons">
+                <a
+                    class="entity-container__button"
+                    href="/logOut"
+                >
+                    Выйти
+                </a>
+
+                <a
+                    class="entity-container__button"
+                    href="/modifyUser"
+                >
+                    Редактировать
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

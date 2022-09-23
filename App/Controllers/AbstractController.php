@@ -34,4 +34,13 @@ abstract class AbstractController
         $environment = new Environment();
         header("Location: " . $environment->getUri() . $path);
     }
+
+    public function checkSession(): bool
+    {
+        if (isset($_SESSION['id']))
+        {
+            return true;
+        }
+        return false;
+    }
 }

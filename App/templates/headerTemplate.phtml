@@ -1,3 +1,4 @@
+
 <header class="header">
 
     <nav class="navigation">
@@ -32,6 +33,20 @@
                 </a>
             </li>
 
+        </ul>
+
+
+        <ul class="navigation__list">
+            <?php if (!isset($_SESSION['id'])) {
+            require_once 'loginButton.phtml';
+            }
+            ?>
+
+            <li class="navigation__marker">
+                <a href="/profile" class="navigation__link">
+                    Профиль
+                </a>
+            </li>
         </ul>
     </nav>
 

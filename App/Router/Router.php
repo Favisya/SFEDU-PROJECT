@@ -8,6 +8,8 @@ class Router
 {
     public function parseControllers(string $path): ?Controllers\AbstractController
     {
+        session_start();
+
         $firstSymbol  = strpos($path, '/');
         $secondSymbol = strpos($path, '?');
 
@@ -21,12 +23,16 @@ class Router
             return new Controllers\HomePageController();
         }
 
+        if ($uri == 'registration') {
+            return new Controllers\RegistrationController();
+        }
+
         $class = ucfirst($uri);
         $class = $class . 'Controller';
 
         $class = 'App\Controllers\\' . $class;
 
-        if (class_exists($class)) {
+        if (class_exists($class) && isset($_SESSION['id'])) {
             if ($_SERVER['REQUEST_METHOD'] == 'GET' && stripos($uri, 'create') !== false) {
                 return new $class();
             } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && stripos($uri, 'create') !== false) {
@@ -50,6 +56,8 @@ class Router
             }
 
             return new $class();
+        } elseif(!isset($_SESSION['id'])) {
+            return new Controllers\LoginController();
         }
 
         return new Controllers\Error404Controller();

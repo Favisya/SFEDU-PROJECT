@@ -18,6 +18,6 @@ class Environment
 
     public function getUri()
     {
-        return $this->settings['URI'];
+        return reset($this->settings['URI']);
     }
 }

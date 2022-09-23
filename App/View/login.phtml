@@ -1,0 +1,52 @@
+<?php
+/**
+ * @var App\Blocks\Block $this->model $this of block class for registration
+ */
+?>
+<div class="content-container">
+    <form method="post" action="">
+        <div class="entity-container entity-container_column">
+            <div class="entity-container__input-row">
+                <label for="login">
+                    Логин
+                </label>
+                <input
+                    id="login"
+                    name="login"
+                    placeholder="Логин"
+                    value=""
+                    required
+                >
+            </div>
+
+            <div class="entity-container__input-row">
+                <label for="password">
+                    Пароль
+                </label>
+                <input
+                    id="password"
+                    name="password"
+                    placeholder="Пароль"
+                    type="password"
+                    required
+                >
+            </div>
+
+            <div class="entity-container__input-row">
+                <input
+                    class="entity-container__button"
+                    type="submit"
+                    name="newLib"
+                    value="Войти"
+                >
+
+                <a
+                    class="entity-container__button"
+                    href="/registration"
+                >
+                    Еще не зарегистрированы?
+                </a>
+            </div>
+        </div>
+    </form>
+</div>

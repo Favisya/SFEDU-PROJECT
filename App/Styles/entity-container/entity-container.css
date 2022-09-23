@@ -61,7 +61,6 @@
     background-color: #D3C2C2;
 }
 
-
 .entity-container__left-buttons {
     display: flex;
     justify-content: space-between;
@@ -97,4 +96,5 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 0 10px;
 }
