@@ -27,7 +27,7 @@ CREATE TABLE `authors` (
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `authors` (
 
 LOCK TABLES `authors` WRITE;
 /*!40000 ALTER TABLE `authors` DISABLE KEYS */;
-INSERT INTO `authors` VALUES (11,'123123123'),(9,'Balackaya A.N.'),(5,'Bunin I.A.'),(7,'Butenko A.S.'),(3,'Dostoevskiy F.M.'),(8,'Kravcov N.A.'),(4,'Marit Kapla'),(2,'Mayakovskiy V.V.'),(1,'Pushkin A.S.'),(10,'Slesarenko Vladislav'),(6,'Vikulin D.A.');
+INSERT INTO `authors` VALUES (15,'aas'),(26,'asdaasdasd'),(28,'asdasdasd'),(17,'asdasdasdasd123123'),(5,'Bunin I.A.'),(7,'Butenko A.S.'),(3,'Dostoevskiy F.M.'),(18,'gdfdaad2dfsd'),(29,'gfdfg'),(8,'Kravcov N.A.'),(4,'Marit Kapl'),(2,'Mayakovskiy V.V.'),(19,'prikolishsda'),(1,'Pushkin A.S.'),(10,'Slesarenko Vladislav'),(6,'Vikulin D.A.'),(12,'Zalupa');
 /*!40000 ALTER TABLE `authors` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -71,7 +71,7 @@ CREATE TABLE `books` (
 
 LOCK TABLES `books` WRITE;
 /*!40000 ALTER TABLE `books` DISABLE KEYS */;
-INSERT INTO `books` VALUES (1,'How to be cool in sex',1069,'2022-01-01',1,1,1),(2,'How to be cool in sex part2',1069,'2023-01-01',1,1,1),(3,'How to be cool in sex part3',1069,'2025-01-01',1,1,1),(4,'How to be cool in sex part4',1069,'2029-01-01',1,1,1),(5,'How to be cool in sex part5',1069,'2029-01-01',2,2,2),(6,'everlasting summer',410,'2017-01-01',6,7,1),(7,'everlasting summer p2',410,'2020-01-01',2,4,9),(8,'everlasting summer p3',410,'2021-01-01',4,3,5),(9,'everlasting summer p4',410,'2022-01-01',6,6,6),(10,'everlasting summer p5',410,'2022-01-01',9,9,9),(11,'123123',123123,'2022-09-15',9,4,8),(12,'123',123,'2022-08-30',9,4,8),(13,'123123',123123,'2022-08-29',9,4,8),(14,'234234',234234234,'0002-12-31',9,4,8),(15,'234234',234234234,'0002-12-31',9,4,8),(16,'234234',234234234,'0002-12-31',9,4,8),(17,'123123',12312312,'2022-09-20',9,4,8),(18,'123123',123123,'2022-09-18',2,9,9),(19,'123123',123123,'2022-09-18',2,9,9),(20,'123123',12312312,'2022-09-20',9,4,8),(21,'234234',234234234,'0002-12-31',9,4,8),(22,'234234',234234234,'0002-12-31',9,4,8),(23,'sanya loh',3222,'2022-08-30',9,4,8),(24,'sanya loh',3222,'2022-08-30',9,4,8),(25,'123123',12313,'0123-02-13',9,4,8),(26,'123123',12313,'0123-02-13',9,4,8),(27,'123123',12313,'0123-02-13',9,4,8),(28,'123123',12313,'0123-02-13',9,4,8),(29,'123123',12313,'0123-02-13',9,4,8),(30,'21312',31231,'0231-12-31',9,4,8),(31,'21312',31231,'0231-12-31',9,4,8),(32,'21312',31231,'0231-12-31',9,4,8),(33,'21312',31231,'0231-12-31',9,4,8),(34,'21312',31231,'0231-12-31',9,4,8),(35,'aaaaa',123,'0001-12-23',9,4,8),(36,'aaaaa',123,'0001-12-23',9,4,8),(37,'123123123',12312313,'3123-12-31',9,4,8),(38,'123123123',12312313,'3123-12-31',9,4,8),(39,'123123',123123,'1111-11-11',9,4,8),(40,'12312',12,'1111-11-11',9,4,8),(41,'12312',12,'1111-11-11',9,4,8),(42,'213123',123123,'1111-11-11',9,4,8),(43,'213123',123123,'1111-11-11',9,4,8),(44,'ghhhh',123,'1223-11-23',9,4,8),(45,'3123',12312,'2221-11-12',9,4,8),(46,'1231',1231,'1113-11-11',9,4,8),(47,'12312',123123,'2112-12-31',9,4,8),(48,'123123',12312,'1222-12-31',9,4,8),(49,'123',3213,'1111-11-11',9,4,8),(50,'123123',123123,'2322-12-31',9,4,8),(51,'123123',123123,'2312-12-31',9,4,8),(52,'12313123',1212312312,'1222-11-23',9,4,8),(53,'123123',123123,'2222-12-31',9,4,8),(54,'543543',543543,'1223-02-12',6,3,11),(55,'554545',12312,'2112-12-31',11,4,8),(56,'545454545',5445454545,'2222-11-11',11,4,8),(57,'12312312',123123123,'0221-11-22',4,1,8);
+INSERT INTO `books` VALUES (2,'How to be cool in sex part2',1069,'2023-01-01',1,1,1),(3,'How to be cool in sex part3',1069,'2025-01-01',1,1,1),(4,'How to be cool in sex part4',1069,'2029-01-01',1,1,1),(5,'How to be cool in sex part5',1069,'2029-01-01',2,2,2),(6,'everlasting summer',410,'2017-01-01',6,7,1),(7,'everlasting summer p2',410,'2020-01-01',2,4,9),(8,'everlasting summer p3',410,'2021-01-01',4,3,5),(9,'everlasting summer p4',410,'2022-01-01',6,6,6),(18,'123123',123123,'2022-09-18',2,9,9),(19,'123123',123123,'2022-09-18',2,9,9),(54,'543543',543543,'1223-02-12',6,3,11),(57,'12312312',123123123,'0221-11-22',4,1,8);
 /*!40000 ALTER TABLE `books` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,7 +98,7 @@ CREATE TABLE `books_categories` (
 
 LOCK TABLES `books_categories` WRITE;
 /*!40000 ALTER TABLE `books_categories` DISABLE KEYS */;
-INSERT INTO `books_categories` VALUES (1,1),(2,3),(2,7),(4,7),(5,7),(5,6),(5,5),(5,8),(4,8),(7,8),(7,4),(3,4),(3,7),(2,7),(2,6),(2,8),(3,8),(9,8),(9,4),(9,6),(3,6),(3,7),(2,7),(2,7);
+INSERT INTO `books_categories` VALUES (2,3),(2,7),(4,7),(5,7),(5,6),(5,5),(5,8),(4,8),(7,8),(7,4),(3,4),(3,7),(2,7),(2,6),(2,8),(3,8),(9,8),(9,4),(9,6),(3,6),(3,7),(2,7),(2,7);
 /*!40000 ALTER TABLE `books_categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,35 +125,35 @@ CREATE TABLE `books_libraries` (
 
 LOCK TABLES `books_libraries` WRITE;
 /*!40000 ALTER TABLE `books_libraries` DISABLE KEYS */;
-INSERT INTO `books_libraries` VALUES (1,1),(2,1),(3,1),(4,1),(5,4),(1,4),(3,4),(2,4),(6,4),(5,1),(5,4),(5,5),(5,8),(6,8),(7,8),(8,8),(9,8),(9,1);
+INSERT INTO `books_libraries` VALUES (2,1),(3,1),(4,1),(5,4),(3,4),(2,4),(6,4),(5,1),(5,4),(5,5),(5,8),(6,8),(7,8),(8,8),(9,8),(9,1);
 /*!40000 ALTER TABLE `books_libraries` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `books_racks`
+-- Table structure for table `books_users`
 --
 
-DROP TABLE IF EXISTS `books_racks`;
+DROP TABLE IF EXISTS `books_users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `books_racks` (
+CREATE TABLE `books_users` (
   `book_id` int(11) DEFAULT NULL,
-  `rack_id` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   KEY `book_id` (`book_id`),
-  KEY `rack_id` (`rack_id`),
-  CONSTRAINT `books_racks_ibfk_1` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `books_racks_ibfk_2` FOREIGN KEY (`rack_id`) REFERENCES `racks` (`id`) ON DELETE CASCADE
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `books_users_ibfk1` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `books_users_ibfk2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `books_racks`
+-- Dumping data for table `books_users`
 --
 
-LOCK TABLES `books_racks` WRITE;
-/*!40000 ALTER TABLE `books_racks` DISABLE KEYS */;
-INSERT INTO `books_racks` VALUES (1,1),(2,1),(3,1),(4,1),(4,2),(6,1),(7,1),(8,1),(9,1),(9,2),(9,4),(9,7),(9,6),(4,6),(5,6),(3,6);
-/*!40000 ALTER TABLE `books_racks` ENABLE KEYS */;
+LOCK TABLES `books_users` WRITE;
+/*!40000 ALTER TABLE `books_users` DISABLE KEYS */;
+INSERT INTO `books_users` VALUES (3,37),(2,37),(2,37);
+/*!40000 ALTER TABLE `books_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -223,7 +223,7 @@ CREATE TABLE `libraries` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `address` (`address`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -232,7 +232,7 @@ CREATE TABLE `libraries` (
 
 LOCK TABLES `libraries` WRITE;
 /*!40000 ALTER TABLE `libraries` DISABLE KEYS */;
-INSERT INTO `libraries` VALUES (1,'Chekhov lib','Grecheskaya'),(2,'Chlidren lib','Frunze'),(3,'WAQ','USA'),(4,'Prikoli mnoga','Lenina'),(5,'California freedom','walnut greek'),(6,'Vlad lib','Chekhova 57'),(7,'Nikita lib','Chekhova 57/1'),(8,'Sanya lib','Chekhova 57/2'),(9,'Alisa lib','Chekhova 57/3'),(10,'Dima lib','Chekhova 57/4'),(11,'2432423','2324234234'),(12,'new page new life','anasdlfjanslfkjaskjdfalskjdfalskj');
+INSERT INTO `libraries` VALUES (1,'Chekhov lib','Grecheskaya'),(2,'Chlidren lib','Frunze'),(3,'WAQ','USA'),(4,'Prikoli mnoga','Lenina'),(5,'California freedom','walnut greek'),(6,'Vlad lib','Chekhova 57'),(7,'Nikita lib','Chekhova 57/1'),(8,'Sanya lib','Chekhova 57/2'),(9,'Alisa lib','Chekhova 57/3'),(10,'Dima lib','Chekhova 57/4'),(11,'Alisa','New Taganrog'),(12,'new page new life','anasdlfjanslfkjaskjdfalskjdfalskj'),(15,'nice cockcc','asdasdasdsdasadadsdasd'),(18,'super nice cock ','asdasd'),(20,'sadagfdgdcxv','gvbdbdcvzxcv');
 /*!40000 ALTER TABLE `libraries` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,11 +299,12 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(16) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `password` varchar(256) NOT NULL,
   `name` varchar(16) NOT NULL,
   `surname` varchar(16) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `users_login_uindex` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,7 +313,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'123','123','',''),(2,'$login','$password','',''),(3,'$login','$password','',''),(4,'$login','$password','',''),(5,'$login','$password','',''),(6,'Favis','Favis','',''),(7,'sdfasdfas','sdfasdfasdf','',''),(8,'123123','24234234','',''),(9,'ewrwerwq','werwerwr','',''),(10,'ewrwerwq','werwerwr','',''),(11,'342545345','24243241323','',''),(12,'342545345','24243241323','',''),(13,'asd','asd','','');
+INSERT INTO `users` VALUES (36,'Favisdd','123','asdasda','asdasd'),(37,'Favis','$2y$10$GA7aym45cRo8ME1w9Zc0A.UjKxgPXykIo8EQqhN53F/F4WZ5HyQ4q','Dimon','Vikulin'),(45,'Favisfgds','$2y$10$aZaJR5aaibvohcmubtaCaOW6L6NvlsYqW3SXQ/pqT5ZeInP40s1Re','123','123'),(46,'Favisfgdsasdsd','$2y$10$dgknAcyF3kBtCQZeT.ILO.tJkfo4dlNk9ikf9U0V4S68VoazmN5A.','123','123'),(47,'Sansan','$2y$10$NlCj.Y2VU9wY7RM7SBKYkOpJ1GIB7AiB.Q0n1ZH.VqpeoFgEZIL6a','123','123'),(48,'PrIK','$2y$10$MrI9bnHY1rcZ2IXaI8A.MuuSKNSQcz/QiD5VkZHZlKf9hgMWJdlHC','PRIK','PRIK'),(52,'Dimon','$2y$10$oBwRDgJtKSBlXeQQqNW0EOBKbyFdFH31NsLVJ7D.kvXa1l5A3nQOK','Dimon','Dimon'),(53,'Alisa','$2y$10$6juyAyDx/gfEKKeQ3Ego2unkg5wJsbE9IyNQQ0QPa0Nn/tTqwU0Qe','Alisa','Alisa'),(54,'BIba','$2y$10$qFG31DnSwTGYJLkKANCdOuumzHnm4totjy//Kb0BMj6BqZ.59sL8C','BIba','BIba'),(55,'boba','$2y$10$qZlKLM1N112n1ItTpZkbBuW9LbLOVi77G0VDx0urIXQhNmHuFMfie','boba','boba'),(60,'Favis123123','$2y$10$2gMuJE8br780kZ3Guxr9k.UvVVdMWA2zKD5nvdGo4RB1vLj8jBQaW','12312312','123123'),(61,'Popa','$2y$10$PjVXpu/sUJE44I2xzJYF/OsFaC/mF68xvY3acxGNrG2MlP9HzNZfu','Popa','Popa');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -325,4 +326,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-09-07 14:13:31
+-- Dump completed on 2022-09-26 15:52:44
