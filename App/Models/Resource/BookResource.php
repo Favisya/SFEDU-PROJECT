@@ -63,6 +63,15 @@ class BookResource
 
         $query = 'DELETE FROM books WHERE id = ?';
         $stmt = $db->prepare($query);
-        $stmt->execute($id);
+        $stmt->execute([$id]);
+    }
+
+    public function takeBook(int $book_id, int $user_id): void
+    {
+        $db = Database::getInstance()->getConnection();
+
+        $query = 'INSERT INTO books_users (book_id, user_id) VALUES (?, ?)';
+        $stmt = $db->prepare($query);
+        $stmt->execute([$book_id, $user_id]);
     }
 }

@@ -34,4 +34,25 @@ class BooksResource
 
         return $booksModel;
     }
+
+    public function getTookenBooks(int $user_id)
+    {
+        if (!isset($user_id)) {
+            throw new MvcException('Id is wrong');
+        }
+
+        $db = Database::getInstance()->getConnection();
+
+        $query = 'SELECT books.id, books.name FROM books
+            JOIN books_users ON books.id = books_users.book_id
+            WHERE user_id = ?';
+
+        $stmt = $db->prepare($query);
+        $stmt->execute([$user_id]);
+
+        $booksModel = new BooksModel();
+        $booksModel->setData($stmt->fetchAll());
+
+        return $booksModel;
+    }
 }

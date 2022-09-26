@@ -37,8 +37,7 @@ abstract class AbstractController
 
     public function checkSession(): bool
     {
-        if (isset($_SESSION['id']))
-        {
+        if (isset($_SESSION['id'])) {
             return true;
         }
         return false;
