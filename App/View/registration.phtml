@@ -2,13 +2,13 @@
 /**
  * @var App\Blocks\Block $this->model $this of block class for registration
  */
-?>
-
-<?php
- $data = $this->model->getData();
+ $err  = $this->model->getError();
+ if (isset($err)) {
+     require_once APP_ROOT . '/App/templates/error.phtml';
+ }
 ?>
 <div class="content-container">
-    <form method="post" action="">
+    <form method="post" action="/postRegistration">
         <div class="entity-container entity-container_column">
             <div class="entity-container__input-row">
                 <label for="login">
@@ -18,7 +18,6 @@
                     id="login"
                     name="login"
                     placeholder="Логин"
-                    value="<?= $data['login']?>"
                     required
                 >
             </div>
@@ -31,7 +30,6 @@
                     id="name"
                     name="name"
                     placeholder="Имя"
-                    value="<?= $data['name']?>"
                     required
                 >
             </div>
@@ -44,7 +42,6 @@
                     id="surname"
                     name="surname"
                     placeholder="фамилия"
-                    value="<?= $data['surname']?>"
                     required
                 >
             </div>

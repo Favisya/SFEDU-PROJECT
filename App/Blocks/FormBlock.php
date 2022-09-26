@@ -4,7 +4,7 @@ namespace App\Blocks;
 
 use App\Models\AbstractModel;
 
-class BookFormBlock extends Block
+class FormBlock extends Block
 {
     public function setModel(AbstractModel $model)
     {

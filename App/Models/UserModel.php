@@ -15,4 +15,9 @@ class UserModel extends AbstractModel
     {
         return $this->data ?? null;
     }
+
+    public function __toString()
+    {
+        return 'user';
+    }
 }

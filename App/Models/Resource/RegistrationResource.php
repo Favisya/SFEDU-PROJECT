@@ -5,7 +5,7 @@ namespace App\Models\Resource;
 use App\Database\Database;
 use App\Models\SessionModel;
 
-class RegistrationResource
+class RegistrationResource extends AbstractResource
 {
     public function executeQuery(string $login, string $password, string $name, string $surname)
     {

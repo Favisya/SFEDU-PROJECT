@@ -27,6 +27,10 @@ class Router
             return new Controllers\RegistrationController();
         }
 
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' && stripos($uri, 'postRegistration') !== false) {
+            return new Controllers\PostRegistrationController();
+        }
+
         $class = ucfirst($uri);
         $class = $class . 'Controller';
 
@@ -57,6 +61,9 @@ class Router
 
             return new $class();
         } elseif(!isset($_SESSION['id'])) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && stripos($uri, 'postLogin') !== false) {
+                return new Controllers\PostLoginController();
+            }
             return new Controllers\LoginController();
         }
 

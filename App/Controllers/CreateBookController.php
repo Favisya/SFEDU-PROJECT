@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Blocks\BookFormBlock;
+use App\Blocks\FormBlock;
 use App\Models\Resource\CreateBookResource;
 
 class CreateBookController extends AbstractController
@@ -10,7 +10,7 @@ class CreateBookController extends AbstractController
     public function execute()
     {
         $resource = new CreateBookResource();
-        $block = new BookFormBlock();
+        $block = new FormBlock();
         $block->setTemplate('createBook');
 
         $models = $resource->executeQuery();

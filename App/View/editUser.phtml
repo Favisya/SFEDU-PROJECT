@@ -1,27 +1,46 @@
 <?php
 /**
- * @var App\Blocks\Block $this->model $this of block class for registration
+ * @var App\Blocks\Block $this->model $this of block class for edit user
  */
-$err  = $this->model->getError();
-if (isset($err)) {
+?>
+
+<?php
+ $data = $this->model['user']->getData();
+ $err  = $this->model['session']->getError();
+ if (isset($err)) {
     require_once APP_ROOT . '/App/templates/error.phtml';
-}
+ }
 ?>
 <div class="content-container">
-    <form method="post" action="/postLogin">
+    <form method="post" action="/editUser">
         <div class="entity-container entity-container_column">
+
             <div class="entity-container__input-row">
-                <label for="login">
-                    Логин
+                <label for="name">
+                    Имя
                 </label>
                 <input
-                    id="login"
-                    name="login"
-                    placeholder="Логин"
-                    value=""
+                    id="name"
+                    name="name"
+                    placeholder="Имя"
+                    value="<?= $data['name']?>"
                     required
                 >
             </div>
+
+            <div class="entity-container__input-row">
+                <label for="surname">
+                    Фамилия
+                </label>
+                <input
+                    id="surname"
+                    name="surname"
+                    placeholder="фамилия"
+                    value="<?= $data['surname']?>"
+                    required
+                >
+            </div>
+
 
             <div class="entity-container__input-row">
                 <label for="password">
@@ -41,14 +60,14 @@ if (isset($err)) {
                     class="entity-container__button"
                     type="submit"
                     name="newLib"
-                    value="Войти"
+                    value="Изменить"
                 >
 
                 <a
                     class="entity-container__button"
-                    href="/registration"
+                    href="/profile"
                 >
-                    Еще не зарегистрированы?
+                    Отмена
                 </a>
             </div>
         </div>
