@@ -8,7 +8,7 @@ use App\Models\AbstractModel;
 
 class AuthorsResource
 {
-    public function executeQuery(): AbstractModel
+    public function getAuthors(): AbstractModel
     {
         $db = Database::getInstance()->getConnection();
         $query = 'SELECT * FROM authors';

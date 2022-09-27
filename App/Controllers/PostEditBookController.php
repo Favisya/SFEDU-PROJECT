@@ -18,14 +18,14 @@ class PostEditBookController extends AbstractController
 
         $resource = new EditBookResource();
         $bookModel = $resource->editBook(
-            $_POST['bookName'],
-            $_POST['bookDate'],
-            $_POST['bookPrice'],
-            $_POST['authorId'],
-            $_POST['countryId'],
-            $_POST['publisherId'],
-            $_POST['categoryId'],
-            $_GET['id']
+            $this->getPostParam('bookName'),
+            $this->getPostParam('bookDate'),
+            $this->getPostParam('bookPrice'),
+            $this->getPostParam('authorId'),
+            $this->getPostParam('countryId'),
+            $this->getPostParam('publisherId'),
+            $this->getPostParam('categoryId'),
+            $this->getParam('id')
         );
 
         $this->redirect('book?id=' . $bookModel->getData()['id']);

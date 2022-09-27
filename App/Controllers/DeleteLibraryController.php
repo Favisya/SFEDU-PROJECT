@@ -9,7 +9,7 @@ class DeleteLibraryController extends AbstractController
     public function execute()
     {
         $resource = new LibraryResource();
-        $resource->deleteLibrary($_GET['id']);
+        $resource->deleteLibrary($this->getParam('id'));
         $this->redirect('libraries');
     }
 }

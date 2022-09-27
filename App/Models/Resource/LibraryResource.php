@@ -9,7 +9,7 @@ use App\Models\AbstractModel;
 
 class LibraryResource
 {
-    public function executeQuery(int $id, int $limit = 3): AbstractModel
+    public function getLibrary(int $id, int $limit = 3): AbstractModel
     {
         $db = Database::getInstance()->getConnection();
 

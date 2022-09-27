@@ -12,7 +12,7 @@ use App\Models\PublishersModel;
 
 class CreateBookResource
 {
-    public function executeQuery(): array
+    public function getBookInfo(): array
     {
         $db = Database::getInstance()->getConnection();
 

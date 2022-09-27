@@ -9,7 +9,7 @@ class LoginController extends AbstractController
 {
     public function execute()
     {
-        if ($this->checkSession()) {
+        if ($this->isLoggedIn()) {
             $this->redirect('profile');
         }
 

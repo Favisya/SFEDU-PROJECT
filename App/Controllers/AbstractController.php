@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\AbstractModel;
 use App\Models\Resource\Environment;
+use App\Models\SessionModel;
 
 abstract class AbstractController
 {
@@ -29,15 +30,21 @@ abstract class AbstractController
         return $_POST[$key] ?? null;
     }
 
+    public function getParam(string $key)
+    {
+        return $_GET[$key] ?? null;
+    }
+
     public function redirect(string $path)
     {
         $environment = new Environment();
         header("Location: " . $environment->getUri() . $path);
     }
 
-    public function checkSession(): bool
+    public function isLoggedIn(): bool
     {
-        if (isset($_SESSION['id'])) {
+        $session = SessionModel::getInstance()->getUserId();
+        if (isset($session)) {
             return true;
         }
         return false;

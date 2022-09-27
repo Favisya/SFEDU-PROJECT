@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\AccountService;
 use App\Models\Resource\LoginResource;
 use App\Models\SessionModel;
 
@@ -10,9 +11,12 @@ class PostLoginController extends AbstractController
     public function execute()
     {
         $resource = new LoginResource();
-        $verify = $resource->executeQuery($_POST['login'], $_POST['password']);
+        $loginInfo = $resource->takePassword($this->getPostParam('login'));
 
-        if (!$verify) {
+        $accServiceModel = new AccountService();
+        $isExists = $accServiceModel->checkPassword($this->getPostParam('password'), $loginInfo);
+
+        if (!$isExists) {
             SessionModel::getInstance()->setError('Неправильный логин или пароль');
             $this->redirect('login');
         }

@@ -9,7 +9,10 @@ class PostEditAuthorController extends AbstractController
     public function execute()
     {
         $authorResource = new AuthorResource();
-        $authorModel = $authorResource->editAuthor($_POST['authorName'], $_GET['id']);
+        $authorModel = $authorResource->editAuthor(
+            $this->getPostParam('authorName'),
+            $this->getParam('id')
+        );
         $this->redirect('author?id=' . $authorModel->getData()['id']);
     }
 }

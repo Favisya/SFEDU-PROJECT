@@ -13,7 +13,7 @@ class EditBookController extends AbstractController
         $block = new FormBlock();
         $block->setTemplate('createBook');
 
-        $models = $resource->executeQuery($_GET['id']);
+        $models = $resource->executeQuery($this->getParam('id'));
 
         foreach ($models as $model) {
             $block->setModel($model);

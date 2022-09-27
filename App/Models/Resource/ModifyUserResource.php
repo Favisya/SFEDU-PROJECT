@@ -15,7 +15,7 @@ class ModifyUserResource extends AbstractResource
         $surname  = htmlspecialchars($surname);
         $id       = htmlspecialchars($id);
 
-        $password = password_hash($password, 1);
+        $password = $this->hashPassword($password);
 
         $query = 'UPDATE users set password = ?, name = ?, surname = ? WHERE id = ?';
         $db = Database::getInstance()->getConnection();

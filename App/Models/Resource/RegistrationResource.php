@@ -7,14 +7,14 @@ use App\Models\SessionModel;
 
 class RegistrationResource extends AbstractResource
 {
-    public function executeQuery(string $login, string $password, string $name, string $surname)
+    public function createUser(string $login, string $password, string $name, string $surname)
     {
         $login    = htmlspecialchars($login);
         $password = htmlspecialchars($password);
         $name     = htmlspecialchars($name);
         $surname  = htmlspecialchars($surname);
 
-        $password = password_hash($password, 1);
+        $password = $this->hashPassword($password);
 
         $query = 'INSERT INTO users (login, password, name, surname) VALUES (?, ?, ?, ?)';
         $db = Database::getInstance()->getConnection();

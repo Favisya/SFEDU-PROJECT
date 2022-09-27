@@ -11,7 +11,7 @@ class EditUserController extends AbstractController
     public function execute()
     {
         $resource = new ModifyUserResource();
-        $userModel = $resource->getUser($_SESSION['id']);
+        $userModel = $resource->getUser(SessionModel::getInstance()->getUserId());
 
         $block = new FormBlock();
         $block->setModel($userModel);

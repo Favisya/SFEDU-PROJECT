@@ -8,7 +8,7 @@ use App\Models\AbstractModel;
 
 class LibrariesResource
 {
-    public function executeQuery(): AbstractModel
+    public function getLibraries(): AbstractModel
     {
         $db = Database::getInstance()->getConnection();
         $query = 'SELECT * FROM libraries;';

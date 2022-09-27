@@ -8,7 +8,7 @@ use App\Models\AbstractModel;
 
 class CategoriesResource
 {
-    public function executeQuery(): AbstractModel
+    public function getCategories(): AbstractModel
     {
         $query = 'SELECT * FROM categories;';
 

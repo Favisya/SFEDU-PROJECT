@@ -9,9 +9,8 @@ class ProfileController extends AbstractController
 {
     public function execute()
     {
-        $sessionModel = SessionModel::getInstance();
         $resource = new ProfileResource();
-        $userModel = $resource->executeQuery($_SESSION['id']);
+        $userModel = $resource->getUserInfo(SessionModel::getInstance()->getUserId());
         $this->commonExecute('profile', $userModel);
     }
 }

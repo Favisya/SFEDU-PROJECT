@@ -37,10 +37,7 @@
 
 
         <ul class="navigation__list">
-            <?php if (!isset($_SESSION['id'])) {
-            require_once 'loginButton.phtml';
-            }
-            ?>
+            <?php $this->isLoggedIn()?>
 
             <li class="navigation__marker">
                 <a href="/profile" class="navigation__link">

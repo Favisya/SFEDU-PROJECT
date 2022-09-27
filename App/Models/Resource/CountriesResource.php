@@ -8,7 +8,7 @@ use App\Models\AbstractModel;
 
 class CountriesResource
 {
-    public function executeQuery(): AbstractModel
+    public function getCountries(): AbstractModel
     {
         $db = Database::getInstance()->getConnection();
 

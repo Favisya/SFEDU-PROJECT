@@ -11,16 +11,16 @@ class PostRegistrationController extends AbstractController
     {
         $resource = new RegistrationResource();
 
-        $isExist = $resource->checkLogin($_POST['login']);
+        $isExist = $resource->checkLogin($this->getPostParam('login'));
         if ($isExist) {
             SessionModel::getInstance()->setError('Логин уже занят');
             $this->redirect('registration');
         } else {
-            $resource->executeQuery(
-                $_POST['login'],
-                $_POST['password'],
-                $_POST['name'],
-                $_POST['surname']
+            $resource->createUser(
+                $this->getPostParam('login'),
+                $this->getPostParam('password'),
+                $this->getPostParam('name'),
+                $this->getPostParam('surname')
             );
             $this->redirect('login');
         }

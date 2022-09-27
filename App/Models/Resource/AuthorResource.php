@@ -9,7 +9,7 @@ use App\Models\AbstractModel;
 
 class AuthorResource
 {
-    public function executeQuery(int $id, int $limit = 3): AbstractModel
+    public function getAuthor(int $id, int $limit = 3): AbstractModel
     {
         if ($id == 0 || $id < 0 || !isset($id)) {
             throw new MvcException('id is wrong');

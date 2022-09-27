@@ -3,12 +3,14 @@
 namespace App\Router;
 
 use App\Controllers;
+use App\Models\SessionModel;
 
 class Router
 {
     public function parseControllers(string $path): ?Controllers\AbstractController
     {
-        session_start();
+        SessionModel::getInstance()->runSession();
+        $sessionId = SessionModel::getInstance()->getUserId();
 
         $firstSymbol  = strpos($path, '/');
         $secondSymbol = strpos($path, '?');
@@ -36,7 +38,7 @@ class Router
 
         $class = 'App\Controllers\\' . $class;
 
-        if (class_exists($class) && isset($_SESSION['id'])) {
+        if (class_exists($class) && isset($sessionId)) {
             if ($_SERVER['REQUEST_METHOD'] == 'GET' && stripos($uri, 'create') !== false) {
                 return new $class();
             } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && stripos($uri, 'create') !== false) {
@@ -60,7 +62,7 @@ class Router
             }
 
             return new $class();
-        } elseif (!isset($_SESSION['id'])) {
+        } elseif (!isset($sessionId)) {
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && stripos($uri, 'postLogin') !== false) {
                 return new Controllers\PostLoginController();
             }

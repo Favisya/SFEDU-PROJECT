@@ -9,7 +9,7 @@ class CategoriesController extends AbstractController
     public function execute()
     {
         $categoriesResource = new CategoriesResource();
-        $categoriesModel = $categoriesResource->executeQuery();
+        $categoriesModel = $categoriesResource->getCategories();
 
         $this->commonExecute('categories', $categoriesModel);
     }

@@ -9,7 +9,7 @@ class LibrariesController extends AbstractController
     public function execute()
     {
         $librariesResource = new LibrariesResource();
-        $librariesModel = $librariesResource->executeQuery();
+        $librariesModel = $librariesResource->getLibraries();
 
         $this->commonExecute('libraries', $librariesModel);
     }

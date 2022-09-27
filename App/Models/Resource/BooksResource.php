@@ -9,7 +9,7 @@ use App\Models\AbstractModel;
 
 class BooksResource
 {
-    public function executeQuery(int $id): AbstractModel
+    public function getBooks(int $id): AbstractModel
     {
         if (!isset($id)) {
             throw new MvcException('Id is wrong');

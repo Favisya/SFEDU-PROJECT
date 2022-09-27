@@ -10,7 +10,7 @@ class RegistrationController extends AbstractController
 {
     public function execute()
     {
-        if ($this->checkSession()) {
+        if ($this->isLoggedIn()) {
             $this->redirect('profile');
         }
         $this->commonExecute('registration', SessionModel::getInstance());

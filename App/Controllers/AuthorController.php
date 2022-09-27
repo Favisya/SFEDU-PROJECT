@@ -10,7 +10,7 @@ class AuthorController extends AbstractController
     {
         $authorResource = new AuthorResource();
 
-        $authorModel = $authorResource->executeQuery($_GET['id']);
+        $authorModel = $authorResource->getAuthor($this->getParam('id'));
 
         $this->commonExecute('author', $authorModel);
     }

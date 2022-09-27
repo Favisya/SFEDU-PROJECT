@@ -11,10 +11,10 @@ class PostEditUserController extends AbstractController
     {
         $resource = new ModifyUserResource();
         $resource->executeQuery(
-            $_POST['password'],
-            $_POST['name'],
-            $_POST['surname'],
-            $_SESSION['id']
+            $this->getPostParam('password'),
+            $this->getPostParam('name'),
+            $this->getPostParam('surname'),
+            SessionModel::getInstance()->getUserId()
         );
 
         $this->redirect('profile');

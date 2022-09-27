@@ -13,7 +13,7 @@ class CreateBookController extends AbstractController
         $block = new FormBlock();
         $block->setTemplate('createBook');
 
-        $models = $resource->executeQuery();
+        $models = $resource->getBookInfo();
 
         foreach ($models as $model) {
             $block->setModel($model);

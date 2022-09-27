@@ -30,9 +30,14 @@ class SessionModel extends AbstractModel
         session_destroy();
     }
 
-    public function setData(array $data)
+    public function setUserData(array $data)
     {
-        $_SESSION['id'] = $data['id'];
+        $_SESSION['user']['id'] = $data['id'];
+    }
+
+    public function getUserId(): ?int
+    {
+        return $_SESSION['user']['id'] ?? null;
     }
 
     public function setError(string $error)

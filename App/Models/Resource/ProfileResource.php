@@ -7,7 +7,7 @@ use App\Models\UserModel;
 
 class ProfileResource
 {
-    public function executeQuery(int $id)
+    public function getUserInfo(int $id)
     {
         $query = 'SELECT name, surname, login FROM users WHERE id = ?';
         $db    = Database::getInstance()->getConnection();

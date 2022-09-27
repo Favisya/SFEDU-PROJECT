@@ -16,4 +16,9 @@ class AbstractResource
         $isExists = $stmt->fetch();
         return reset($isExists);
     }
+
+    public function hashPassword(string $password)
+    {
+        return password_hash($password, PASSWORD_DEFAULT);
+    }
 }

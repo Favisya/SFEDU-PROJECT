@@ -9,6 +9,6 @@ class CountriesController extends AbstractController
     public function execute()
     {
         $countriesResource = new CountriesResource();
-        $countriesResource->executeQuery();
+        $countriesResource->getCountries();
     }
 }

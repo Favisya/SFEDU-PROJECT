@@ -8,7 +8,7 @@ use App\Models\PublishersModel;
 
 class PublishersResource
 {
-    public function executeQuery(): AbstractModel
+    public function getPublishers(): AbstractModel
     {
         $db = Database::getInstance()->getConnection();
 

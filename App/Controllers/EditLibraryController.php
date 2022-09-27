@@ -9,7 +9,7 @@ class EditLibraryController extends AbstractController
     public function execute()
     {
         $libraryResource = new LibraryResource();
-        $libraryModel = $libraryResource->executeQuery($_GET['id']);
+        $libraryModel = $libraryResource->getLibrary($this->getParam('id'));
 
         $this->commonExecute('createLibrary', $libraryModel);
     }
