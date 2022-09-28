@@ -44,9 +44,6 @@ abstract class AbstractController
     public function isLoggedIn(): bool
     {
         $session = SessionModel::getInstance()->getUserId();
-        if (isset($session)) {
-            return true;
-        }
-        return false;
+        return isset($session);
     }
 }

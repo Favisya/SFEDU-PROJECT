@@ -10,11 +10,13 @@ class PostLoginController extends AbstractController
 {
     public function execute()
     {
-        $resource = new LoginResource();
-        $loginInfo = $resource->takePassword($this->getPostParam('login'));
+        $AccountModel = new AccountService();
+        $AccountModel->setResource(new LoginResource());
 
-        $accServiceModel = new AccountService();
-        $isExists = $accServiceModel->checkPassword($this->getPostParam('password'), $loginInfo);
+        $isExists = $AccountModel->authenticate(
+            $this->getPostParam('login'),
+            $this->getPostParam('password')
+        );
 
         if (!$isExists) {
             SessionModel::getInstance()->setError('Неправильный логин или пароль');

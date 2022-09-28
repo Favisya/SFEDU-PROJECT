@@ -5,9 +5,9 @@ namespace App\Models\Resource;
 use App\Database\Database;
 use App\Models\SessionModel;
 
-class LoginResource
+class LoginResource extends AbstractResource
 {
-    public function takePassword(string $login)
+    public function getUserByLogin(string $login)
     {
         $login = htmlspecialchars($login);
 

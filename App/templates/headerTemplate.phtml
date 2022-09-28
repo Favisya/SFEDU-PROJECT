@@ -37,7 +37,9 @@
 
 
         <ul class="navigation__list">
-            <?php $this->isLoggedIn()?>
+            <?php if (!$this->isLoggedIn()) {
+                $this->renderLoginButton();
+            } ?>
 
             <li class="navigation__marker">
                 <a href="/profile" class="navigation__link">

@@ -25,12 +25,10 @@ class Block
         require_once APP_ROOT . '/App/templates/loginButton.phtml';
     }
 
-    public function isLoggedIn()
+    public function isLoggedIn(): bool
     {
         $sessionId = SessionModel::getInstance()->getUserId();
-        if (!isset($sessionId)) {
-            $this->renderLoginButton();
-        }
+        return isset($sessionId);
     }
 
     public function setTemplate(string $template)
