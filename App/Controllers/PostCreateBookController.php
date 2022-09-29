@@ -16,6 +16,8 @@ class PostCreateBookController extends AbstractController
             }
         }
 
+        $this->handleToken();
+
         $resource = new CreateBookResource();
         $bookModel = $resource->createBook(
             $this->getPostParam('bookName'),

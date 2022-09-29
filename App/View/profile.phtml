@@ -11,7 +11,7 @@
         <div class="entity-container__side-block">
 
             <div class="entity-container__info-block">
-                <h2><?= $data['name'] ?> <?= $data['surname'] ?></h2>
+                <h2><?= htmlspecialchars($data['name']) ?> <?= htmlspecialchars($data['surname']) ?></h2>
             </div>
 
             <div class="entity-container__left-buttons">

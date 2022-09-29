@@ -8,6 +8,7 @@ class CreateAuthorController extends AbstractController
 {
     public function execute()
     {
+        $this->setToken();
         $authorModel = new AuthorModel();
         $this->commonExecute('createAuthor', $authorModel);
     }

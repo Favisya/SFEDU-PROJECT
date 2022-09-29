@@ -8,8 +8,8 @@
 
     <div class="entity-container entity-container_list">
         <?php foreach ($this->model->getData() as $publisher): ?>
-            <a href="../publisher?id=<?= $publisher['id']?>" class="entity-container__button">
-                <h2><?= $publisher['name']?></h2>
+            <a href="../publisher?id=<?= htmlspecialchars($publisher['id']) ?>" class="entity-container__button">
+                <h2><?= htmlspecialchars($publisher['name']) ?></h2>
             </a>
         <?php endforeach; ?>
     </div>

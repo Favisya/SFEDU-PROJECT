@@ -8,6 +8,7 @@ class PostCreateLibraryController extends AbstractController
 {
     public function execute()
     {
+        $this->handleToken();
         $LibraryResource = new LibraryResource();
         $libraryModel = $LibraryResource->createLibrary(
             $this->getPostParam('libName'),

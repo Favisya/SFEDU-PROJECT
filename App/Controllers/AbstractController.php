@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\MvcException;
 use App\Models\AbstractModel;
 use App\Models\Resource\Environment;
 use App\Models\SessionModel;
@@ -45,5 +46,26 @@ abstract class AbstractController
     {
         $session = SessionModel::getInstance()->getUserId();
         return isset($session);
+    }
+
+    public function setToken()
+    {
+        SessionModel::getInstance()->setToken();
+    }
+
+    public function handleToken()
+    {
+        if (!$this->checkToken($this->getPostParam('token'))) {
+            throw new MvcException('Invalid token');
+        }
+    }
+
+
+    private function checkToken(string $token): bool
+    {
+        if (SessionModel::getInstance()->getToken() != $token) {
+            return false;
+        }
+        return true;
     }
 }

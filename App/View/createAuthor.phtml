@@ -7,6 +7,14 @@
     <div class="entity-container">
             <form method="post" action="">
                 <div class="entity-container__input-row">
+
+                    <input
+                        id="token"
+                        name="token"
+                        type="hidden"
+                        value="<?= $this->getToken() ?>"
+                    >
+
                     <label for="authorName">
                         ФИО автора:
                     </label>

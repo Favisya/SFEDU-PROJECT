@@ -8,6 +8,13 @@
     <form method="post" action="">
         <div class="entity-container entity-container_column">
 
+            <input
+                    id="token"
+                    name="token"
+                    type="hidden"
+                    value="<?= $this->getToken() ?>"
+            >
+
             <div class="entity-container__input-row">
                 <label for="libName"> Название библиотеки</label>
                 <input

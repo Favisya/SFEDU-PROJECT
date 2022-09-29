@@ -10,6 +10,8 @@ class RegistrationController extends AbstractController
 {
     public function execute()
     {
+        $this->setToken();
+
         if ($this->isLoggedIn()) {
             $this->redirect('profile');
         }

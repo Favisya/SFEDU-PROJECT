@@ -9,6 +9,7 @@ class PostEditBookController extends AbstractController
 {
     public function execute()
     {
+        $this->handleToken();
         $keys = array_keys($_POST);
         foreach ($keys as $key) {
             if (!$this->getPostParam($key)) {

@@ -9,6 +9,7 @@ class PostEditUserController extends AbstractController
 {
     public function execute()
     {
+        $this->handleToken();
         $resource = new ModifyUserResource();
         $resource->executeQuery(
             $this->getPostParam('password'),

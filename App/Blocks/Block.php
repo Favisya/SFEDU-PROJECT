@@ -35,4 +35,9 @@ class Block
     {
         $this->template = $template;
     }
+
+    public function getToken(): string
+    {
+        return SessionModel::getInstance()->getToken();
+    }
 }

@@ -55,8 +55,19 @@ class SessionModel extends AbstractModel
         return $err;
     }
 
+    public function getToken(): string
+    {
+        return $_SESSION['user']['token'];
+    }
+
     public function __toString()
     {
         return 'session';
+    }
+
+
+    public function setToken()
+    {
+        $_SESSION['user']['token'] = hash('sha256', random_bytes(16));
     }
 }

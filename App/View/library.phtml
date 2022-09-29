@@ -12,19 +12,19 @@
             $data = $this->model->getData();
             ?>
             <div class="entity-container__info-block">
-                <h2><?= $data['name'] ?></h2>
+                <h2><?= htmlspecialchars($data['name']) ?></h2>
             </div>
 
             <div class="entity-container__info-block">
-                <h2> Адрес: <?= $data['address'] ?></h2>
+                <h2> Адрес: <?= htmlspecialchars($data['address']) ?></h2>
             </div>
 
             <div class="entity-container__left-buttons">
-                <a href="/editLibrary?id=<?= $data['id']?>" class="entity-container__button">
+                <a href="/editLibrary?id=<?= htmlspecialchars($data['id']) ?>" class="entity-container__button">
                     Редактировать
                 </a>
 
-                <a href="/deleteLibrary?id=<?= $data['id']?>" class="entity-container__button">
+                <a href="/deleteLibrary?id=<?= htmlspecialchars($data['id']) ?>" class="entity-container__button">
                     Удалить
                 </a>
             </div>
@@ -39,13 +39,13 @@
                     </div>
                     <?php foreach ($this->model->getBooks() as $library): ?>
                         <div class="table__row">
-                            <div class="table__field"><?=$library['count'] ?></div>
-                            <div class="table__field"><?=$library['book'] ?></div>
+                            <div class="table__field"><?= htmlspecialchars($library['count']) ?></div>
+                            <div class="table__field"><?= htmlspecialchars($library['book']) ?></div>
                         </div>
                     <?php endforeach;?>
                 </div>
             </div>
-            <a href="/books?author_id=<?= $data['id']?>" class="entity-container__button">
+            <a href="/books?author_id=<?= htmlspecialchars($data['id']) ?>" class="entity-container__button">
                 Все книги
             </a>
         </div>

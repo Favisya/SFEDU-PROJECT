@@ -10,6 +10,8 @@ class PostLoginController extends AbstractController
 {
     public function execute()
     {
+        $this->handleToken();
+
         $AccountModel = new AccountService();
         $AccountModel->setResource(new LoginResource());
 

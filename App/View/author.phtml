@@ -12,15 +12,15 @@
             $data = $this->model->getData();
             ?>
             <div class="entity-container__info-block">
-                <h2><?= $data['name'] ?></h2>
+                <h2><?= htmlspecialchars($data['name']) ?></h2>
             </div>
 
             <div class="entity-container__left-buttons">
-                <a href="/editAuthor?id=<?= $data['id']?>" class="entity-container__button">
+                <a href="/editAuthor?id=<?= htmlspecialchars($data['id']) ?>" class="entity-container__button">
                     Редактировать
                 </a>
 
-                <a href="/deleteAuthor?id= <?= $data['id']?>" class="entity-container__button">
+                <a href="/deleteAuthor?id= <?= htmlspecialchars($data['id']) ?>" class="entity-container__button">
                     Удалить
                 </a>
             </div>
@@ -35,13 +35,13 @@
                     </div>
                     <?php foreach ($this->model->getBooks() as $author): ?>
                         <div class="table__row">
-                            <div class="table__field"><?=$author['year'] ?></div>
-                            <div class="table__field"><?=$author['name'] ?></div>
+                            <div class="table__field"><?= htmlspecialchars($author['year']) ?></div>
+                            <div class="table__field"><?= htmlspecialchars($author['name']) ?></div>
                         </div>
                     <?php endforeach;?>
                 </div>
             </div>
-            <a href="/books?author_id=<?= $data['id']?>" class="entity-container__button">
+            <a href="/books?author_id=<?= htmlspecialchars($data['id']) ?>" class="entity-container__button">
                 Все книги
             </a>
         </div>

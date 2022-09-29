@@ -9,6 +9,8 @@ class PostRegistrationController extends AbstractController
 {
     public function execute()
     {
+        $this->handleToken();
+
         $resource = new RegistrationResource();
 
         $isExist = $resource->checkLogin($this->getPostParam('login'));

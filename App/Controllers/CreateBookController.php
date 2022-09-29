@@ -9,6 +9,7 @@ class CreateBookController extends AbstractController
 {
     public function execute()
     {
+        $this->setToken();
         $resource = new CreateBookResource();
         $block = new FormBlock();
         $block->setTemplate('createBook');

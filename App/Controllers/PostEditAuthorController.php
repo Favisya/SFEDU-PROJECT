@@ -8,6 +8,7 @@ class PostEditAuthorController extends AbstractController
 {
     public function execute()
     {
+        $this->handleToken();
         $authorResource = new AuthorResource();
         $authorModel = $authorResource->editAuthor(
             $this->getPostParam('authorName'),

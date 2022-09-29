@@ -6,7 +6,7 @@
 
 <ul>
     <?php foreach ($this->model->getData() as $item):?>
-        <li><?= $item['name'] ?></li>
+        <li><?= htmlspecialchars($item['name']) ?></li>
     <?php endforeach; ?>
 </ul>
 

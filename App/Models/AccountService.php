@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Resource\AbstractResource;
-use App\Models\SessionModel;
 
 class AccountService
 {
