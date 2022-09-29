@@ -50,12 +50,13 @@ abstract class AbstractController
 
     public function validateForm(string $key): bool
     {
-        $patternName = '/^[A-Z][a-z][1-9]*$/';
-        if (preg_match($patternName, $this->getPostParam($key)) == false) {
+        $patternName = '/^[a-zA-Z0-9]*$/';
+        $isValid = preg_match($patternName, $this->getPostParam($key));
+        if ($isValid) {
+            return true;
+        } else {
             throw new MvcException('Incorrect input data');
         }
-
-        return true;
     }
 
     public function setToken()
