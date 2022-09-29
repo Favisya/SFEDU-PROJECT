@@ -18,15 +18,17 @@ class PostCreateBookController extends AbstractController
 
         $this->handleToken();
 
+        $this->validateForm('bookName');
+
         $resource = new CreateBookResource();
         $bookModel = $resource->createBook(
             $this->getPostParam('bookName'),
             $this->getPostParam('bookDate'),
+            $this->getPostParam('bookPrice'),
             $this->getPostParam('authorId'),
             $this->getPostParam('countryId'),
             $this->getPostParam('publisherId'),
             $this->getPostParam('categoryId'),
-            $this->getPostParam('bookName')
         );
 
         $this->redirect('book?id=' . $bookModel->getData()['id']);

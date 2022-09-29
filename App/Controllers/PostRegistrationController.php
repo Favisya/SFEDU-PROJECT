@@ -10,6 +10,9 @@ class PostRegistrationController extends AbstractController
     public function execute()
     {
         $this->handleToken();
+        $this->validateForm('login');
+        $this->validateForm('name');
+        $this->validateForm('surname');
 
         $resource = new RegistrationResource();
 

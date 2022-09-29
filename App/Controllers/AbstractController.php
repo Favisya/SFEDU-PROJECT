@@ -48,6 +48,16 @@ abstract class AbstractController
         return isset($session);
     }
 
+    public function validateForm(string $key): bool
+    {
+        $patternName = '/^[A-Z][a-z][1-9]*$/';
+        if (preg_match($patternName, $this->getPostParam($key)) == false) {
+            throw new MvcException('Incorrect input data');
+        }
+
+        return true;
+    }
+
     public function setToken()
     {
         SessionModel::getInstance()->setToken();
