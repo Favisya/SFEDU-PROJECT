@@ -66,8 +66,8 @@ class SessionModel extends AbstractModel
     }
 
 
-    public function setToken()
+    public function setToken(string $token)
     {
-        $_SESSION['user']['token'] = hash('sha256', random_bytes(16));
+        $_SESSION['user']['token'] = $token;
     }
 }

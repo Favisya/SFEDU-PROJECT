@@ -2,15 +2,17 @@
 /**
  * @var App\Blocks\Block $this->model $this of block class for books
  */
+
+$model = $this->getModel()
 ?>
 
 <div class="content-container content-container_list">
 
     <div class="entity-container entity-container_list">
-        <?php foreach ($this->model->getData() as $book): ?>
-            <a href="/book?id=<?= $book['id'] ?>" class="entity-container__button">
-                <h2><?= htmlspecialchars($book['name']) ?></h2>
-                <h3><?= htmlspecialchars($book['author']) ?></h3>
+        <?php foreach ($model->getData() as $book): ?>
+            <a href="/book?id=<?= $this->toNormalText($book->getId()) ?>" class="entity-container__button">
+                <h2><?= $this->toNormalText($book->getName()) ?></h2>
+                <h3><?= $this->toNormalText($book->getAuthor()) ?></h3>
             </a>
         <?php endforeach; ?>
     </div>
@@ -44,7 +46,7 @@
             Философия
         </a>
 
-        <a href="../createBook" class="recommend-list__element">
+        <a href="/createBook" class="recommend-list__element">
             Добавить книгу
         </a>
     </div>

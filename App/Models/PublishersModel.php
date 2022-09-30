@@ -6,7 +6,7 @@ class PublishersModel extends AbstractModel
 {
     private $data = [];
 
-    public function getData(): array
+    public function getData(): ?array
     {
         return $this->data;
     }

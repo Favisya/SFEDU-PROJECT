@@ -6,6 +6,7 @@ use App\Database\Database;
 use App\Exceptions\MvcException;
 use App\Models\AuthorModel;
 use App\Models\AbstractModel;
+use App\Models\BookModel;
 
 class AuthorResource
 {
@@ -25,14 +26,20 @@ class AuthorResource
             throw new MvcException('Info not found');
         }
 
-        $query = 'SELECT name, year FROM books WHERE author_id = ? limit ?';
+        $query = 'SELECT name, year AS date FROM books WHERE author_id = ? limit ?';
         $stmtSecond = $db->prepare($query);
         $stmtSecond->execute([$id, $limit]);
-        $data['books'] = $stmtSecond->fetchAll();
+
+        $books = [];
+        foreach ($stmtSecond->fetchAll() as $book) {
+            $bookModel = new BookModel();
+            $bookModel->setData($book);
+            $books[] = $bookModel;
+        }
 
         $authorModel = new AuthorModel();
         $authorModel->setData($data['info']);
-        $authorModel->setBooks($data['books']);
+        $authorModel->setBooks($books);
 
         return $authorModel;
     }

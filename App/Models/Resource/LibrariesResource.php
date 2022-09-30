@@ -3,8 +3,10 @@
 namespace App\Models\Resource;
 
 use App\Database\Database;
+use App\Models\AuthorModel;
 use App\Models\LibrariesModel;
 use App\Models\AbstractModel;
+use App\Models\LibraryModel;
 
 class LibrariesResource
 {
@@ -16,7 +18,14 @@ class LibrariesResource
         $stmt = $db->query($query);
 
         $librariesModel = new LibrariesModel();
-        $librariesModel->setData($stmt->fetchAll());
+
+        $libraries = [];
+        foreach ($stmt->fetchAll() as $author) {
+            $libModel = new LibraryModel();
+            $libModel->setData($author);
+            $libraries[] = $libModel;
+        }
+        $librariesModel->setData($libraries);
 
         return $librariesModel;
     }

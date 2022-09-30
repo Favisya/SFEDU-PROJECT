@@ -4,6 +4,7 @@ namespace App\Models\Resource;
 
 use App\Database\Database;
 use App\Exceptions\MvcException;
+use App\Models\BookModel;
 use App\Models\LibraryModel;
 use App\Models\AbstractModel;
 
@@ -24,7 +25,7 @@ class LibraryResource
             throw new MvcException('Info not found');
         }
 
-        $query = 'SELECT count(books_libraries.book_id) as count, books.name AS book
+        $query = 'SELECT count(books_libraries.book_id) as count, books.name AS name
                   FROM books
                   JOIN books_libraries ON books.id = books_libraries.book_id
                   WHERE library_id = ? GROUP BY books.name LIMIT ?;';
@@ -32,11 +33,17 @@ class LibraryResource
         $stmtSecond = $db->prepare($query);
         $stmtSecond->execute([$id, $limit]);
 
-        $data['books'] = $stmtSecond->fetchAll();
+        $books = [];
+
+        foreach ($stmtSecond->fetchAll() as $book) {
+            $bookModel = new BookModel();
+            $bookModel->setData($book);
+            $books[] = $bookModel;
+        }
 
         $libraryModel = new LibraryModel();
         $libraryModel->setData($data['info']);
-        $libraryModel->setBooks($data['books']);
+        $libraryModel->setBooks($books);
 
         return $libraryModel;
     }

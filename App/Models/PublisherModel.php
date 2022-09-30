@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-class AuthorModel extends AbstractModel
+class PublisherModel extends AbstractModel
 {
-    private $data  = [];
-    private $books = [];
+    private $data = [];
 
     public function getData(): ?array
     {
@@ -22,18 +21,8 @@ class AuthorModel extends AbstractModel
         return $this->data['id'] ?? null;
     }
 
-    public function getBooks()
-    {
-        return $this->books;
-    }
-
     public function setData(array $data)
     {
         $this->data = $data;
-    }
-
-    public function setBooks(array $data)
-    {
-        $this->books = $data;
     }
 }

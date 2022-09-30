@@ -2,29 +2,27 @@
 /**
  * @var App\Blocks\Block $this->model $this of block class for library
  */
+
+$model = $this->getModel();
 ?>
 
 <div class="content-container">
     <div class="entity-container">
         <div class="entity-container__side-block">
-
-            <?php
-            $data = $this->model->getData();
-            ?>
             <div class="entity-container__info-block">
-                <h2><?= htmlspecialchars($data['name']) ?></h2>
+                <h2><?= $this->toNormalText($model->getName()) ?></h2>
             </div>
 
             <div class="entity-container__info-block">
-                <h2> Адрес: <?= htmlspecialchars($data['address']) ?></h2>
+                <h2> Адрес: <?= $this->toNormalText($model->getAddress()) ?></h2>
             </div>
 
             <div class="entity-container__left-buttons">
-                <a href="/editLibrary?id=<?= htmlspecialchars($data['id']) ?>" class="entity-container__button">
+                <a href="/editLibrary?id=<?= $this->toNormalText($model->getId()) ?>" class="entity-container__button">
                     Редактировать
                 </a>
 
-                <a href="/deleteLibrary?id=<?= htmlspecialchars($data['id']) ?>" class="entity-container__button">
+                <a href="/deleteLibrary?id=<?= $this->toNormalText($model->getId()) ?>" class="entity-container__button">
                     Удалить
                 </a>
             </div>
@@ -37,15 +35,15 @@
                         <div class="table__field">кол-во</div>
                         <div class="table__field">Книга</div>
                     </div>
-                    <?php foreach ($this->model->getBooks() as $library): ?>
+                    <?php foreach ($model->getBooks() as $book): ?>
                         <div class="table__row">
-                            <div class="table__field"><?= htmlspecialchars($library['count']) ?></div>
-                            <div class="table__field"><?= htmlspecialchars($library['book']) ?></div>
+                            <div class="table__field"><?= $this->toNormalText($book->getCount()) ?></div>
+                            <div class="table__field"><?= $this->toNormalText($book->getName()) ?></div>
                         </div>
                     <?php endforeach;?>
                 </div>
             </div>
-            <a href="/books?author_id=<?= htmlspecialchars($data['id']) ?>" class="entity-container__button">
+            <a href="/books?author_id=<?= $this->toNormalText($model->getId()) ?>" class="entity-container__button">
                 Все книги
             </a>
         </div>

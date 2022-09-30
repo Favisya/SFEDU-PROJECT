@@ -20,11 +20,6 @@ class Block
         $this->model = $model;
     }
 
-    private function renderLoginButton()
-    {
-        require_once APP_ROOT . '/App/templates/loginButton.phtml';
-    }
-
     public function isLoggedIn(): bool
     {
         $sessionId = SessionModel::getInstance()->getUserId();
@@ -39,5 +34,25 @@ class Block
     public function getToken(): string
     {
         return SessionModel::getInstance()->getToken();
+    }
+
+    public function renderToken(): void
+    {
+        require_once APP_ROOT . '/App/templates/formToken.phtml';
+    }
+
+    public function toNormalText(string $data)
+    {
+        return htmlspecialchars($data);
+    }
+
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    private function renderLoginButton()
+    {
+        require_once APP_ROOT . '/App/templates/loginButton.phtml';
     }
 }

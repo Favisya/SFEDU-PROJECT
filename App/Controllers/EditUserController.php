@@ -10,7 +10,6 @@ class EditUserController extends AbstractController
 {
     public function execute()
     {
-        $this->setToken();
         $resource = new ModifyUserResource();
         $userModel = $resource->getUser(SessionModel::getInstance()->getUserId());
 

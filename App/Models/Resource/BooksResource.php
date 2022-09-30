@@ -4,6 +4,7 @@ namespace App\Models\Resource;
 
 use App\Database\Database;
 use App\Exceptions\MvcException;
+use App\Models\BookModel;
 use App\Models\BooksModel;
 use App\Models\AbstractModel;
 
@@ -29,8 +30,15 @@ class BooksResource
             $stmt->execute([$id]);
         }
 
+        $books = [];
+        foreach ($stmt->fetchAll() as $book) {
+            $bookModel = new BookModel();
+            $bookModel->setData($book);
+            $books[] = $bookModel;
+        }
+
         $booksModel = new BooksModel();
-        $booksModel->setData($stmt->fetchAll());
+        $booksModel->setData($books);
 
         return $booksModel;
     }
@@ -50,8 +58,15 @@ class BooksResource
         $stmt = $db->prepare($query);
         $stmt->execute([$user_id]);
 
+        $books = [];
+        foreach ($stmt->fetchAll() as $book) {
+            $bookModel = new BookModel();
+            $bookModel->setData($book);
+            $books[] = $bookModel;
+        }
+
         $booksModel = new BooksModel();
-        $booksModel->setData($stmt->fetchAll());
+        $booksModel->setData($books);
 
         return $booksModel;
     }

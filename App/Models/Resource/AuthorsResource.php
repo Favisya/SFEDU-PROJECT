@@ -3,6 +3,7 @@
 namespace App\Models\Resource;
 
 use App\Database\Database;
+use App\Models\AuthorModel;
 use App\Models\AuthorsModel;
 use App\Models\AbstractModel;
 
@@ -16,7 +17,14 @@ class AuthorsResource
         $stmt = $db->query($query);
 
         $authorsModel = new AuthorsModel();
-        $authorsModel->setData($stmt->fetchAll());
+
+        $authors = [];
+        foreach ($stmt->fetchAll() as $author) {
+            $authorModel = new AuthorModel();
+            $authorModel->setData($author);
+            $authors[] = $authorModel;
+        }
+        $authorsModel->setData($authors);
 
         return $authorsModel;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Exceptions\CSRFException;
 use App\Exceptions\MvcException;
 use App\Models\AbstractModel;
 use App\Models\Resource\Environment;
@@ -48,35 +49,38 @@ abstract class AbstractController
         return isset($session);
     }
 
-    public function validateForm(string $key): bool
+    public function validateForm(array $keys)
     {
-        $patternName = '/^[a-zA-Z0-9]*$/';
-        $isValid = preg_match($patternName, $this->getPostParam($key));
-        if ($isValid) {
-            return true;
-        } else {
-            throw new MvcException('Incorrect input data');
+        $patternName = '/^[a-zA-Z0-9 ]*$/';
+        foreach ($keys as $key) {
+            $isValid = preg_match($patternName, $this->getPostParam($key));
+            if ($isValid) {
+            } else {
+                throw new MvcException('Incorrect input data');
+            }
         }
     }
 
     public function setToken()
     {
-        SessionModel::getInstance()->setToken();
+        SessionModel::getInstance()->setToken($this->generateToken());
     }
 
     public function handleToken()
     {
         if (!$this->checkToken($this->getPostParam('token'))) {
-            throw new MvcException('Invalid token');
+            throw new CSRFException('Invalid token');
         }
     }
 
 
     private function checkToken(string $token): bool
     {
-        if (SessionModel::getInstance()->getToken() != $token) {
-            return false;
-        }
-        return true;
+        return SessionModel::getInstance()->getToken() === $token;
+    }
+
+    private function generateToken()
+    {
+        return hash('sha256', random_bytes(16));
     }
 }

@@ -10,13 +10,7 @@
 <div class="content-container">
     <form method="post" action="/postRegistration">
         <div class="entity-container entity-container_column">
-
-            <input
-                    id="token"
-                    name="token"
-                    type="hidden"
-                    value="<?= $this->getToken() ?>"
-            >
+            <?php $this->renderToken() ?>
 
             <div class="entity-container__input-row">
                 <label for="login">

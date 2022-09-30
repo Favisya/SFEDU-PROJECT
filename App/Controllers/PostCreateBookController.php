@@ -18,7 +18,7 @@ class PostCreateBookController extends AbstractController
 
         $this->handleToken();
 
-        $this->validateForm('bookName');
+        $this->validateForm(['bookName']);
 
         $resource = new CreateBookResource();
         $bookModel = $resource->createBook(

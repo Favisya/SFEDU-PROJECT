@@ -3,7 +3,9 @@
 namespace App\AppFacade;
 
 use App\Controllers\Error404Controller;
+use App\Controllers\Error403Controller;
 use App\Controllers\Error500Controller;
+use App\Exceptions\CSRFException;
 use App\Exceptions\MvcException;
 use App\Router\Router;
 
@@ -36,6 +38,9 @@ class AppFacade
             $controller->execute();
         } catch (\Exception $e) {
             $controller = new Error500Controller();
+            $controller->execute();
+        } catch (CSRFException $e) {
+            $controller = new Error403Controller();
             $controller->execute();
         }
     }

@@ -3,11 +3,13 @@
 namespace App\Models\Resource;
 
 use App\Database\Database;
+use App\Models\AuthorModel;
 use App\Models\AuthorsModel;
 use App\Models\BookModel;
 use App\Models\CategoriesModel;
 use App\Models\CountriesModel;
 use App\Models\AbstractModel;
+use App\Models\PublisherModel;
 use App\Models\PublishersModel;
 
 class EditBookResource
@@ -19,7 +21,15 @@ class EditBookResource
         $query = 'SELECT * FROM authors';
         $stmt = $db->query($query);
         $authorsModel = new AuthorsModel();
-        $authorsModel->setData($stmt->fetchAll());
+
+        $authors = [];
+        foreach ($stmt->fetchAll() as $author) {
+            $authorModel = new AuthorModel();
+            $authorModel->setData($author);
+            $authors[] = $authorModel;
+        }
+
+        $authorsModel->setData($authors);
 
         $query = 'SELECT * FROM categories';
         $stmt = $db->query($query);
@@ -34,7 +44,14 @@ class EditBookResource
         $query = 'SELECT * FROM publishers';
         $stmt = $db->query($query);
         $publishersModel = new PublishersModel();
-        $publishersModel->setData($stmt->fetchAll());
+
+        $publishers = [];
+        foreach ($stmt->fetchAll() as $publisher) {
+            $publisherModel = new PublisherModel();
+            $publisherModel->setData($publisher);
+            $publishers[] = $publisherModel;
+        }
+        $publishersModel->setData($publishers);
 
         $query = 'SELECT * FROM books WHERE id = ?';
         $stmt = $db->prepare($query);

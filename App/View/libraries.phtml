@@ -2,15 +2,17 @@
 /**
  * @var App\Blocks\Block $this->model $this of block class for libraries
  */
+
+$model = $this->getModel();
 ?>
 
 <div class="content-container content-container_list">
 
     <div class="entity-container entity-container_list">
-        <?php foreach ($this->model->getData() as $library): ?>
-            <a href="/library?id=<?= $library['id'] ?>" class="entity-container__button">
-                <h2><?= htmlspecialchars($library['name']) ?></h2>
-                <h3><?= htmlspecialchars($library['address']) ?></h3>
+        <?php foreach ($model->getData() as $library): ?>
+            <a href="/library?id=<?= $this->toNormalText($library->getId()) ?>" class="entity-container__button">
+                <h2><?= $this->toNormalText($library->getName()) ?></h2>
+                <h3><?= $this->toNormalText($library->getAddress()) ?></h3>
             </a>
         <?php endforeach; ?>
     </div>
@@ -44,7 +46,7 @@
             Философия
         </a>
 
-        <a href="../createLibrary" class="recommend-list__element">
+        <a href="/createLibrary" class="recommend-list__element">
             Добавить библиотеку
         </a>
     </div>

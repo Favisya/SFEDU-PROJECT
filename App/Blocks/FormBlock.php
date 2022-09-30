@@ -10,4 +10,9 @@ class FormBlock extends Block
     {
         $this->model["$model"] = $model;
     }
+
+    public function getOneModel(string $model)
+    {
+        return $this->model[$model];
+    }
 }

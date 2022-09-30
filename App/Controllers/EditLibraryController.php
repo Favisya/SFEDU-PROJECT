@@ -8,7 +8,6 @@ class EditLibraryController extends AbstractController
 {
     public function execute()
     {
-        $this->setToken();
         $libraryResource = new LibraryResource();
         $libraryModel = $libraryResource->getLibrary($this->getParam('id'));
 

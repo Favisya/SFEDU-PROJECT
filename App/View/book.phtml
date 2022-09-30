@@ -2,18 +2,16 @@
 /**
  * @var App\Blocks\Block $this->model $this of block class for book
  */
+
+$model = $this->getModel();
 ?>
 
 <div class="content-container">
     <div class="entity-container">
         <div class="entity-container__side-block">
-
-            <?php
-                $data = $this->model->getData();
-            ?>
             <div class="entity-container__info-block">
-                <h2><?= htmlspecialchars($data['name']) ?></h2>
-                <p><?= htmlspecialchars($data['author']) ?></p>
+                <h2><?= $this->toNormalText($model->getName()) ?></h2>
+                <p><?= $this->toNormalText($model->getAuthor()) ?></p>
             </div>
 
             <div class="entity-container__info-block">
@@ -21,30 +19,30 @@
                     category
                 </p>
                 <p>
-                    <?= htmlspecialchars($data['country']) . ' ' . htmlspecialchars($data['date']) ?>
+                    <?= $this->toNormalText($model->getCountry()) . ' ' . $this->toNormalText($model->getYear()) ?>
                 </p>
                 <p>
-                    <?= 'Издатель: ' . htmlspecialchars($data['publisher']) ?>
+                    <?= 'Издатель: ' . $this->toNormalText($model->getPublisher()) ?>
                 </p>
                 <p>
-                    <?= 'Цена: ' . htmlspecialchars($data['price']) . 'p'?>
+                    <?= 'Цена: ' . $this->toNormalText($model->getPrice()) . 'p'?>
                 </p>
             </div>
 
             <div class="entity-container__left-buttons">
-                <a href="/editBook?id=<?= htmlspecialchars($data['id']) ?>" class="entity-container__button">
+                <a href="/editBook?id=<?= $this->toNormalText($model->getId()) ?>" class="entity-container__button">
                     Редактировать
                 </a>
 
-                <a href="/deleteBook?id=<?= htmlspecialchars($data['id']) ?>" class="entity-container__button">
+                <a href="/deleteBook?id=<?= $this->toNormalText($model->getId()) ?>" class="entity-container__button">
                     Удалить
                 </a>
 
-                <a href="/author?id=<?= htmlspecialchars($data['author_id']) ?>" class="entity-container__button">
+                <a href="/author?id=<?= $this->toNormalText($model->getAuthorId()) ?>" class="entity-container__button">
                     Автор
                 </a>
             </div>
-            <a href="/takeBook?id=<?= htmlspecialchars($data['id']) ?>" class="entity-container__button">
+            <a href="/takeBook?id=<?= $this->toNormalText($model->getId()) ?>" class="entity-container__button">
                 Взять книгу
             </a>
         </div>
@@ -56,10 +54,10 @@
                         <div class="table__field">кол-во</div>
                         <div class="table__field">библиотека</div>
                     </div>
-                    <?php foreach ($this->model->getLibs() as $library): ?>
+                    <?php foreach ($model->getLibs() as $book): ?>
                         <div class="table__row">
-                            <div class="table__field"><?= htmlspecialchars($library['count']) ?></div>
-                            <div class="table__field"><?= htmlspecialchars($library['library']) ?></div>
+                            <div class="table__field"><?= $this->toNormalText($book->getCount()) ?></div>
+                            <div class="table__field"><?= $this->toNormalText($book->getName()) ?></div>
                         </div>
                     <?php endforeach;?>
                 </div>

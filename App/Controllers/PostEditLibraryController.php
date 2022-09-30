@@ -9,8 +9,7 @@ class PostEditLibraryController extends AbstractController
     public function execute()
     {
         $this->handleToken();
-        $this->validateForm('libName');
-        $this->validateForm('libAddress');
+        $this->validateForm(['libAddress', 'libName']);
 
         $libraryResource = new LibraryResource();
         $libraryModel = $libraryResource->editLibrary(

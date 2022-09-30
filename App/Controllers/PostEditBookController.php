@@ -10,7 +10,7 @@ class PostEditBookController extends AbstractController
     public function execute()
     {
         $this->handleToken();
-        $this->validateForm('bookName');
+        $this->validateForm(['bookName']);
 
         $keys = array_keys($_POST);
         foreach ($keys as $key) {

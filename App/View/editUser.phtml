@@ -5,8 +5,8 @@
 ?>
 
 <?php
- $data = $this->model['user']->getData();
- $err  = $this->model['session']->getError();
+ $model = $this->getOneModel('user');
+ $err  = $this->getOneModel('session')->getError();
  if (isset($err)) {
     require_once APP_ROOT . '/App/templates/error.phtml';
  }
@@ -14,13 +14,7 @@
 <div class="content-container">
     <form method="post" action="/editUser">
         <div class="entity-container entity-container_column">
-
-            <input
-                    id="token"
-                    name="token"
-                    type="hidden"
-                    value="<?= $this->getToken() ?>"
-            >
+            <?php $this->renderToken() ?>
 
             <div class="entity-container__input-row">
                 <label for="name">
@@ -30,7 +24,7 @@
                     id="name"
                     name="name"
                     placeholder="Имя"
-                    value="<?= $data['name']?>"
+                    value="<?= $this->toNormalText($model->getName())?>"
                     required
                 >
             </div>
@@ -43,7 +37,7 @@
                     id="surname"
                     name="surname"
                     placeholder="фамилия"
-                    value="<?= $data['surname']?>"
+                    value="<?= $this->toNormalText($model->getSurname())?>"
                     required
                 >
             </div>

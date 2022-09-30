@@ -9,7 +9,7 @@ class PostEditAuthorController extends AbstractController
     public function execute()
     {
         $this->handleToken();
-        $this->validateForm('authorName');
+        $this->validateForm(['authorName']);
 
         $authorResource = new AuthorResource();
         $authorModel = $authorResource->editAuthor(

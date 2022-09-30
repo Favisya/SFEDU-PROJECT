@@ -3,17 +3,11 @@
  * @var App\Blocks\FormBlock $this->model of block class for creation
  */
 ?>
-<?php $data = $this->model['bookModel']->getData() ?>
+<?php $bookModel = $this->getOneModel('bookModel') ?>
 <div class="content-container">
     <form method="post" action="">
         <div class="entity-container entity-container_column">
-
-            <input
-                    id="token"
-                    name="token"
-                    type="hidden"
-                    value="<?= $this->getToken() ?>"
-            >
+            <?php $this->renderToken() ?>
 
             <span class="entity-container__input-row">
                 <label for="bookName"> Название книги:</label>
@@ -21,7 +15,7 @@
                     id="bookName"
                     name="bookName"
                     placeholder="Book name"
-                    value="<?= $data['name'] ?>"
+                    value="<?= $bookModel->getName() ?>"
                     required
                 >
             </span>
@@ -33,7 +27,7 @@
                     type="number"
                     name="bookPrice"
                     placeholder="price"
-                    value="<?= $data['price'] ?>"
+                    value="<?= $bookModel->getPrice() ?>"
                     required
                 >
             </span>
@@ -42,9 +36,9 @@
                 <label for="author"> Автор:</label>
                 <select name="authorId" required id="author">
                     <option disabled>Выберите Автора</option>
-                    <?php foreach ($this->model['authorsModel']->getData() as $author): ?>
-                        <option value="<?= $author['id'] ?>">
-                            <?= $author['name'] ?>
+                    <?php foreach ($this->getOneModel('authorsModel')->getData() as $author): ?>
+                        <option value="<?= $author->getId() ?>">
+                            <?= $author->getName() ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -54,7 +48,7 @@
                 <label for="country">Страна: </label>
                 <select name="countryId" id="country">
                     <option disabled>Выберите страну</option>
-                    <?php foreach ($this->model['countriesModel']->getData() as $country): ?>
+                    <?php foreach ($this->getOneModel('countriesModel')->getData() as $country): ?>
                         <option value="<?= $country['id'] ?>">
                             <?= $country['name'] ?>
                         </option>
@@ -66,9 +60,9 @@
                 <label for="publisher"> Издатель: </label>
                 <select id="publisher" name="publisherId" required>
                     <option disabled>Выберите издателя</option>
-                    <?php foreach ($this->model['publishersModel']->getData() as $category): ?>
-                        <option value="<?= $category['id'] ?>">
-                            <?= $category['name'] ?>
+                    <?php foreach ($this->getOneModel('publishersModel')->getData() as $publisher): ?>
+                        <option value="<?= $publisher->getId() ?>">
+                            <?= $publisher->getName() ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -78,9 +72,9 @@
                 <label for="category"> Жанр: </label>
                 <select id="category" name="categoryId" required>
                     <option disabled>Выберите Жанр</option>
-                    <?php foreach ($this->model['categoriesModel']->getData() as $category): ?>
-                        <option value="<?= $category['id'] ?>">
-                            <?= $category['name'] ?>
+                    <?php foreach ($this->getOneModel('categoriesModel')->getData() as $categories): ?>
+                        <option value="<?= $categories['id'] ?>">
+                            <?= $categories['name'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

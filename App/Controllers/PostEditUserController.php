@@ -10,8 +10,7 @@ class PostEditUserController extends AbstractController
     public function execute()
     {
         $this->handleToken();
-        $this->validateForm('name');
-        $this->validateForm('surname');
+        $this->validateForm(['surname', 'name']);
 
         $resource = new ModifyUserResource();
         $resource->executeQuery(
