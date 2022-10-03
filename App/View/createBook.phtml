@@ -3,7 +3,7 @@
  * @var App\Blocks\FormBlock $this->model of block class for creation
  */
 ?>
-<?php $bookModel = $this->getOneModel('bookModel') ?>
+<?php $bookModel = $this->getBook() ?>
 <div class="content-container">
     <form method="post" action="">
         <div class="entity-container entity-container_column">
@@ -36,7 +36,7 @@
                 <label for="author"> Автор:</label>
                 <select name="authorId" required id="author">
                     <option disabled>Выберите Автора</option>
-                    <?php foreach ($this->getOneModel('authorsModel')->getData() as $author): ?>
+                    <?php foreach ($this->getAuthors()->getData() as $author): ?>
                         <option value="<?= $author->getId() ?>">
                             <?= $author->getName() ?>
                         </option>
@@ -48,7 +48,7 @@
                 <label for="country">Страна: </label>
                 <select name="countryId" id="country">
                     <option disabled>Выберите страну</option>
-                    <?php foreach ($this->getOneModel('countriesModel')->getData() as $country): ?>
+                    <?php foreach ($this->getCountries()->getData() as $country): ?>
                         <option value="<?= $country['id'] ?>">
                             <?= $country['name'] ?>
                         </option>
@@ -60,7 +60,7 @@
                 <label for="publisher"> Издатель: </label>
                 <select id="publisher" name="publisherId" required>
                     <option disabled>Выберите издателя</option>
-                    <?php foreach ($this->getOneModel('publishersModel')->getData() as $publisher): ?>
+                    <?php foreach ($this->getPublishers()->getData() as $publisher): ?>
                         <option value="<?= $publisher->getId() ?>">
                             <?= $publisher->getName() ?>
                         </option>
@@ -72,7 +72,7 @@
                 <label for="category"> Жанр: </label>
                 <select id="category" name="categoryId" required>
                     <option disabled>Выберите Жанр</option>
-                    <?php foreach ($this->getOneModel('categoriesModel')->getData() as $categories): ?>
+                    <?php foreach ($this->getCategories()->getData() as $categories): ?>
                         <option value="<?= $categories['id'] ?>">
                             <?= $categories['name'] ?>
                         </option>

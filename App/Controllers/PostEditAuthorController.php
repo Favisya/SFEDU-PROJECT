@@ -16,6 +16,6 @@ class PostEditAuthorController extends AbstractController
             $this->getPostParam('authorName'),
             $this->getParam('id')
         );
-        $this->redirect('author?id=' . $authorModel->getData()['id']);
+        $this->redirect('author?id=' . $authorModel->getList()['id']);
     }
 }

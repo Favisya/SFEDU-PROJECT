@@ -3,13 +3,13 @@
 namespace App\Controllers;
 
 use App\Blocks\FormBlock;
-use App\Models\Resource\CreateBookResource;
+use App\Models\Resource\BookResource;
 
 class CreateBookController extends AbstractController
 {
     public function execute()
     {
-        $resource = new CreateBookResource();
+        $resource = new BookResource();
         $block = new FormBlock();
         $block->setTemplate('createBook');
 

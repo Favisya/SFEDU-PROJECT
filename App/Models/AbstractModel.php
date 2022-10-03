@@ -4,7 +4,7 @@ namespace App\Models;
 
 abstract class AbstractModel
 {
-    public function getData(): ?array
+    public function getList(): ?array
     {
         return null;
     }

@@ -8,7 +8,7 @@ use App\Models\UserModel;
 
 class ModifyUserResource extends AbstractResource
 {
-    public function executeQuery(string $password, string $name, string $surname, int $id)
+    public function editUser(string $password, string $name, string $surname, int $id)
     {
         $password = htmlspecialchars($password);
         $name     = htmlspecialchars($name);

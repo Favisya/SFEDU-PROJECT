@@ -6,7 +6,7 @@ class LibrariesModel extends AbstractModel
 {
     private $data = [];
 
-    public function getData(): array
+    public function getList(): array
     {
         return $this->data;
     }
@@ -14,5 +14,10 @@ class LibrariesModel extends AbstractModel
     public function setData($data)
     {
         $this->data = $data;
+    }
+
+    public function __toString()
+    {
+        return 'libraries';
     }
 }

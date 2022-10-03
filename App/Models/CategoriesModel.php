@@ -6,7 +6,7 @@ class CategoriesModel extends AbstractModel
 {
     private $data = [];
 
-    public function getData(): array
+    public function getList(): array
     {
         return $this->data;
     }
@@ -18,7 +18,6 @@ class CategoriesModel extends AbstractModel
 
     public function __toString()
     {
-        $class = explode('\\', get_class());
-        return $class = lcfirst(end($class));
+        return 'categories';
     }
 }

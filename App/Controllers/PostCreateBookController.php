@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Exceptions\MvcException;
-use App\Models\Resource\CreateBookResource;
+use App\Models\Resource\BookResource;
 
 class PostCreateBookController extends AbstractController
 {
@@ -20,7 +20,7 @@ class PostCreateBookController extends AbstractController
 
         $this->validateForm(['bookName']);
 
-        $resource = new CreateBookResource();
+        $resource = new BookResource();
         $bookModel = $resource->createBook(
             $this->getPostParam('bookName'),
             $this->getPostParam('bookDate'),
@@ -31,6 +31,6 @@ class PostCreateBookController extends AbstractController
             $this->getPostParam('categoryId'),
         );
 
-        $this->redirect('book?id=' . $bookModel->getData()['id']);
+        $this->redirect('book?id=' . $bookModel->getList()['id']);
     }
 }

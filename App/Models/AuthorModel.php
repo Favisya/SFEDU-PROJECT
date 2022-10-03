@@ -7,7 +7,7 @@ class AuthorModel extends AbstractModel
     private $data  = [];
     private $books = [];
 
-    public function getData(): ?array
+    public function getList(): ?array
     {
         return $this->data ?? null;
     }
@@ -35,5 +35,10 @@ class AuthorModel extends AbstractModel
     public function setBooks(array $data)
     {
         $this->books = $data;
+    }
+
+    public function __toString()
+    {
+        return 'author';
     }
 }

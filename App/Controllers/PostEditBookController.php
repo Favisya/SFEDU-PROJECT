@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Exceptions\MvcException;
-use App\Models\Resource\EditBookResource;
+use App\Models\Resource\BookResource;
 
 class PostEditBookController extends AbstractController
 {
@@ -19,7 +19,7 @@ class PostEditBookController extends AbstractController
             }
         }
 
-        $resource = new EditBookResource();
+        $resource = new BookResource();
         $bookModel = $resource->editBook(
             $this->getPostParam('bookName'),
             $this->getPostParam('bookDate'),
@@ -31,6 +31,6 @@ class PostEditBookController extends AbstractController
             $this->getParam('id')
         );
 
-        $this->redirect('book?id=' . $bookModel->getData()['id']);
+        $this->redirect('book?id=' . $bookModel->getList()['id']);
     }
 }

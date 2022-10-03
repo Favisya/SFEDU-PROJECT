@@ -3,13 +3,13 @@
  * @var App\Blocks\Block $this->model $this of block class for libraries
  */
 
-$model = $this->getModel();
+$model = $this->getLibraries();
 ?>
 
 <div class="content-container content-container_list">
 
     <div class="entity-container entity-container_list">
-        <?php foreach ($model->getData() as $library): ?>
+        <?php foreach ($model->getList() as $library): ?>
             <a href="/library?id=<?= $this->toNormalText($library->getId()) ?>" class="entity-container__button">
                 <h2><?= $this->toNormalText($library->getName()) ?></h2>
                 <h3><?= $this->toNormalText($library->getAddress()) ?></h3>

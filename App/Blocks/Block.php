@@ -8,16 +8,76 @@ use App\Models\SessionModel;
 class Block
 {
     protected $template;
-    protected $model = [];
+    protected $models = [];
 
     public function render()
     {
         require_once APP_ROOT . '/App/templates/layout.phtml';
     }
 
-    public function setModel(AbstractModel $model)
+    public function setModel(AbstractModel $models)
     {
-        $this->model = $model;
+        $this->models["$models"] = $models;
+    }
+
+    public function getAuthor()
+    {
+        return $this->models['author'];
+    }
+
+    public function getAuthors()
+    {
+        return $this->models['authors'];
+    }
+
+    public function getBook()
+    {
+        return $this->models['book'];
+    }
+
+    public function getBooks()
+    {
+        return $this->models['books'];
+    }
+
+    public function getLibrary()
+    {
+        return $this->models['library'];
+    }
+
+    public function getLibraries()
+    {
+        return $this->models['libraries'];
+    }
+
+    public function getPublisher()
+    {
+        return $this->models['publisher'];
+    }
+
+    public function getPublishers()
+    {
+        return $this->models['publishers'];
+    }
+
+    public function getUser()
+    {
+        return $this->models['user'];
+    }
+
+    public function getCountries()
+    {
+        return $this->models['countries'];
+    }
+
+    public function getCategories()
+    {
+        return $this->models['categories'];
+    }
+
+    public function getSession()
+    {
+        return $this->models['session'];
     }
 
     public function isLoggedIn(): bool
@@ -48,7 +108,7 @@ class Block
 
     public function getModel()
     {
-        return $this->model;
+        return $this->models;
     }
 
     private function renderLoginButton()

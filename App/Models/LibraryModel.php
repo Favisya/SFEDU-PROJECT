@@ -41,4 +41,9 @@ class LibraryModel extends AbstractModel
     {
         $this->books = $data;
     }
+
+    public function __toString()
+    {
+        return 'library';
+    }
 }

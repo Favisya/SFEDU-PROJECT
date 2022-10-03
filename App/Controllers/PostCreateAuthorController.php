@@ -15,6 +15,6 @@ class PostCreateAuthorController extends AbstractController
         $this->validateForm(['authorName']);
 
         $authorModel = $authorResource->createAuthor($this->getPostParam('authorName'));
-        $this->redirect('author?id=' . $authorModel->getData()['id']);
+        $this->redirect('author?id=' . $authorModel->getList()['id']);
     }
 }

@@ -13,7 +13,7 @@ class PostEditUserController extends AbstractController
         $this->validateForm(['surname', 'name']);
 
         $resource = new ModifyUserResource();
-        $resource->executeQuery(
+        $resource->editUser(
             $this->getPostParam('password'),
             $this->getPostParam('name'),
             $this->getPostParam('surname'),

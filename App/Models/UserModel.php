@@ -11,7 +11,7 @@ class UserModel extends AbstractModel
         $this->data = $data;
     }
 
-    public function getData(): ?array
+    public function getList(): ?array
     {
         return $this->data ?? null;
     }

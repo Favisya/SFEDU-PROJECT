@@ -2,11 +2,12 @@
 
 namespace App\Controllers;
 
-use App\Exceptions\CSRFException;
+use App\Exceptions\CsrfException;
 use App\Exceptions\MvcException;
 use App\Models\AbstractModel;
 use App\Models\Resource\Environment;
 use App\Models\SessionModel;
+use App\Models\TokenModel;
 
 abstract class AbstractController
 {
@@ -54,8 +55,7 @@ abstract class AbstractController
         $patternName = '/^[a-zA-Z0-9 ]*$/';
         foreach ($keys as $key) {
             $isValid = preg_match($patternName, $this->getPostParam($key));
-            if ($isValid) {
-            } else {
+            if (!$isValid) {
                 throw new MvcException('Incorrect input data');
             }
         }
@@ -63,13 +63,14 @@ abstract class AbstractController
 
     public function setToken()
     {
-        SessionModel::getInstance()->setToken($this->generateToken());
+        $token = new TokenModel();
+        SessionModel::getInstance()->setToken($token->generateToken());
     }
 
     public function handleToken()
     {
         if (!$this->checkToken($this->getPostParam('token'))) {
-            throw new CSRFException('Invalid token');
+            throw new CsrfException('Invalid token');
         }
     }
 
@@ -77,10 +78,5 @@ abstract class AbstractController
     private function checkToken(string $token): bool
     {
         return SessionModel::getInstance()->getToken() === $token;
-    }
-
-    private function generateToken()
-    {
-        return hash('sha256', random_bytes(16));
     }
 }

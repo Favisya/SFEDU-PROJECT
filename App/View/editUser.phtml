@@ -5,8 +5,8 @@
 ?>
 
 <?php
- $model = $this->getOneModel('user');
- $err  = $this->getOneModel('session')->getError();
+ $model = $this->getUser();
+ $err  = $this->getSession()->getError();
  if (isset($err)) {
     require_once APP_ROOT . '/App/templates/error.phtml';
  }

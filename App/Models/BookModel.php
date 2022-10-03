@@ -7,7 +7,7 @@ class BookModel extends AbstractModel
     private $data = [];
     private $libs = [];
 
-    public function getData(): ?array
+    public function getList(): ?array
     {
         return $this->data ?? null;
     }
@@ -74,7 +74,6 @@ class BookModel extends AbstractModel
 
     public function __toString()
     {
-        $class = explode('\\', get_class());
-        return $class = lcfirst(end($class));
+        return 'book';
     }
 }

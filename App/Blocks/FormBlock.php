@@ -8,11 +8,11 @@ class FormBlock extends Block
 {
     public function setModel(AbstractModel $model)
     {
-        $this->model["$model"] = $model;
+        $this->models["$model"] = $model;
     }
 
     public function getOneModel(string $model)
     {
-        return $this->model[$model];
+        return $this->models[$model];
     }
 }

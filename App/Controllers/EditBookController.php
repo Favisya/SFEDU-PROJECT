@@ -3,17 +3,17 @@
 namespace App\Controllers;
 
 use App\Blocks\FormBlock;
-use App\Models\Resource\EditBookResource;
+use App\Models\Resource\BookResource;
 
 class EditBookController extends AbstractController
 {
     public function execute()
     {
-        $resource = new EditBookResource();
+        $resource = new BookResource();
         $block = new FormBlock();
         $block->setTemplate('createBook');
 
-        $models = $resource->executeQuery($this->getParam('id'));
+        $models = $resource->getBookInfo($this->getParam('id'));
 
         foreach ($models as $model) {
             $block->setModel($model);

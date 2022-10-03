@@ -3,13 +3,13 @@
  * @var App\Blocks\Block $this $this of block class for authors
  */
 
-$model = $this->getModel();
+$model = $this->getAuthors();
 ?>
 
 <div class="content-container content-container_list">
 
     <div class="entity-container entity-container_list">
-        <?php foreach ($model->getData() as $item): ?>
+        <?php foreach ($model->getList() as $item): ?>
             <a href="/author?id=<?= $this->toNormalText($item->getId()) ?>" class="entity-container__button">
                 <h2><?= $this->toNormalText($item->getName()) ?></h2>
             </a>
