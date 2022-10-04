@@ -6,13 +6,15 @@ use App\Models\AbstractModel;
 
 class LibraryBlock extends AbstractBlock
 {
+    private $library;
+
     public function setLibrary(AbstractModel $models)
     {
-        $this->models["$models"] = $models;
+        $this->library = $models;
     }
 
     public function getLibrary()
     {
-        return $this->models['library'];
+        return $this->library;
     }
 }

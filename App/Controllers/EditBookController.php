@@ -15,9 +15,7 @@ class EditBookController extends AbstractController
 
         $models = $resource->getBookInfo($this->getParam('id'));
 
-        foreach ($models as $model) {
-            $block->setModel($model);
-        }
+        $this->handleModels($models, $block);
 
         $block->render();
     }

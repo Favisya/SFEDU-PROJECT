@@ -8,7 +8,6 @@ use App\Models\SessionModel;
 abstract class AbstractBlock
 {
     protected $template;
-    protected $models = [];
 
     public function render()
     {
@@ -39,11 +38,6 @@ abstract class AbstractBlock
     public function toNormalText(string $data)
     {
         return htmlspecialchars($data);
-    }
-
-    public function getModel()
-    {
-        return $this->models;
     }
 
     private function renderLoginButton()

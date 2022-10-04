@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Blocks\AbstractBlock;
 use App\Exceptions\CsrfException;
 use App\Exceptions\MvcException;
 use App\Models\AbstractModel;
@@ -74,6 +75,14 @@ abstract class AbstractController
     {
         if (!$this->checkToken($this->getPostParam('token'))) {
             throw new CsrfException('Invalid token');
+        }
+    }
+
+    public function handleModels(array $models, AbstractBlock $block)
+    {
+        foreach ($models as $model) {
+            $methodName = ucfirst("$model");
+            $block->{'set' . $methodName}($model);
         }
     }
 

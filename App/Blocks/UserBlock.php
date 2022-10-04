@@ -6,13 +6,15 @@ use App\Models\AbstractModel;
 
 class UserBlock extends AbstractBlock
 {
+    private $user;
+
     public function setUser(AbstractModel $models)
     {
-        $this->models["$models"] = $models;
+        $this->user = $models;
     }
 
     public function getUser()
     {
-        return $this->models['user'];
+        return $this->user;
     }
 }

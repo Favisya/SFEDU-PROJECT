@@ -6,23 +6,26 @@ use App\Models\AbstractModel;
 
 class EditUserBlock extends AbstractBlock
 {
+    private $session;
+    private $user;
+
     public function setSession(AbstractModel $models)
     {
-        $this->models["$models"] = $models;
+        $this->session = $models;
     }
 
     public function setUser(AbstractModel $models)
     {
-        $this->models["$models"] = $models;
+        $this->user = $models;
     }
 
     public function getUser()
     {
-        return $this->models['user'];
+        return $this->user;
     }
 
     public function getSession()
     {
-        return $this->models['session'];
+        return $this->session;
     }
 }

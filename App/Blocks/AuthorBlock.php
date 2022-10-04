@@ -6,13 +6,15 @@ use App\Models\AbstractModel;
 
 class AuthorBlock extends AbstractBlock
 {
+    private $author;
+
     public function setAuthor(AbstractModel $models)
     {
-        $this->models["$models"] = $models;
+        $this->author = $models;
     }
 
     public function getAuthor()
     {
-        return $this->models['author'];
+        return $this->author;
     }
 }

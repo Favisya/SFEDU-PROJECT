@@ -6,13 +6,15 @@ use App\Models\AbstractModel;
 
 class SessionBlock extends AbstractBlock
 {
+    private $session;
+
     public function setSession(AbstractModel $models)
     {
-        $this->models["$models"] = $models;
+        $this->session = $models;
     }
 
     public function getSession()
     {
-        return $this->models['session'];
+        return $this->session;
     }
 }

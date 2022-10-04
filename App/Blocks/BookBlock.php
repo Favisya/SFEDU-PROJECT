@@ -6,13 +6,15 @@ use App\Models\AbstractModel;
 
 class BookBlock extends AbstractBlock
 {
+    private $book;
+
     public function setBook(AbstractModel $models)
     {
-        $this->models["$models"] = $models;
+        $this->book = $models;
     }
 
     public function getBook()
     {
-        return $this->models['book'];
+        return $this->book;
     }
 }

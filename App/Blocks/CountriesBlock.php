@@ -6,13 +6,15 @@ use App\Models\AbstractModel;
 
 class CountriesBlock extends AbstractBlock
 {
+    private $countries;
+
     public function setCountries(AbstractModel $models)
     {
-        $this->models["$models"] = $models;
+        $this->countries = $models;
     }
 
     public function getCountries()
     {
-        return $this->models['countries'];
+        return $this->countries;
     }
 }
