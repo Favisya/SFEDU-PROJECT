@@ -15,14 +15,17 @@ abstract class AbstractController
     {
     }
 
-    public function commonExecute(string $template, AbstractModel $model = null, string $blockName = 'Block')
+    public function commonExecute(string $template, AbstractModel $model = null, string $blockName = 'SimpleBlock')
     {
+        $method = $blockName;
         $blockName = '\App\Blocks\\' . $blockName;
 
         $block = new $blockName();
         $block->setTemplate($template);
         if ($model != null) {
-            $block->setModel($model);
+            $method = explode('Block', $method);
+            $method = reset($method);
+            $block->{'set' . "$method"}($model);
         }
 
         $block->render();

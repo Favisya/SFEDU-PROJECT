@@ -9,6 +9,6 @@ class CreateLibraryController extends AbstractController
     public function execute()
     {
         $libraryModel = new LibraryModel();
-        $this->commonExecute('createLibrary', $libraryModel);
+        $this->commonExecute('createLibrary', $libraryModel, '');
     }
 }

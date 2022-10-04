@@ -11,6 +11,6 @@ class EditAuthorController extends AbstractController
         $authorResource = new AuthorResource();
         $authorModel = $authorResource->getAuthor($this->getParam('id'));
 
-        $this->commonExecute('createAuthor', $authorModel);
+        $this->commonExecute('createAuthor', $authorModel, 'AuthorBlock');
     }
 }

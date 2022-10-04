@@ -52,7 +52,7 @@ class SessionModel extends AbstractModel
             $err = $_SESSION['error'];
             $this->destroySession();
         }
-        return $err;
+        return $err ?? null;
     }
 
     public function getToken(): string

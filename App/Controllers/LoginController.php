@@ -15,6 +15,6 @@ class LoginController extends AbstractController
             $this->redirect('profile');
         }
 
-        $this->commonExecute('login', SessionModel::getInstance());
+        $this->commonExecute('login', SessionModel::getInstance(), 'SessionBlock');
     }
 }

@@ -11,6 +11,6 @@ class CategoriesController extends AbstractController
         $categoriesResource = new CategoriesResource();
         $categoriesModel = $categoriesResource->getCategories();
 
-        $this->commonExecute('categories', $categoriesModel);
+        $this->commonExecute('categories', $categoriesModel, 'CategoriesBlock');
     }
 }

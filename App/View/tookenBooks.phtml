@@ -6,7 +6,7 @@
 
 <div class="content-container content-container_list">
     <div class="entity-container entity-container_list">
-        <?php foreach ($this->getModel()->getData() as $book): ?>
+        <?php foreach ($this->getBooks()->getList() as $book): ?>
             <a href="/book?id=<?= $this->toNormalText($book->getId()) ?>" class="entity-container__button">
                 <h2><?= $this->toNormalText($book->getName()) ?></h2>
             </a>

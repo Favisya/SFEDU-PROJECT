@@ -17,6 +17,6 @@ class PostEditLibraryController extends AbstractController
             $this->getPostParam('libAddress'),
             $this->getParam('id')
         );
-        $this->redirect('library?id=' . $libraryModel->getList()['id']);
+        $this->redirect('library?id=' . $libraryModel->getId());
     }
 }

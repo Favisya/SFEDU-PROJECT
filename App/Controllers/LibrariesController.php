@@ -11,6 +11,6 @@ class LibrariesController extends AbstractController
         $librariesResource = new LibrariesResource();
         $librariesModel = $librariesResource->getLibraries();
 
-        $this->commonExecute('libraries', $librariesModel);
+        $this->commonExecute('libraries', $librariesModel, 'LibrariesBlock');
     }
 }

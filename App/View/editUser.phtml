@@ -6,7 +6,7 @@
 
 <?php
  $model = $this->getUser();
- $err  = $this->getSession()->getError();
+ $err   = $this->getSession()->getError();
  if (isset($err)) {
     require_once APP_ROOT . '/App/templates/error.phtml';
  }
