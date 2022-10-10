@@ -43,8 +43,7 @@ class LibrariesController extends AbstractApiController
                 'address' => $author->getAddress(),
             ];
         }
-        header('Content-Type: application/json');
-        echo json_encode($data);
+        $this->printJson($data);
     }
 
     private function getElement()
@@ -57,30 +56,29 @@ class LibrariesController extends AbstractApiController
             'name'    => $libraryModel->getName(),
             'address' => $libraryModel->getAddress(),
         ];
-        header('Content-Type: application/json');
-        echo json_encode($data);
+        $this->printJson($data);
     }
 
     private function createElement()
     {
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->endCodeJson();
         $libraryResource = new LibraryResource();
         $authorsModel = $libraryResource->createLibrary($data['name'], $data['address']);
-        header('Status: success');
+        header('Status: 200');
     }
 
     private function editElement()
     {
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->endCodeJson();
         $libraryResource = new LibraryResource();
         $authorsModel = $libraryResource->editLibrary($data['name'], $data['address'], $this->param);
-        header('Status: success');
+        header('Status: 200');
     }
 
     private function deleteElement()
     {
         $resource = new LibraryResource();
         $resource->deleteLibrary($this->param);
-        header('Status: success');
+        header('Status: 200');
     }
 }

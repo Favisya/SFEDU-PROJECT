@@ -37,40 +37,23 @@ class BooksController extends AbstractApiController
 
         $data = [];
         foreach ($booksModel->getList() as $book) {
-            $data[] = [
-                'id'        => $book->getId(),
-                'name'      => $book->getName(),
-                'price'     => $book->getPrice(),
-                'author'    => $book->getAuthor(),
-                'country'   => $book->getCountry(),
-                'publisher' => $book->getPublisher(),
-                'date'      => $book->getYear(),
-            ];
+            $data[] = $this->getBook($book);
         }
-        header('Content-Type: application/json');
-        echo json_encode($data);
+
+       $this->printJson($data);
     }
 
     private function getElement()
     {
         $bookResource = new BookResource();
         $bookModel = $bookResource->getBook($this->param);
-        $data = [
-            'id'        => $bookModel->getId(),
-            'name'      => $bookModel->getName(),
-            'price'     => $bookModel->getPrice(),
-            'author'    => $bookModel->getAuthor(),
-            'country'   => $bookModel->getCountry(),
-            'publisher' => $bookModel->getPublisher(),
-            'date'      => $bookModel->getYear(),
-        ];
-        header('Content-Type: application/json');
-        echo json_encode($data);
+        $data = $this->getBook($bookModel);
+        $this->printJson($data);
     }
 
     private function createElement()
     {
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->endCodeJson();
 
         $BookResource = new BookResource();
         $authorsModel = $BookResource->createBook(
@@ -82,12 +65,12 @@ class BooksController extends AbstractApiController
             $data['publisher'],
             $data['category']
         );
-        header('Status: success');
+        header('Status: 200');
     }
 
     private function editElement()
     {
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->endCodeJson();
 
         $BookResource = new BookResource();
         $authorsModel = $BookResource->editBook(
@@ -100,13 +83,13 @@ class BooksController extends AbstractApiController
             $data['category'],
             $this->param
         );
-        header('Status: success');
+        header('Status: 200');
     }
 
     private function deleteElement()
     {
         $bookResource = new bookResource();
         $bookResource->deleteBook($this->param);
-        header('Status: success');
+        header('Status: 200');
     }
 }

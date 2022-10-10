@@ -6,13 +6,13 @@ abstract class AbstractRouter
 {
     public function handleUri(string $path): string
     {
-        $firstSymbol  = strpos($path, '/');
-        $secondSymbol = strpos($path, '?');
+        $slashSymbol  = strpos($path, '/');
+        $questionMark = strpos($path, '?');
 
-        if ($secondSymbol === false) {
-            return substr($path, $firstSymbol + 1);
+        if ($questionMark === false) {
+            return substr($path, $slashSymbol + 1);
         }
-        return substr($path, $firstSymbol + 1, $secondSymbol - 1);
+        return substr($path, $slashSymbol + 1, $questionMark - 1);
     }
 
     public function isApi(string $path): bool
@@ -20,7 +20,7 @@ abstract class AbstractRouter
         return stripos($path, 'api/') === false;
     }
 
-    public function routerFactory(string $path): ?AbstractRouter
+    public function chooseRouter(string $path): ?AbstractRouter
     {
         if ($this->isApi($path)) {
             return new Router();

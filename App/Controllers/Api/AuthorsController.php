@@ -9,7 +9,7 @@ class AuthorsController extends AbstractApiController
 {
     public function execute()
     {
-        if ($this->getRequestMethod() == 'GET') {
+        if ($this->isGet()) {
             if (!$this->param) {
                 $this->getList();
             } else {
@@ -17,15 +17,15 @@ class AuthorsController extends AbstractApiController
             }
         }
 
-        if ($this->getRequestMethod() == 'DELETE') {
+        if ($this->isDelete()) {
             $this->deleteElement();
         }
 
-        if ($this->getRequestMethod() == 'POST') {
+        if ($this->isPost()) {
             $this->createElement();
         }
 
-        if ($this->getRequestMethod() == 'PUT') {
+        if ($this->isPut()) {
             $this->editElement();
         }
     }
@@ -42,8 +42,7 @@ class AuthorsController extends AbstractApiController
                 'name' => $author->getName(),
             ];
         }
-        header('Content-Type: application/json');
-        echo json_encode($data);
+        $this->printJson($data);
     }
 
     private function getElement()
@@ -55,32 +54,31 @@ class AuthorsController extends AbstractApiController
             'name' => $authorModel->getName(),
             'id'   => $authorModel->getId(),
         ];
-        header('Content-Type: application/json');
-        echo json_encode($data);
+        $this->printJson($data);
     }
 
     private function createElement()
     {
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->endCodeJson();
         $name = $data['name'];
         $authorResource = new AuthorResource();
         $authorsModel = $authorResource->createAuthor($name);
-        header('Status: success');
+        header('Status: 200');
     }
 
     private function editElement()
     {
-        $data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->endCodeJson();
         $name = $data['name'];
         $authorResource = new AuthorResource();
         $authorsModel = $authorResource->editAuthor($name, $this->param);
-        header('Status: success');
+        header('Status: 200');
     }
 
     private function deleteElement()
     {
         $resource = new AuthorResource();
         $resource->deleteAuthor($this->param);
-        header('Status: success');
+        header('Status: 200');
     }
 }

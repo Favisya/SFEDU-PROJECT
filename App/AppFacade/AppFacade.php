@@ -27,8 +27,8 @@ class AppFacade
         $requestPath = $_SERVER['REQUEST_URI'] ?? '';
 
         $routerObject = new Router();
-        $controller = $routerObject->routerFactory($requestPath);
-        $controller = $controller->parseControllers($requestPath);
+        $router = $routerObject->chooseRouter($requestPath);
+        $controller = $router->parseControllers($requestPath);
 
         try {
             if ($controller !== false) {
