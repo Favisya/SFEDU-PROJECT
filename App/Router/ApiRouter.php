@@ -3,7 +3,6 @@
 namespace App\Router;
 
 use App\Controllers\Api\AbstractApiController;
-use App\Controllers\Api\CreateAuthorController;
 
 class ApiRouter extends AbstractRouter
 {
@@ -26,6 +25,7 @@ class ApiRouter extends AbstractRouter
             return new $class($id);
         }
 
+        header('Status: 404');
         return null;
     }
 }
