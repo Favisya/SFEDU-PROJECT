@@ -86,6 +86,10 @@ abstract class AbstractController
         }
     }
 
+    public function getRequestMethod(): string
+    {
+        return $_SERVER['REQUEST_METHOD'];
+    }
 
     private function checkToken(string $token): bool
     {

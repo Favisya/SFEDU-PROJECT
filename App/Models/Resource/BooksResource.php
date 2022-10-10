@@ -18,8 +18,19 @@ class BooksResource
 
         $db = Database::getInstance()->getConnection();
 
-        $query = 'SELECT books.id, books.name, authors.name as author FROM books
-            JOIN authors ON books.author_id = authors.id';
+        $query = 'SELECT
+                        a.id,
+                        a.name,
+                        a.author_id,
+                        a.price,
+                        a.year AS date,
+                        b.name AS author,
+                        c.name AS publisher,
+                        d.name AS country
+                    FROM books AS a
+                     JOIN authors AS b ON a.author_id = b.id
+                     JOIN publishers AS c ON a.publisher_id = c.id
+                     JOIN countries AS d ON a.country_id = d.id';
 
         if ($id === 0) {
             $stmt = $db->query($query);

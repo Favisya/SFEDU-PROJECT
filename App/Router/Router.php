@@ -5,21 +5,14 @@ namespace App\Router;
 use App\Controllers;
 use App\Models\SessionModel;
 
-class Router
+class Router extends AbstractRouter
 {
     public function parseControllers(string $path): ?Controllers\AbstractController
     {
         SessionModel::getInstance()->runSession();
         $sessionId = SessionModel::getInstance()->getUserId();
 
-        $firstSymbol  = strpos($path, '/');
-        $secondSymbol = strpos($path, '?');
-
-        if ($secondSymbol === false) {
-            $uri = substr($path, $firstSymbol + 1);
-        } else {
-            $uri = substr($path, $firstSymbol + 1, $secondSymbol - 1);
-        }
+        $uri = $this->handleUri($path);
 
         if ($uri == '') {
             return new Controllers\HomePageController();
