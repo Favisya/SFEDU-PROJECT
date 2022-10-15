@@ -40,7 +40,7 @@ class BooksController extends AbstractApiController
             $data[] = $this->getBook($book);
         }
 
-       $this->printJson($data);
+        $this->printJson($data);
     }
 
     private function getElement()

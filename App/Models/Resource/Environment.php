@@ -20,4 +20,9 @@ class Environment
     {
         return reset($this->settings['URI']);
     }
+
+    public function getRedisPasswd()
+    {
+        return $this->settings['PREDIS']['PASSWORD'];
+    }
 }

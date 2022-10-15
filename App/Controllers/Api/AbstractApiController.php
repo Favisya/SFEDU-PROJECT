@@ -4,7 +4,7 @@ namespace App\Controllers\Api;
 
 use App\Controllers\AbstractController;
 use App\Models\BookModel;
-use App\Models\BooksModel;
+use App\Models\RedisCacheModel;
 
 abstract class AbstractApiController extends AbstractController
 {
@@ -15,7 +15,11 @@ abstract class AbstractApiController extends AbstractController
         $this->param = $param;
     }
 
-    public function printJson(array $data)
+    /**
+     * @param $data array, object
+     * @return void
+     */
+    public function printJson($data)
     {
         header('Content-Type: application/json');
         echo json_encode($data);
@@ -58,5 +62,11 @@ abstract class AbstractApiController extends AbstractController
     public function isDelete(): bool
     {
         return $this->getRequestMethod() == 'PUT';
+    }
+
+    public function updateCache(string $file, $data)
+    {
+        $cacheModel = new RedisCacheModel();
+        $cacheModel->toCache($data, $file);
     }
 }

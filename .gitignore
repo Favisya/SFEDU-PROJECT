@@ -2,5 +2,5 @@
 composer.lock
 .idea
 .env
-/var/Sessions
-/var/Cache
+App/var/Sessions/
+App/var/Cache/
