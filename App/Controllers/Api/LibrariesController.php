@@ -8,7 +8,7 @@ use App\Models\Resource\LibraryResource;
 
 class LibrariesController extends AbstractApiController
 {
-    private $cacheName = 'libraries';
+    private const cacheName = 'libraries';
 
     public function execute()
     {
@@ -37,8 +37,8 @@ class LibrariesController extends AbstractApiController
     private function getList(bool $isPrintable = true)
     {
         $cacheModel = new RedisCacheModel();
-        if (!$cacheModel->isCacheEmpty($this->cacheName) && $isPrintable) {
-            $this->printJson($cacheModel->getCache($this->cacheName));
+        if (!$cacheModel->isCacheEmpty(self::cacheName) && $isPrintable) {
+            $this->printJson($cacheModel->getCache(self::cacheName));
             exit;
         }
 
@@ -53,7 +53,7 @@ class LibrariesController extends AbstractApiController
             ];
         }
         if ($isPrintable) {
-            $cacheModel->toCache($data, $this->cacheName);
+            $cacheModel->toCache($data, self::cacheName);
             $this->printJson($data);
         }
         return $data;
@@ -62,12 +62,12 @@ class LibrariesController extends AbstractApiController
     private function getElement()
     {
         $cacheModel = new RedisCacheModel();
-        if (!$cacheModel->isCacheEmpty($this->cacheName)) {
-            $libraries = $cacheModel->getCache($this->cacheName);
+        if (!$cacheModel->isCacheEmpty(self::cacheName)) {
+            $libraries = $cacheModel->getCache(self::cacheName);
             $id  = array_search($this->param, array_column($libraries, 'id'));
             $library = $libraries[$id];
             $this->printJson($library);
-            return true;
+            exit;
         }
 
         $libraryResource = new LibraryResource();
@@ -78,7 +78,7 @@ class LibrariesController extends AbstractApiController
             'name'    => $libraryModel->getName(),
             'address' => $libraryModel->getAddress(),
         ];
-        $this->updateCache($this->cacheName, $this->getList(false));
+        $this->updateCache(self::cacheName, $this->getList(false));
         $this->printJson($data);
     }
 
@@ -89,7 +89,7 @@ class LibrariesController extends AbstractApiController
         $authorsModel = $libraryResource->createLibrary($data['name'], $data['address']);
         header('Status: 200');
 
-        $this->updateCache($this->cacheName, $this->getList(false));
+        $this->updateCache(self::cacheName, $this->getList(false));
     }
 
     private function editElement()
@@ -99,7 +99,7 @@ class LibrariesController extends AbstractApiController
         $authorsModel = $libraryResource->editLibrary($data['name'], $data['address'], $this->param);
         header('Status: 200');
 
-        $this->updateCache($this->cacheName, $this->getList(false));
+        $this->updateCache(self::cacheName, $this->getList(false));
     }
 
     private function deleteElement()
@@ -108,6 +108,6 @@ class LibrariesController extends AbstractApiController
         $resource->deleteLibrary($this->param);
         header('Status: 200');
 
-        $this->updateCache($this->cacheName, $this->getList(false));
+        $this->updateCache(self::cacheName, $this->getList(false));
     }
 }

@@ -67,6 +67,7 @@ abstract class AbstractApiController extends AbstractController
     public function updateCache(string $file, $data)
     {
         $cacheModel = new RedisCacheModel();
+        $cacheModel->clearCache($file);
         $cacheModel->toCache($data, $file);
     }
 }

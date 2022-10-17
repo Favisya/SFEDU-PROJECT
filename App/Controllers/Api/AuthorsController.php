@@ -8,7 +8,7 @@ use App\Models\Resource\AuthorsResource;
 
 class AuthorsController extends AbstractApiController
 {
-    private $cacheName = 'Authors';
+    private const cacheName = 'Authors';
 
     public function execute()
     {
@@ -36,8 +36,8 @@ class AuthorsController extends AbstractApiController
     private function getList(bool $isPrintable = true)
     {
         $cacheModel = new RedisCacheModel();
-        if (!$cacheModel->isCacheEmpty($this->cacheName) && $isPrintable) {
-            $this->printJson($cacheModel->getCache($this->cacheName));
+        if (!$cacheModel->isCacheEmpty(self::cacheName) && $isPrintable) {
+            $this->printJson($cacheModel->getCache(self::cacheName));
             exit;
         }
 
@@ -52,7 +52,7 @@ class AuthorsController extends AbstractApiController
             ];
         }
         if ($isPrintable) {
-            $cacheModel->toCache($data, $this->cacheName);
+            $cacheModel->toCache($data, self::cacheName);
             $this->printJson($data);
         }
         return $data;
@@ -61,12 +61,12 @@ class AuthorsController extends AbstractApiController
     private function getElement()
     {
         $cacheModel = new RedisCacheModel();
-        if (!$cacheModel->isCacheEmpty($this->cacheName)) {
-            $authors = $cacheModel->getCache($this->cacheName);
+        if (!$cacheModel->isCacheEmpty(self::cacheName)) {
+            $authors = $cacheModel->getCache(self::cacheName);
             $id  = array_search($this->param, array_column($authors, 'id'));
             $author = $authors[$id];
             $this->printJson($author);
-            return true;
+            exit;
         }
 
         $authorResource = new AuthorResource();
@@ -76,7 +76,7 @@ class AuthorsController extends AbstractApiController
             'name' => $authorModel->getName(),
             'id'   => $authorModel->getId(),
         ];
-        $this->updateCache($this->cacheName, $this->getList(false));
+        $this->updateCache(self::cacheName, $this->getList(false));
         $this->printJson($data);
     }
 
@@ -88,7 +88,7 @@ class AuthorsController extends AbstractApiController
         $authorsModel = $authorResource->createAuthor($name);
         header('Status: 200');
 
-        $this->updateCache($this->cacheName, $this->getList(false));
+        $this->updateCache(self::cacheName, $this->getList(false));
     }
 
     private function editElement()
@@ -99,7 +99,7 @@ class AuthorsController extends AbstractApiController
         $authorsModel = $authorResource->editAuthor($name, $this->param);
         header('Status: 200');
 
-        $this->updateCache($this->cacheName, $this->getList(false));
+        $this->updateCache(self::cacheName, $this->getList(false));
     }
 
     private function deleteElement()
@@ -108,6 +108,6 @@ class AuthorsController extends AbstractApiController
         $resource->deleteAuthor($this->param);
         header('Status: 200');
 
-        $this->updateCache($this->cacheName, $this->getList(false));
+        $this->updateCache(self::cacheName, $this->getList(false));
     }
 }
