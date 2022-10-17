@@ -4,9 +4,9 @@ namespace App\Models;
 
 interface CacheInterface
 {
-    public function toCache(array $data, string $fileName);
+    public function toCache(array $data, string $fileName, bool $isEntity);
 
-    public function getCache(string $fileName);
+    public function getCache(string $fileName, bool $isEntity, int $id);
 
     public function isCacheEmpty(string $fileName): bool;
 

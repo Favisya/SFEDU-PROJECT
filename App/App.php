@@ -1,6 +1,6 @@
 <?php
 
-namespace App\AppFacade;
+namespace App;
 
 use App\Controllers\Error404Controller;
 use App\Controllers\Error403Controller;
@@ -9,14 +9,14 @@ use App\Exceptions\CsrfException;
 use App\Exceptions\MvcException;
 use App\Router\Router;
 
-class AppFacade
+class App
 {
     private static $instance;
 
     public static function getInstance(): self
     {
         if (empty(self::$instance)) {
-            self::$instance = new AppFacade();
+            self::$instance = new App();
         }
 
         return self::$instance;
@@ -26,9 +26,7 @@ class AppFacade
     {
         $requestPath = $_SERVER['REQUEST_URI'] ?? '';
 
-        $routerObject = new Router();
-        $router = $routerObject->chooseRouter($requestPath);
-        $controller = $router->parseControllers($requestPath);
+        $controller = $this->getController($requestPath);
 
         try {
             if ($controller !== false) {
@@ -44,5 +42,12 @@ class AppFacade
             $controller = new Error403Controller();
             $controller->execute();
         }
+    }
+
+    private function getController(string $requestPath)
+    {
+        $routerObject = new Router();
+        $router = $routerObject->routerFactory($requestPath);
+        return $router->parseControllers($requestPath);
     }
 }

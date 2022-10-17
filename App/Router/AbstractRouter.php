@@ -20,7 +20,7 @@ abstract class AbstractRouter
         return stripos($path, 'api/') === false;
     }
 
-    public function chooseRouter(string $path): ?AbstractRouter
+    public function routerFactory(string $path): ?AbstractRouter
     {
         if ($this->isApi($path)) {
             return new Router();

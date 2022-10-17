@@ -4,7 +4,7 @@ require_once 'vendor/autoload.php';
 
 define('APP_ROOT', dirname(__FILE__));
 
-use App\AppFacade\AppFacade;
+use App\App;
 
-$facade = AppFacade::getInstance();
+$facade = App::getInstance();
 $facade->runApp();

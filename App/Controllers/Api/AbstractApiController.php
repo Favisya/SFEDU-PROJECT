@@ -3,12 +3,15 @@
 namespace App\Controllers\Api;
 
 use App\Controllers\AbstractController;
+use App\Models\AuthorModel;
 use App\Models\BookModel;
-use App\Models\RedisCacheModel;
+use App\Models\CacheInterface;
+use App\Models\LibraryModel;
 
 abstract class AbstractApiController extends AbstractController
 {
     protected $param;
+    protected $cacheModel;
 
     public function __construct($param = null)
     {
@@ -39,6 +42,23 @@ abstract class AbstractApiController extends AbstractController
         return $data ?? null;
     }
 
+    public function getAuthor(AuthorModel $authorModel): ?array
+    {
+        return [
+            'id'   => $authorModel->getId(),
+            'name' => $authorModel->getName(),
+        ] ?? null;
+    }
+
+    public function getLibrary(LibraryModel $libraryModel): ?array
+    {
+        return [
+            'id'      => $libraryModel->getId(),
+            'name'    => $libraryModel->getName(),
+            'address' => $libraryModel->getAddress(),
+        ] ?? null;
+    }
+
     public function endCodeJson()
     {
         return json_decode(file_get_contents('php://input'), true);
@@ -61,13 +81,36 @@ abstract class AbstractApiController extends AbstractController
 
     public function isDelete(): bool
     {
-        return $this->getRequestMethod() == 'PUT';
+        return $this->getRequestMethod() == 'DELETE';
     }
 
-    public function updateCache(string $file, $data)
+    public function updateCache(string $file, $data, bool $isEntity = false)
     {
-        $cacheModel = new RedisCacheModel();
-        $cacheModel->clearCache($file);
-        $cacheModel->toCache($data, $file);
+        if (!$isEntity) {
+            $this->cacheModel->clearCache($file);
+        }
+        $this->cacheModel->toCache($data, $file, $isEntity);
+    }
+
+
+    protected function getCacheElement(string $cacheName, CacheInterface $cacheModel): bool
+    {
+        if (!$cacheModel->isCacheEmpty($cacheName)) {
+            $item = $cacheModel->getCache($cacheName, true, $this->param);
+            $this->printJson($item);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function getCacheList(string $cacheName, CacheInterface $cacheModel): bool
+    {
+        if (!$cacheModel->isCacheEmpty($cacheName)) {
+            $this->printJson($cacheModel->getCache($cacheName));
+            return true;
+        }
+        return false;
     }
 }

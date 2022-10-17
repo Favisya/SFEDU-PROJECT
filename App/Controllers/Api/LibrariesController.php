@@ -2,13 +2,20 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\RedisCacheModel;
 use App\Models\Resource\LibrariesResource;
 use App\Models\Resource\LibraryResource;
+use App\Models\StrategyFactory;
 
 class LibrariesController extends AbstractApiController
 {
-    private const cacheName = 'libraries';
+    private const CACHENAME = 'libraries';
+
+    public function __construct($param = null)
+    {
+        parent::__construct($param);
+        $cacheModel = new StrategyFactory();
+        $this->cacheModel = $cacheModel->factory();
+    }
 
     public function execute()
     {
@@ -36,70 +43,62 @@ class LibrariesController extends AbstractApiController
 
     private function getList(bool $isPrintable = true)
     {
-        $cacheModel = new RedisCacheModel();
-        if (!$cacheModel->isCacheEmpty(self::cacheName) && $isPrintable) {
-            $this->printJson($cacheModel->getCache(self::cacheName));
-            exit;
+        if ($this->getCacheList(self::CACHENAME, $this->cacheModel)) {
+            return true;
         }
 
         $librariesResource = new LibrariesResource();
         $librariesModel = $librariesResource->getLibraries();
         $data = [];
-        foreach ($librariesModel->getList() as $author) {
-            $data[] = [
-                'id'      => $author->getId(),
-                'name'    => $author->getName(),
-                'address' => $author->getAddress(),
-            ];
+        foreach ($librariesModel->getList() as $library) {
+            $data[] = $this->getLibrary($library);
         }
         if ($isPrintable) {
-            $cacheModel->toCache($data, self::cacheName);
+            $this->cacheModel->toCache($data, self::CACHENAME);
             $this->printJson($data);
         }
         return $data;
     }
 
-    private function getElement()
+    private function getElement(): bool
     {
-        $cacheModel = new RedisCacheModel();
-        if (!$cacheModel->isCacheEmpty(self::cacheName)) {
-            $libraries = $cacheModel->getCache(self::cacheName);
-            $id  = array_search($this->param, array_column($libraries, 'id'));
-            $library = $libraries[$id];
-            $this->printJson($library);
-            exit;
+        if ($this->getCacheElement(self::CACHENAME, $this->cacheModel)) {
+            return false;
         }
+
 
         $libraryResource = new LibraryResource();
         $libraryModel = $libraryResource->getLibrary($this->param);
 
-        $data = [
-            'id'      => $libraryModel->getId(),
-            'name'    => $libraryModel->getName(),
-            'address' => $libraryModel->getAddress(),
-        ];
-        $this->updateCache(self::cacheName, $this->getList(false));
+        $data = $this->getLibrary($libraryModel);
+        $this->updateCache(self::CACHENAME, $data, true);
         $this->printJson($data);
+
+        return true;
     }
 
     private function createElement()
     {
         $data = $this->endCodeJson();
         $libraryResource = new LibraryResource();
-        $authorsModel = $libraryResource->createLibrary($data['name'], $data['address']);
+        $libraryModel = $libraryResource->createLibrary($data['name'], $data['address']);
         header('Status: 200');
 
-        $this->updateCache(self::cacheName, $this->getList(false));
+        $data = $this->getLibrary($libraryModel);
+        $this->updateCache(self::CACHENAME, $data, true);
+        $this->printJson($data);
     }
 
     private function editElement()
     {
         $data = $this->endCodeJson();
         $libraryResource = new LibraryResource();
-        $authorsModel = $libraryResource->editLibrary($data['name'], $data['address'], $this->param);
+        $libraryModel = $libraryResource->editLibrary($data['name'], $data['address'], $this->param);
         header('Status: 200');
 
-        $this->updateCache(self::cacheName, $this->getList(false));
+        $data = $this->getLibrary($libraryModel);
+        $this->updateCache(self::CACHENAME, $data, true);
+        $this->printJson($data);
     }
 
     private function deleteElement()
@@ -108,6 +107,6 @@ class LibrariesController extends AbstractApiController
         $resource->deleteLibrary($this->param);
         header('Status: 200');
 
-        $this->updateCache(self::cacheName, $this->getList(false));
+        $this->updateCache(self::CACHENAME, $this->getList(false));
     }
 }

@@ -8,7 +8,7 @@ class SessionModel extends AbstractModel
 
     public function __construct()
     {
-        session_save_path(APP_ROOT . '/App/var/Sessions');
+        session_save_path(APP_ROOT . '/var/Sessions');
     }
 
     public static function getInstance(): self

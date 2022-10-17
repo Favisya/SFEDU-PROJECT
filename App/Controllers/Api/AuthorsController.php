@@ -2,13 +2,20 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\RedisCacheModel;
 use App\Models\Resource\AuthorResource;
 use App\Models\Resource\AuthorsResource;
+use App\Models\StrategyFactory;
 
 class AuthorsController extends AbstractApiController
 {
-    private const cacheName = 'Authors';
+    private const CACHENAME = 'Authors';
+
+    public function __construct($param = null)
+    {
+        parent::__construct($param);
+        $cacheModel = new StrategyFactory();
+        $this->cacheModel = $cacheModel->factory();
+    }
 
     public function execute()
     {
@@ -33,12 +40,10 @@ class AuthorsController extends AbstractApiController
         }
     }
 
-    private function getList(bool $isPrintable = true)
+    private function getList(bool $isOnlyData = true)
     {
-        $cacheModel = new RedisCacheModel();
-        if (!$cacheModel->isCacheEmpty(self::cacheName) && $isPrintable) {
-            $this->printJson($cacheModel->getCache(self::cacheName));
-            exit;
+        if ($this->getCacheList(self::CACHENAME, $this->cacheModel)) {
+            return true;
         }
 
         $authorsResource = new AuthorsResource();
@@ -46,38 +51,29 @@ class AuthorsController extends AbstractApiController
 
         $data = [];
         foreach ($authorsModel->getList() as $author) {
-            $data[] = [
-                'id'   => $author->getId(),
-                'name' => $author->getName(),
-            ];
+            $data[] = $this->getAuthor($author);
         }
-        if ($isPrintable) {
-            $cacheModel->toCache($data, self::cacheName);
+        if ($isOnlyData) {
+            $this->cacheModel->toCache($data, self::CACHENAME);
             $this->printJson($data);
         }
         return $data;
     }
 
-    private function getElement()
+    private function getElement(): bool
     {
-        $cacheModel = new RedisCacheModel();
-        if (!$cacheModel->isCacheEmpty(self::cacheName)) {
-            $authors = $cacheModel->getCache(self::cacheName);
-            $id  = array_search($this->param, array_column($authors, 'id'));
-            $author = $authors[$id];
-            $this->printJson($author);
-            exit;
+        if ($this->getCacheElement(self::CACHENAME, $this->cacheModel)) {
+            return false;
         }
 
         $authorResource = new AuthorResource();
         $authorModel = $authorResource->getAuthor($this->param);
 
-        $data = [
-            'name' => $authorModel->getName(),
-            'id'   => $authorModel->getId(),
-        ];
-        $this->updateCache(self::cacheName, $this->getList(false));
+        $data = $this->getAuthor($authorModel);
+        $this->updateCache(self::CACHENAME, $data, true);
         $this->printJson($data);
+
+        return true;
     }
 
     private function createElement()
@@ -85,10 +81,11 @@ class AuthorsController extends AbstractApiController
         $data = $this->endCodeJson();
         $name = $data['name'];
         $authorResource = new AuthorResource();
-        $authorsModel = $authorResource->createAuthor($name);
+        $authorModel = $authorResource->createAuthor($name);
         header('Status: 200');
 
-        $this->updateCache(self::cacheName, $this->getList(false));
+        $data = $this->getAuthor($authorModel);
+        $this->updateCache(self::CACHENAME, $data, true);
     }
 
     private function editElement()
@@ -96,10 +93,11 @@ class AuthorsController extends AbstractApiController
         $data = $this->endCodeJson();
         $name = $data['name'];
         $authorResource = new AuthorResource();
-        $authorsModel = $authorResource->editAuthor($name, $this->param);
+        $authorModel = $authorResource->editAuthor($name, $this->param);
         header('Status: 200');
 
-        $this->updateCache(self::cacheName, $this->getList(false));
+        $data = $this->getAuthor($authorModel);
+        $this->updateCache(self::CACHENAME, $data, true);
     }
 
     private function deleteElement()
@@ -108,6 +106,6 @@ class AuthorsController extends AbstractApiController
         $resource->deleteAuthor($this->param);
         header('Status: 200');
 
-        $this->updateCache(self::cacheName, $this->getList(false));
+        $this->updateCache(self::CACHENAME, $this->getList(false));
     }
 }

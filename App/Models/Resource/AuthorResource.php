@@ -60,7 +60,7 @@ class AuthorResource
         $stmtFirst = $stmt->prepare($query);
         $stmtFirst->execute([$authorName]);
 
-        $query = 'SELECT id FROM authors WHERE name = ?;';
+        $query = 'SELECT id, name FROM authors WHERE name = ?;';
         $stmtSecond = $stmt->prepare($query);
         $stmtSecond->execute([$authorName]);
 
