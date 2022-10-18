@@ -71,7 +71,7 @@ class LibrariesController extends AbstractApiController
         $libraryModel = $libraryResource->getLibrary($this->param);
 
         $data = $this->getLibrary($libraryModel);
-        $this->updateCache(self::CACHENAME, $data, true);
+        $this->updateCache(self::CACHENAME, $data);
         $this->printJson($data);
 
         return true;
@@ -85,7 +85,7 @@ class LibrariesController extends AbstractApiController
         header('Status: 200');
 
         $data = $this->getLibrary($libraryModel);
-        $this->updateCache(self::CACHENAME, $data, true);
+        $this->updateCache(self::CACHENAME, $data);
         $this->printJson($data);
     }
 
@@ -97,7 +97,7 @@ class LibrariesController extends AbstractApiController
         header('Status: 200');
 
         $data = $this->getLibrary($libraryModel);
-        $this->updateCache(self::CACHENAME, $data, true);
+        $this->updateCache(self::CACHENAME, $data);
         $this->printJson($data);
     }
 
@@ -107,6 +107,6 @@ class LibrariesController extends AbstractApiController
         $resource->deleteLibrary($this->param);
         header('Status: 200');
 
-        $this->updateCache(self::CACHENAME, $this->getList(false));
+        $this->cacheModel->clearCache(self::CACHENAME, true, $this->param);
     }
 }

@@ -9,8 +9,7 @@ class FileCacheModel implements CacheInterface
     public function toCache(array $data, string $fileName, bool $isEntity = false)
     {
         if (!$isEntity) {
-            $data = json_encode($data);
-            file_put_contents(APP_ROOT . $this->path . $fileName . '.json', $data);
+            file_put_contents(APP_ROOT . $this->path . $fileName . '.json', json_encode($data));
             exit;
         }
         $this->addEntity($data, $fileName);
@@ -36,9 +35,19 @@ class FileCacheModel implements CacheInterface
         return true;
     }
 
-    public function clearCache(string $fileName)
+    public function clearCache(string $fileName, bool $isEntity = false, int $id = null): bool
     {
-        file_put_contents(APP_ROOT . $this->path . $fileName . '.json', '');
+        if (!$isEntity) {
+            file_put_contents(APP_ROOT . $this->path . $fileName . '.json', '');
+            return true;
+        }
+
+        $data = json_decode(file_get_contents(APP_ROOT . $this->path . $fileName . '.json'), true);
+        $index = array_search($id, array_column($data, 'id'));
+        unset($data[$index]);
+
+        file_put_contents(APP_ROOT . $this->path . $fileName . '.json', json_encode($data));
+        return true;
     }
 
     private function addEntity(array $data, string $fileName)

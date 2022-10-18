@@ -84,7 +84,7 @@ abstract class AbstractApiController extends AbstractController
         return $this->getRequestMethod() == 'DELETE';
     }
 
-    public function updateCache(string $file, $data, bool $isEntity = false)
+    public function updateCache(string $file, $data, bool $isEntity = true)
     {
         if (!$isEntity) {
             $this->cacheModel->clearCache($file);
@@ -98,7 +98,6 @@ abstract class AbstractApiController extends AbstractController
         if (!$cacheModel->isCacheEmpty($cacheName)) {
             $item = $cacheModel->getCache($cacheName, true, $this->param);
             $this->printJson($item);
-
             return true;
         }
 

@@ -10,5 +10,5 @@ interface CacheInterface
 
     public function isCacheEmpty(string $fileName): bool;
 
-    public function clearCache(string $fileName);
+    public function clearCache(string $fileName, bool $isEntity, int $id);
 }
