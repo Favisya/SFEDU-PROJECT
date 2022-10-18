@@ -7,11 +7,8 @@ use App\Models\Resource\Environment;
 
 class StrategyFactory
 {
-    public function factory(): CacheInterface
+    public function factory(string $cacheType): CacheInterface
     {
-        $env = new Environment();
-        $cacheType = $env->getCache()['TYPE'];
-
         switch ($cacheType) {
             case 'file':
                 return new FileCacheModel();

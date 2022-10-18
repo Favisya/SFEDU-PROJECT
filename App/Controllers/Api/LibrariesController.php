@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Api;
 
+use App\Models\Resource\Environment;
 use App\Models\Resource\LibrariesResource;
 use App\Models\Resource\LibraryResource;
 use App\Models\StrategyFactory;
@@ -14,7 +15,8 @@ class LibrariesController extends AbstractApiController
     {
         parent::__construct($param);
         $cacheModel = new StrategyFactory();
-        $this->cacheModel = $cacheModel->factory();
+        $env = new Environment();
+        $this->cacheModel = $cacheModel->factory($env->getCacheType());
     }
 
     public function execute()

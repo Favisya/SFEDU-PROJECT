@@ -4,6 +4,7 @@ namespace App\Controllers\Api;
 
 use App\Models\Resource\AuthorResource;
 use App\Models\Resource\AuthorsResource;
+use App\Models\Resource\Environment;
 use App\Models\StrategyFactory;
 
 class AuthorsController extends AbstractApiController
@@ -14,7 +15,8 @@ class AuthorsController extends AbstractApiController
     {
         parent::__construct($param);
         $cacheModel = new StrategyFactory();
-        $this->cacheModel = $cacheModel->factory();
+        $env = new Environment();
+        $this->cacheModel = $cacheModel->factory($env->getCacheType());
     }
 
     public function execute()

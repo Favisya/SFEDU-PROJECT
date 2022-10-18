@@ -2,8 +2,6 @@
 
 namespace App\Models\Resource;
 
-use App\Models\FileCacheModel;
-use App\Models\RedisCacheModel;
 use App\Models\StrategyFactory;
 
 class Environment
@@ -14,21 +12,26 @@ class Environment
 
     public function __construct()
     {
+        $factory = new StrategyFactory();
         $this->settings = parse_ini_file(APP_ROOT . '/.env', true);
+        $this->cacheModel = $factory->factory($this->settings['CACHE']['TYPE']);
+        if ($this->cacheModel->isCacheEmpty(self::CACHENAME)) {
+            $this->cacheModel->toCache($this->settings, self::CACHENAME, true);
+        }
     }
 
     public function getDatabase()
     {
-        return $this->settings['DATABASE'];
+        return $this->cacheModel->getCache(self::CACHENAME)['DATABASE'];
     }
 
     public function getUri()
     {
-        return reset($this->settings['CACHE']['URI']);
+        return reset($this->cacheModel->getCache(self::CACHENAME)['CACHE']['URI']);
     }
 
-    public function getCache()
+    public function getCacheType()
     {
-        return $this->settings['CACHE'];
+        return $this->cacheModel->getCache(self::CACHENAME)['CACHE']['TYPE'];
     }
 }

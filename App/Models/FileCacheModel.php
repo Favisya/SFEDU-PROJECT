@@ -6,13 +6,15 @@ class FileCacheModel implements CacheInterface
 {
     private $path = '/var/Cache/';
 
-    public function toCache(array $data, string $fileName, bool $isEntity = false)
+    public function toCache(array $data, string $fileName, bool $isEntity = false): bool
     {
         if (!$isEntity) {
             file_put_contents(APP_ROOT . $this->path . $fileName . '.json', json_encode($data));
-            exit;
+            return true;
         }
         $this->addEntity($data, $fileName);
+
+        return true;
     }
 
     public function getCache(string $fileName, bool $isEntity = false, int $id = null)
@@ -29,7 +31,7 @@ class FileCacheModel implements CacheInterface
     public function isCacheEmpty(string $fileName): bool
     {
         if (file_exists(APP_ROOT . $this->path . $fileName . '.json')) {
-            return filesize(APP_ROOT . $this->path . $fileName . '.json') == 0;
+            return filesize(APP_ROOT . $this->path . $fileName . '.json') != 0;
         }
 
         return true;
@@ -38,7 +40,7 @@ class FileCacheModel implements CacheInterface
     public function clearCache(string $fileName, bool $isEntity = false, int $id = null): bool
     {
         if (!$isEntity) {
-            file_put_contents(APP_ROOT . $this->path . $fileName . '.json', '');
+            unlink(APP_ROOT . $this->path . $fileName . '.json');
             return true;
         }
 
@@ -63,6 +65,8 @@ class FileCacheModel implements CacheInterface
             }
 
             file_put_contents(APP_ROOT . $this->path . $fileName . '.json', json_encode($fileData));
+        } else {
+            file_put_contents(APP_ROOT . $this->path . $fileName . '.json', json_encode($data));
         }
     }
 }
