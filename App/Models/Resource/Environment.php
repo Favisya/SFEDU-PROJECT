@@ -7,7 +7,7 @@ use App\Models\StrategyFactory;
 class Environment
 {
     protected $settings;
-    private const CACHENAME = 'environment';
+    private const CACHE_NAME = 'environment';
     private $cacheModel;
 
     public function __construct()
@@ -15,23 +15,23 @@ class Environment
         $factory = new StrategyFactory();
         $this->settings = parse_ini_file(APP_ROOT . '/.env', true);
         $this->cacheModel = $factory->factory($this->settings['CACHE']['TYPE']);
-        if ($this->cacheModel->isCacheEmpty(self::CACHENAME)) {
-            $this->cacheModel->toCache($this->settings, self::CACHENAME, true);
+        if ($this->cacheModel->isCacheEmpty(self::CACHE_NAME)) {
+            $this->cacheModel->toCache($this->settings, self::CACHE_NAME, true);
         }
     }
 
     public function getDatabase()
     {
-        return $this->cacheModel->getCache(self::CACHENAME)['DATABASE'];
+        return $this->cacheModel->getCache(self::CACHE_NAME)['DATABASE'];
     }
 
     public function getUri()
     {
-        return reset($this->cacheModel->getCache(self::CACHENAME)['CACHE']['URI']);
+        return reset($this->cacheModel->getCache(self::CACHE_NAME)['CACHE']['URI']);
     }
 
     public function getCacheType()
     {
-        return $this->cacheModel->getCache(self::CACHENAME)['CACHE']['TYPE'];
+        return $this->cacheModel->getCache(self::CACHE_NAME)['CACHE']['TYPE'];
     }
 }

@@ -9,7 +9,7 @@ use App\Models\StrategyFactory;
 
 class AuthorsController extends AbstractApiController
 {
-    private const CACHENAME = 'Authors';
+    private const CACHE_NAME = 'Authors';
 
     public function __construct($param = null)
     {
@@ -44,7 +44,7 @@ class AuthorsController extends AbstractApiController
 
     private function getList(bool $isOnlyData = true)
     {
-        if ($this->getCacheList(self::CACHENAME, $this->cacheModel)) {
+        if ($this->getCacheList(self::CACHE_NAME, $this->cacheModel)) {
             return true;
         }
 
@@ -56,7 +56,7 @@ class AuthorsController extends AbstractApiController
             $data[] = $this->getAuthor($author);
         }
         if ($isOnlyData) {
-            $this->cacheModel->toCache($data, self::CACHENAME);
+            $this->cacheModel->toCache($data, self::CACHE_NAME);
             $this->printJson($data);
         }
         return $data;
@@ -64,7 +64,7 @@ class AuthorsController extends AbstractApiController
 
     private function getElement(): bool
     {
-        if ($this->getCacheElement(self::CACHENAME, $this->cacheModel)) {
+        if ($this->getCacheElement(self::CACHE_NAME, $this->cacheModel)) {
             return false;
         }
 
@@ -72,7 +72,7 @@ class AuthorsController extends AbstractApiController
         $authorModel = $authorResource->getAuthor($this->param);
 
         $data = $this->getAuthor($authorModel);
-        $this->updateCache(self::CACHENAME, $data);
+        $this->updateCache(self::CACHE_NAME, $data);
         $this->printJson($data);
 
         return true;
@@ -87,7 +87,7 @@ class AuthorsController extends AbstractApiController
         header('Status: 200');
 
         $data = $this->getAuthor($authorModel);
-        $this->updateCache(self::CACHENAME, $data);
+        $this->updateCache(self::CACHE_NAME, $data);
     }
 
     private function editElement()
@@ -99,7 +99,7 @@ class AuthorsController extends AbstractApiController
         header('Status: 200');
 
         $data = $this->getAuthor($authorModel);
-        $this->updateCache(self::CACHENAME, $data);
+        $this->updateCache(self::CACHE_NAME, $data);
     }
 
     private function deleteElement()
@@ -108,6 +108,6 @@ class AuthorsController extends AbstractApiController
         $resource->deleteAuthor($this->param);
         header('Status: 200');
 
-        $this->cacheModel->clearCache(self::CACHENAME, true, $this->param);
+        $this->cacheModel->clearCache(self::CACHE_NAME, true, $this->param);
     }
 }
