@@ -56,7 +56,7 @@ class FileCacheModel implements CacheInterface
     {
         if (file_exists(APP_ROOT . $this->path . $fileName . '.json')) {
             $fileData   = $this->getCache($fileName);
-            $index = array_search($data['id'], array_column($fileData, 'id'));
+            $index = array_search($data['id'] ?? $data, array_column($fileData, 'id'));
 
             if ($index !== false) {
                 $fileData[$index] = $data;

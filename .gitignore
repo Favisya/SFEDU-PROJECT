@@ -4,3 +4,4 @@ composer.lock
 .env
 var/Sessions/
 var/Cache/
+var/output/

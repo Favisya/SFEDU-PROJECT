@@ -10,7 +10,7 @@ use App\Models\AbstractModel;
 
 class BooksResource
 {
-    public function getBooks(int $id): AbstractModel
+    public function getBooks(int $id = 0): AbstractModel
     {
         if (!isset($id)) {
             throw new MvcException('Id is wrong');
