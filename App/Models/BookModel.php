@@ -17,7 +17,7 @@ class BookModel extends AbstractModel
         return $this->data['name'] ?? null;
     }
 
-    public function getYear(): ?string
+    public function getDate(): ?string
     {
         return $this->data['date'] ?? null;
     }
@@ -52,7 +52,7 @@ class BookModel extends AbstractModel
         return $this->data['id'] ?? null;
     }
 
-    public function getAuthorID(): ?int
+    public function getAuthorId(): ?int
     {
         return $this->data['author_id'] ?? null;
     }

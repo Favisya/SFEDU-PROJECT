@@ -12,6 +12,7 @@
     ],
     "require": {
         "squizlabs/php_codesniffer": "*",
+        "phpoffice/phpspreadsheet": "^1.24",
         "ext-pdo": "*",
         "ext-json": "*",
         "predis/predis": "^2.0"

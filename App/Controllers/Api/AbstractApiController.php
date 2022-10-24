@@ -37,7 +37,7 @@ abstract class AbstractApiController extends AbstractController
             'author'    => $book->getAuthor(),
             'country'   => $book->getCountry(),
             'publisher' => $book->getPublisher(),
-            'date'      => $book->getYear(),
+            'date'      => $book->getDate(),
         ];
         return $data ?? null;
     }
