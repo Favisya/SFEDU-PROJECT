@@ -2,6 +2,7 @@
 composer.lock
 .idea
 .env
-var/Sessions/
-var/Cache/
-var/output/
+var/Sessions/*
+var/Cache/*
+var/output/*
+var/logs/*
