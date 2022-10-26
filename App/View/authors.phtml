@@ -10,8 +10,8 @@ $model = $this->getAuthors();
 
     <div class="entity-container entity-container_list">
         <?php foreach ($model->getList() as $item): ?>
-            <a href="/author?id=<?= $this->toNormalText($item->getId()) ?>" class="entity-container__button">
-                <h2><?= $this->toNormalText($item->getName()) ?></h2>
+            <a href="/author?id=<?= $this->secureText($item->getId()) ?>" class="entity-container__button">
+                <h2><?= $this->secureText($item->getName()) ?></h2>
             </a>
         <?php endforeach; ?>
     </div>

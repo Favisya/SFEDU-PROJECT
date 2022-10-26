@@ -10,15 +10,15 @@ $model = $this->getAuthor();
     <div class="entity-container">
         <div class="entity-container__side-block">
             <div class="entity-container__info-block">
-                <h2><?= $this->toNormalText($model->getName()) ?></h2>
+                <h2><?= $this->secureText($model->getName()) ?></h2>
             </div>
 
             <div class="entity-container__left-buttons">
-                <a href="/editAuthor?id=<?= $this->toNormalText($model->getId()) ?>" class="entity-container__button">
+                <a href="/editAuthor?id=<?= $this->secureText($model->getId()) ?>" class="entity-container__button">
                     Редактировать
                 </a>
 
-                <a href="/deleteAuthor?id= <?= $this->toNormalText($model->getId()) ?>" class="entity-container__button">
+                <a href="/deleteAuthor?id= <?= $this->secureText($model->getId()) ?>" class="entity-container__button">
                     Удалить
                 </a>
             </div>
@@ -33,13 +33,13 @@ $model = $this->getAuthor();
                     </div>
                     <?php foreach ($model->getBooks() as $book): ?>
                         <div class="table__row">
-                            <div class="table__field"><?= $this->toNormalText($book->getYear()) ?></div>
-                            <div class="table__field"><?= $this->toNormalText($book->getName()) ?></div>
+                            <div class="table__field"><?= $this->secureText($book->getYear()) ?></div>
+                            <div class="table__field"><?= $this->secureText($book->getName()) ?></div>
                         </div>
                     <?php endforeach;?>
                 </div>
             </div>
-            <a href="/books?author_id=<?= $this->toNormalText($model->getId()) ?>" class="entity-container__button">
+            <a href="/books?author_id=<?= $this->secureText($model->getId()) ?>" class="entity-container__button">
                 Все книги
             </a>
         </div>

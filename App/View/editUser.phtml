@@ -24,7 +24,7 @@
                     id="name"
                     name="name"
                     placeholder="Имя"
-                    value="<?= $this->toNormalText($model->getName())?>"
+                    value="<?= $this->secureText($model->getName())?>"
                     required
                 >
             </div>
@@ -37,7 +37,7 @@
                     id="surname"
                     name="surname"
                     placeholder="фамилия"
-                    value="<?= $this->toNormalText($model->getSurname())?>"
+                    value="<?= $this->secureText($model->getSurname())?>"
                     required
                 >
             </div>

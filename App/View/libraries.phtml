@@ -10,9 +10,9 @@ $model = $this->getLibraries();
 
     <div class="entity-container entity-container_list">
         <?php foreach ($model->getList() as $library): ?>
-            <a href="/library?id=<?= $this->toNormalText($library->getId()) ?>" class="entity-container__button">
-                <h2><?= $this->toNormalText($library->getName()) ?></h2>
-                <h3><?= $this->toNormalText($library->getAddress()) ?></h3>
+            <a href="/library?id=<?= $this->secureText($library->getId()) ?>" class="entity-container__button">
+                <h2><?= $this->secureText($library->getName()) ?></h2>
+                <h3><?= $this->secureText($library->getAddress()) ?></h3>
             </a>
         <?php endforeach; ?>
     </div>

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Resource\Environment;
 use Predis\Client;
 
 class RedisCacheModel implements CacheInterface

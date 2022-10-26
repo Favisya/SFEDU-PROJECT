@@ -11,9 +11,9 @@ if (isset($argv[1])) {
     $controller = $router->parseControllers($argv[1]);
 
     if (isset($argv[2])) {
-        $controller->setFileFormat($argv[2]);
+        $controller->setArgument($argv[2]);
     } else {
-        $controller->setFileFormat(CSV_FORMAT);
+        $controller->setArgument(CSV_FORMAT);
     }
 
     $controller->execute();

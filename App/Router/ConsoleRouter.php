@@ -7,10 +7,8 @@ use App\Controllers\Console;
 
 class ConsoleRouter extends AbstractRouter
 {
-    public function parseControllers(string $path): ?Console\AbstractController
+    public function parseControllers(string $controller): ?Console\AbstractController
     {
-        $controller = $path;
-
         $class = ucfirst($controller);
         $class = $class . 'Controller';
 

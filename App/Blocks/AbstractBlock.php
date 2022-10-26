@@ -35,7 +35,7 @@ abstract class AbstractBlock
         require_once APP_ROOT . '/App/templates/formToken.phtml';
     }
 
-    public function toNormalText(string $data)
+    public function secureText(string $data)
     {
         return htmlspecialchars($data);
     }

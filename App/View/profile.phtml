@@ -12,8 +12,8 @@ $model = $this->getUser();
 
             <div class="entity-container__info-block">
                 <h2>
-                    <?= $this->toNormalText($model->getName()) ?>
-                    <?= $this->toNormalText($model->getSurname()) ?>
+                    <?= $this->secureText($model->getName()) ?>
+                    <?= $this->secureText($model->getSurname()) ?>
                 </h2>
             </div>
 
