@@ -7,6 +7,7 @@ use App\Controllers\Error403Controller;
 use App\Controllers\Error500Controller;
 use App\Exceptions\CsrfException;
 use App\Exceptions\MvcException;
+use App\Models\LoggerModel;
 use App\Router\Router;
 
 class App
@@ -26,6 +27,7 @@ class App
     {
         $requestPath = $_SERVER['REQUEST_URI'] ?? '';
         $controller = $this->getController($requestPath);
+        $logger = LoggerModel::getInstance();
 
         try {
             if ($controller !== false) {
@@ -34,15 +36,15 @@ class App
         } catch (MvcException $e) {
             $controller = new Error404Controller();
             $controller->execute();
-            printWarning($e->getMessage());
+            $logger->printWarning($e->getMessage());
         } catch (\Exception $e) {
             $controller = new Error500Controller();
             $controller->execute();
-            printError($e->getMessage());
+            $logger->printError($e->getMessage());
         } catch (CsrfException $e) {
             $controller = new Error403Controller();
             $controller->execute();
-            printError($e->getMessage());
+            $logger->printError($e->getMessage());
         }
     }
 
