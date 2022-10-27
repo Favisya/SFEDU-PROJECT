@@ -43,15 +43,24 @@ class RedisCacheModel implements CacheInterface
 
     public function isCacheEmpty(string $fileName): bool
     {
-        return $this->client->exists($this->getMultipleString($fileName)) < 1;
+        $keys = $this->getKeys($fileName);
+        $count = 0;
+        foreach ($keys as $key) {
+            $count += $this->client->exists($key);
+        }
+        if ($count == count($keys)) {
+            return true;
+        }
+
+        return false;
     }
 
     public function clearCache(string $fileName, bool $isEntity = false, int $id = null)
     {
         if (!$isEntity) {
-            $this->client->del($this->getMultipleString($fileName));
+            $this->client->del($this->getKeys($fileName));
         }
-        $this->client->del($this->getMultipleString($fileName . '_' . $id));
+        $this->client->del($fileName . '_' . $id);
     }
 
 
@@ -64,17 +73,13 @@ class RedisCacheModel implements CacheInterface
         $this->client->set($fileName . $addString, json_encode($data));
     }
 
-    private function getMultipleString(string $fileName): string
+    private function getKeys(string $fileName)
     {
         $keys = $this->client->keys($fileName . '*');
         if (empty($keys)) {
             return $fileName;
         }
 
-        $multipleKey = '';
-        foreach ($keys as $key) {
-            $multipleKey .= $key . ' ';
-        }
-        return $multipleKey;
+        return $keys;
     }
 }
