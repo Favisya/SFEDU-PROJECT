@@ -17,6 +17,7 @@ class PostEditUserController extends AbstractController
             $this->getPostParam('password'),
             $this->getPostParam('name'),
             $this->getPostParam('surname'),
+            $this->getPostParam('email'),
             SessionModel::getInstance()->getUserId()
         );
 

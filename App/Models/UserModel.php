@@ -26,6 +26,11 @@ class UserModel extends AbstractModel
         return $this->data['surname'] ?? null;
     }
 
+    public function getEmail(): ?string
+    {
+        return $this->data['email'] ?? null;
+    }
+
     public function __toString()
     {
         return 'user';

@@ -23,7 +23,8 @@ class PostRegistrationController extends AbstractController
                 $this->getPostParam('login'),
                 $this->getPostParam('password'),
                 $this->getPostParam('name'),
-                $this->getPostParam('surname')
+                $this->getPostParam('surname'),
+                $this->getPostParam('email')
             );
             $this->redirect('login');
         }
