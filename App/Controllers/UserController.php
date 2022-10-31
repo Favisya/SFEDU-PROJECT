@@ -10,6 +10,6 @@ class UserController extends AbstractController
     {
         $resource = new ProfileResource();
         $userModel = $resource->getUserInfo($this->getParam('id'));
-        $this->commonExecute('user', $userModel, 'UserBlock');
+        $this->renderPage('user', $userModel, 'UserBlock');
     }
 }

@@ -10,11 +10,11 @@ $router = new \App\Router\ConsoleRouter();
 if (isset($argv[1])) {
     $controller = $router->parseControllers($argv[1]);
 
-    if (isset($argv[2])) {
-        $controller->setArgument($argv[2]);
-    } else {
-        $controller->setArgument(CSV_FORMAT);
+    if (!isset($argv[2])) {
+        $controller->setArgument([CSV_FORMAT]);
     }
+
+    $controller->setArgument([$argv[2], $argv[3]]);
 
     $controller->execute();
 } else {

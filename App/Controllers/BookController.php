@@ -11,6 +11,6 @@ class BookController extends AbstractController
         $bookResource = new BookResource();
         $bookModel = $bookResource->getBook($this->getParam('id'));
 
-        $this->commonExecute('book', $bookModel, 'BookBlock');
+        $this->renderPage('book', $bookModel, 'BookBlock');
     }
 }

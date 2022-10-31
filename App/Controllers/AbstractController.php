@@ -16,7 +16,7 @@ abstract class AbstractController
     {
     }
 
-    public function commonExecute(string $template, AbstractModel $model = null, string $blockName = 'SimpleBlock')
+    public function renderPage(string $template, AbstractModel $model = null, string $blockName = 'SimpleBlock')
     {
         $method = $blockName;
         $blockName = '\App\Blocks\\' . $blockName;

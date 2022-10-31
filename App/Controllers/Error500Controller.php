@@ -6,6 +6,6 @@ class Error500Controller extends AbstractController
 {
     public function execute()
     {
-        $this->commonExecute('500');
+        $this->renderPage('500');
     }
 }

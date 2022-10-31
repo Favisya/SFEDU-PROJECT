@@ -11,6 +11,6 @@ class UsersController extends AbstractController
         $resource = new UsersResource();
         $model = $resource->getUsers();
 
-        $this->commonExecute('users', $model, 'UsersBlock');
+        $this->renderPage('users', $model, 'UsersBlock');
     }
 }

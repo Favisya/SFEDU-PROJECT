@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Exceptions\MvcException;
-use App\Models\Resource\Environment;
 
 class StrategyFactory
 {
@@ -17,5 +16,13 @@ class StrategyFactory
             default:
                 throw new MvcException('type is incorrect');
         }
+    }
+
+    public function getAll(): array
+    {
+        return [
+            new FileCacheModel(),
+            new RedisCacheModel(),
+        ];
     }
 }

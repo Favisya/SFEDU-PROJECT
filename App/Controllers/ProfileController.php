@@ -11,6 +11,6 @@ class ProfileController extends AbstractController
     {
         $resource = new ProfileResource();
         $userModel = $resource->getUserInfo(SessionModel::getInstance()->getUserId());
-        $this->commonExecute('profile', $userModel, 'UserBlock');
+        $this->renderPage('profile', $userModel, 'UserBlock');
     }
 }

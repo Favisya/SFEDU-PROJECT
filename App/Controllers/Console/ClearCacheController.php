@@ -2,17 +2,17 @@
 
 namespace App\Controllers\Console;
 
-use App\Models\FileCacheModel;
-use App\Models\RedisCacheModel;
+use App\Models\StrategyFactory;
 
 class ClearCacheController extends AbstractController
 {
     public function execute()
     {
-        $fileCacheModel = new FileCacheModel();
-        $redisCacheModel = new RedisCacheModel();
+        $cacheModels = new StrategyFactory();
 
-        $redisCacheModel->clearCache($this->getArgument());
-        $fileCacheModel->clearCache($this->getArgument());
+        foreach ($cacheModels->getAll() as $cacheModel) {
+            $arguments = $this->getArgument();
+            $cacheModel->clearCache(reset($arguments));
+        }
     }
 }

@@ -2,8 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\Resource\Environment;
-use App\Models\Resource\Mailer;
+use App\Models\Mailer;
 use App\Models\Resource\ProfileResource;
 
 class SendMailController extends AbstractController
@@ -13,7 +12,7 @@ class SendMailController extends AbstractController
         $resource = new ProfileResource();
         $user  = $resource->getUserInfo($this->getParam('id'));
 
-        $model = new Mailer($user);
+        $model = new Mailer($user->getName());
         $model->sendEmail($user->getEmail());
         $this->redirect('users');
     }

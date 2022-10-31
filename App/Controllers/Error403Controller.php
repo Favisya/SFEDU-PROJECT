@@ -6,6 +6,6 @@ class Error403Controller extends AbstractController
 {
     public function execute()
     {
-        $this->commonExecute('403');
+        $this->renderPage('403');
     }
 }

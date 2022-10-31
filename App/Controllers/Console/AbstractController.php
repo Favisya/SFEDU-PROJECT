@@ -6,12 +6,12 @@ abstract class AbstractController extends \App\Controllers\AbstractController
 {
     private $argument;
 
-    public function setArgument(string $fileFormat): void
+    public function setArgument(array $argument): void
     {
-        $this->argument = $fileFormat;
+        $this->argument = $argument;
     }
 
-    public function getArgument(): string
+    public function getArgument(): array
     {
         return $this->argument;
     }

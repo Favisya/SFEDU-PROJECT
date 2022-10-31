@@ -2,15 +2,16 @@
 
 namespace App\Controllers\Console;
 
-use App\Models\Resource\Service;
+use App\Models\Service;
 
 class BooksController extends AbstractController
 {
     public function execute()
     {
         $booksResource = new \App\Models\Resource\BooksResource();
-        $Resource = new Service();
+        $resource = new Service();
         $model = $booksResource->getBooks();
-        $Resource->printToFile($model, $this->getArgument());
+        $arguments = $this->getArgument();
+        $resource->printToFile($model, reset($arguments));
     }
 }

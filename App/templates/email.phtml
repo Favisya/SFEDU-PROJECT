@@ -1,6 +1,6 @@
 <?php
 /**
- * @var App\Blocks\BookBlock $this- >model $this of block class for book
+ * @var App\Blocks\EmailBlock $this- >model $this of block class for book
  */
 
 $model = $this->getUser();
@@ -137,7 +137,7 @@ $model = $this->getUser();
                                     <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;"
                                         valign="top">
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
-                                            Привет, <?= $this->secureText($model->getName()) ?? 'Пользователь'?> </p>
+                                            Привет, <?= $this->secureText($model->getName())?> </p>
                                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
                                             Забыли про нас? Мы существуем!
                                         </p>

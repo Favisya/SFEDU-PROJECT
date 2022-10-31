@@ -12,6 +12,6 @@ class TookenBooksController extends AbstractController
         $booksResource = new BooksResource();
         $booksModel = $booksResource->getTookenBooks(SessionModel::getInstance()->getUserId());
 
-        $this->commonExecute('tookenBooks', $booksModel, 'BooksBlock');
+        $this->renderPage('tookenBooks', $booksModel, 'BooksBlock');
     }
 }

@@ -15,6 +15,6 @@ class RegistrationController extends AbstractController
         if ($this->isLoggedIn()) {
             $this->redirect('profile');
         }
-        $this->commonExecute('registration', SessionModel::getInstance(), 'SessionBlock');
+        $this->renderPage('registration', SessionModel::getInstance(), 'SessionBlock');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Resource;
+namespace App\Models;
 
 use App\Exceptions\MvcException;
 use App\Models\AbstractModel;

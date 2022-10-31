@@ -11,6 +11,6 @@ class PublishersController extends AbstractController
         $publishersResource = new PublishersResource();
         $publishersModel = $publishersResource->getPublishers();
 
-        $this->commonExecute('publishers', $publishersModel);
+        $this->renderPage('publishers', $publishersModel);
     }
 }

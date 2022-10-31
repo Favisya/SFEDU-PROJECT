@@ -9,6 +9,6 @@ class CreateAuthorController extends AbstractController
     public function execute()
     {
         $authorModel = new AuthorModel();
-        $this->commonExecute('createAuthor', $authorModel, 'AuthorBlock');
+        $this->renderPage('createAuthor', $authorModel, 'AuthorBlock');
     }
 }
