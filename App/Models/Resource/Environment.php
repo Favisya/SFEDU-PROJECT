@@ -34,4 +34,9 @@ class Environment
     {
         return $this->cacheModel->getCache(self::CACHE_NAME)['CACHE']['TYPE'];
     }
+
+    public function getMailerKey()
+    {
+        return $this->cacheModel->getCache(self::CACHE_NAME)['MAILER']['KEY'];
+    }
 }

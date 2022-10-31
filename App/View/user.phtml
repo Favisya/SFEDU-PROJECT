@@ -23,11 +23,12 @@ $model = $this->getUser();
 
             <div class="entity-container__left-buttons">
                 <a
-                    class="entity-container__button"
-                    href="/logOut"
+                        class="entity-container__button"
+                        href="/sendMail?id=<?= $model->getId() ?>"
                 >
-                    Выйти
+                    Напомнить
                 </a>
+
 
                 <a
                     class="entity-container__button"

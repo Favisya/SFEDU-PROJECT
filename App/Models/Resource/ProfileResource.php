@@ -9,7 +9,7 @@ class ProfileResource
 {
     public function getUserInfo(int $id)
     {
-        $query = 'SELECT name, surname, login, email FROM users WHERE id = ?';
+        $query = 'SELECT name, surname, login, email, id FROM users WHERE id = ?';
         $db    = Database::getInstance()->getConnection();
 
         $stmt = $db->prepare($query);

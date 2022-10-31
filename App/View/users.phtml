@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var App\Blocks\Block $this->model $this of block class for books
+ */
+
+$model = $this->getUsers()
+?>
+
+<div class="content-container content-container_list">
+
+    <div class="entity-container entity-container_list">
+        <?php foreach ($model->getList() as $user): ?>
+            <a href="/user?id=<?= $this->secureText($user->getId()) ?>" class="entity-container__button">
+                <h2><?= $this->secureText($user->getName()) . ' ' .  $this->secureText($user->getSurname())?></h2>
+                <h3><?= $this->secureText($user->getEmail()) ?></h3>
+            </a>
+        <?php endforeach; ?>
+    </div>
+</div>
