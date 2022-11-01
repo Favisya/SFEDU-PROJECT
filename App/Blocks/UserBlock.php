@@ -17,9 +17,4 @@ class UserBlock extends AbstractBlock
     {
         return $this->user;
     }
-
-    public function renderEmail()
-    {
-        require_once APP_ROOT . '/App/templates/email.phtml';
-    }
 }

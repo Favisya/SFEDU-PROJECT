@@ -6,12 +6,12 @@ abstract class AbstractController extends \App\Controllers\AbstractController
 {
     private $argument;
 
-    public function setArgument(array $argument): void
+    public function setArguments(array $argument): void
     {
         $this->argument = $argument;
     }
 
-    public function getArgument(): array
+    public function getArguments(): array
     {
         return $this->argument;
     }

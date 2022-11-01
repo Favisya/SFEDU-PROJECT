@@ -8,8 +8,8 @@ class SendMailController extends AbstractController
 {
     public function execute()
     {
-        $arguments = $this->getArgument();
-        $model = new Mailer(end($arguments));
-        $model->sendEmail(reset($arguments));
+        $arguments = $this->getArguments();
+        $model = new Mailer($arguments[SECOND_ARG], $arguments[THIRD_ARG]);
+        $model->sendEmail($arguments[FIRST_ARG]);
     }
 }

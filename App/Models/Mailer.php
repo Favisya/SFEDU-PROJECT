@@ -11,10 +11,14 @@ class Mailer
 {
     private $apiInstance;
     private $template;
+    private $user;
+    private $env;
 
-    public function __construct(string $name)
+    public function __construct(string $name, string $template)
     {
         $env = new Environment();
+        $this->env = $env;
+
         $config = Client\Configuration::getDefaultConfiguration()->setApiKey(
             'api-key',
             $env->getMailerKey()
@@ -26,13 +30,15 @@ class Mailer
         );
 
         $block = new EmailBlock();
-        $block->setTemplate('email');
+        $block->setTemplate($template);
 
         $user = new UserModel();
         $user->setData(['name' => $name]);
         $block->setUser($user);
 
-        $this->template = $block->render();
+        $this->user = $user;
+
+        $this->template = $block->getHtml();
     }
 
     public function sendEmail(string $email)
@@ -40,9 +46,9 @@ class Mailer
         $sendSmtpEmail = new Client\Model\SendSmtpEmail();
         $sendSmtpEmail['subject'] = 'Notification';
         $sendSmtpEmail['htmlContent'] = $this->template;
-        $sendSmtpEmail['sender'] = ['name' => 'Admin group of Super Books', 'email' => 'Super@Book.com'];
+        $sendSmtpEmail['sender'] = ['name' => 'Admin group of Super Books', 'email' => $this->env->getEmail()];
         $sendSmtpEmail['to'] = [
-            ['email' => $email, 'name' => 'Dear user']
+            ['email' => $email, 'name' => $this->user->getName()]
         ];
 
         try {

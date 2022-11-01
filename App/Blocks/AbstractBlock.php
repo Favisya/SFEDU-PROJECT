@@ -40,6 +40,17 @@ abstract class AbstractBlock
         return htmlspecialchars($data);
     }
 
+    public function getHtml()
+    {
+        ob_start();
+        $this->render();
+        $html = ob_get_contents();
+        ob_end_clean();
+
+        return $html;
+    }
+
+
     private function renderLoginButton()
     {
         require_once APP_ROOT . '/App/templates/loginButton.phtml';

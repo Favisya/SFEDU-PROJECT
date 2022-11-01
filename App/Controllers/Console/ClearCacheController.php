@@ -2,16 +2,16 @@
 
 namespace App\Controllers\Console;
 
-use App\Models\StrategyFactory;
+use App\Models\CacheFactory;
 
 class ClearCacheController extends AbstractController
 {
     public function execute()
     {
-        $cacheModels = new StrategyFactory();
+        $cacheModels = new CacheFactory();
 
         foreach ($cacheModels->getAll() as $cacheModel) {
-            $arguments = $this->getArgument();
+            $arguments = $this->getArguments();
             $cacheModel->clearCache(reset($arguments));
         }
     }

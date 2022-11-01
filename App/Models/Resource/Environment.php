@@ -2,7 +2,7 @@
 
 namespace App\Models\Resource;
 
-use App\Models\StrategyFactory;
+use App\Models\CacheFactory;
 
 class Environment
 {
@@ -12,7 +12,7 @@ class Environment
 
     public function __construct()
     {
-        $factory = new StrategyFactory();
+        $factory = new CacheFactory();
         $this->settings = parse_ini_file(APP_ROOT . '/.env', true);
         $this->cacheModel = $factory->factory($this->settings['CACHE']['TYPE']);
         if ($this->cacheModel->isCacheEmpty(self::CACHE_NAME)) {
@@ -38,5 +38,10 @@ class Environment
     public function getMailerKey()
     {
         return $this->cacheModel->getCache(self::CACHE_NAME)['MAILER']['KEY'];
+    }
+
+    public function getEmail()
+    {
+        return $this->cacheModel->getCache(self::CACHE_NAME)['MAILER']['EMAIL'];
     }
 }

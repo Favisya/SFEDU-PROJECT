@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Exceptions\MvcException;
 
-class StrategyFactory
+class CacheFactory
 {
     public function factory(string $cacheType): CacheInterface
     {

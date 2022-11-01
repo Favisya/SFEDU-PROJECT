@@ -24,7 +24,7 @@ $model = $this->getUser();
             <div class="entity-container__left-buttons">
                 <a
                         class="entity-container__button"
-                        href="/sendMail?id=<?= $model->getId() ?>"
+                        href="/sendMail?id=<?= $model->getId() ?>&template=notification"
                 >
                     Напомнить
                 </a>

@@ -12,7 +12,7 @@ class SendMailController extends AbstractController
         $resource = new ProfileResource();
         $user  = $resource->getUserInfo($this->getParam('id'));
 
-        $model = new Mailer($user->getName());
+        $model = new Mailer($user->getName(), $this->getParam('template'));
         $model->sendEmail($user->getEmail());
         $this->redirect('users');
     }
