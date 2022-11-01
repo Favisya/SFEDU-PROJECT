@@ -9,7 +9,11 @@ class SendMailController extends AbstractController
     public function execute()
     {
         $arguments = $this->getArguments();
-        $model = new Mailer($arguments[SECOND_ARG], $arguments[THIRD_ARG]);
-        $model->sendEmail($arguments[FIRST_ARG]);
+        $email    = array_shift($arguments);
+        $name     = array_shift($arguments);
+        $template = array_shift($arguments);
+
+        $model = new Mailer($name, $template);
+        $model->sendEmail($email);
     }
 }
