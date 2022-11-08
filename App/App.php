@@ -3,56 +3,51 @@
 namespace App;
 
 use App\Controllers\Error404Controller;
-use App\Controllers\Error403Controller;
 use App\Controllers\Error500Controller;
-use App\Exceptions\CsrfException;
 use App\Exceptions\MvcException;
+use App\Models\DiC;
 use App\Models\LoggerModel;
-use App\Router\Router;
+use App\Models\RouterFactory;
+use Laminas\Di\Di;
 
 class App
 {
-    private static $instance;
+    protected $di;
 
-    public static function getInstance(): self
+    public function __construct(Di $di)
     {
-        if (empty(self::$instance)) {
-            self::$instance = new App();
-        }
-
-        return self::$instance;
+        $this->di = $di;
     }
 
     public function runApp(): void
     {
         $requestPath = $_SERVER['REQUEST_URI'] ?? '';
+        $diC = new DiC($this->di);
+        $diC->assemble();
+
         $controller = $this->getController($requestPath);
-        $logger = LoggerModel::getInstance();
+        $logger = $this->di->get(LoggerModel::class);
 
         try {
             if ($controller !== false) {
                 $controller->execute();
             }
         } catch (MvcException $e) {
-            $controller = new Error404Controller();
-            $controller->execute();
             $logger->printWarning($e->getMessage());
+            $controller = $this->di->get(Error404Controller::class);
+            $controller->execute();
         } catch (\Exception $e) {
-            $controller = new Error500Controller();
-            $controller->execute();
             $logger->printError($e->getMessage());
-        } catch (CsrfException $e) {
-            $controller = new Error403Controller();
+            $controller = $this->di->get(Error500Controller::class);
             $controller->execute();
-            $logger->printError($e->getMessage());
         }
     }
 
 
     private function getController(string $requestPath)
     {
-        $routerObject = new Router();
-        $router = $routerObject->routerFactory($requestPath);
+        $routerFactory = $this->di->get(RouterFactory::class);
+        $router = $routerFactory->routerFactory($requestPath);
         return $router->parseControllers($requestPath);
     }
 }

@@ -48,7 +48,7 @@ class AuthorsController extends AbstractApiController
             return true;
         }
 
-        $authorsResource = new AuthorsResource();
+        $authorsResource = $this->di->get(AuthorsResource::class);
         $authorsModel = $authorsResource->getAuthors();
 
         $data = [];
@@ -68,7 +68,7 @@ class AuthorsController extends AbstractApiController
             return false;
         }
 
-        $authorResource = new AuthorResource();
+        $authorResource = $this->di->get(AuthorResource::class);
         $authorModel = $authorResource->getAuthor($this->param);
 
         $data = $this->getAuthor($authorModel);
@@ -82,7 +82,7 @@ class AuthorsController extends AbstractApiController
     {
         $data = $this->endCodeJson();
         $name = $data['name'];
-        $authorResource = new AuthorResource();
+        $authorResource = $this->di->get(AuthorResource::class);
         $authorModel = $authorResource->createAuthor($name);
         header('Status: 200');
 
@@ -94,7 +94,7 @@ class AuthorsController extends AbstractApiController
     {
         $data = $this->endCodeJson();
         $name = $data['name'];
-        $authorResource = new AuthorResource();
+        $authorResource = $this->di->get(AuthorResource::class);
         $authorModel = $authorResource->editAuthor($name, $this->param);
         header('Status: 200');
 
@@ -104,7 +104,7 @@ class AuthorsController extends AbstractApiController
 
     private function deleteElement()
     {
-        $resource = new AuthorResource();
+        $resource = $this->di->get(AuthorResource::class);
         $resource->deleteAuthor($this->param);
         header('Status: 200');
 

@@ -8,7 +8,7 @@ class PublishersController extends AbstractController
 {
     public function execute()
     {
-        $publishersResource = new PublishersResource();
+        $publishersResource = $this->di->get(PublishersResource::class);
         $publishersModel = $publishersResource->getPublishers();
 
         $this->renderPage('publishers', $publishersModel);

@@ -6,16 +6,17 @@ use App\Database\Database;
 use App\Models\AbstractModel;
 use App\Models\PublishersModel;
 
-class PublishersResource
+class PublishersResource extends AbstractResource
 {
     public function getPublishers(): AbstractModel
     {
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $query = 'SELECT name, id from publishers;';
         $stmt  = $db->query($query);
 
-        $publishersModel = new PublishersModel();
+        $publishersModel = $this->di->get(PublishersModel::class);
         $publishersModel->setData($stmt->fetchAll());
 
         return $publishersModel;

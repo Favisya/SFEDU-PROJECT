@@ -6,5 +6,7 @@ require_once APP_ROOT . '/vendor/autoload.php';
 
 use App\App;
 
-$facade = App::getInstance();
+$di = new \Laminas\Di\Di();
+
+$facade = $di->get(App::class);
 $facade->runApp();

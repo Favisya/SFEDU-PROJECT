@@ -9,8 +9,8 @@ class BooksController extends AbstractController
 {
     public function execute()
     {
-        $booksResource = new BooksResource();
-        $service = new Service();
+        $booksResource = $this->di->get(BooksResource::class);
+        $service = $this->di->get(Service::class);
         $model = $booksResource->getBooks();
         $arguments = $this->getArguments();
         $service->printToFile($model, reset($arguments));

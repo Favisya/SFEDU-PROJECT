@@ -9,8 +9,9 @@ class TakeBookController extends AbstractController
 {
     public function execute()
     {
-        $resource = new BookResource();
-        $resource->takeBook($this->getParam('id'), SessionModel::getInstance()->getUserId());
+        $resource = $this->di->get(BookResource::class);
+        $session = $this->di->get(SessionModel::class);
+        $resource->takeBook($this->getParam('id'), $session->getUserId());
         $this->redirect('books');
     }
 }

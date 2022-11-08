@@ -9,8 +9,9 @@ class TookenBooksController extends AbstractController
 {
     public function execute()
     {
-        $booksResource = new BooksResource();
-        $booksModel = $booksResource->getTookenBooks(SessionModel::getInstance()->getUserId());
+        $booksResource = $this->di->get(BooksResource::class);
+        $session       = $this->di->get(SessionModel::class);
+        $booksModel = $booksResource->getTookenBooks($session->getUserId());
 
         $this->renderPage('tookenBooks', $booksModel, 'BooksBlock');
     }

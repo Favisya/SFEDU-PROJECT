@@ -8,7 +8,7 @@ class DeleteLibraryController extends AbstractController
 {
     public function execute()
     {
-        $resource = new LibraryResource();
+        $resource = $this->di->get(LibraryResource::class);
         $resource->deleteLibrary($this->getParam('id'));
         $this->redirect('libraries');
     }

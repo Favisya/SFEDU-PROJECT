@@ -3,10 +3,17 @@
 namespace App\Models;
 
 use App\Models\Resource\AbstractResource;
+use Laminas\Di\Di;
 
 class AccountService
 {
     private $resource;
+    private $di;
+
+    public function __construct(Di $di)
+    {
+        $this->di = $di;
+    }
 
     public function authenticate($login, $password): bool
     {
@@ -33,7 +40,7 @@ class AccountService
 
     private function setUserToSession(array $user): void
     {
-        $sessionModel = SessionModel::getInstance();
+        $sessionModel = $this->di->get(SessionModel::class);
         $sessionModel->setUserData($user);
     }
 }

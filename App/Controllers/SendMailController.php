@@ -9,10 +9,17 @@ class SendMailController extends AbstractController
 {
     public function execute()
     {
-        $resource = new ProfileResource();
+        $resource = $this->di->get(ProfileResource::class);
         $user  = $resource->getUserInfo($this->getParam('id'));
 
-        $model = new Mailer($user->getName(), $this->getParam('template'));
+        $model = $this->di->get(
+            Mailer::class,
+            [
+                'name'     => $user->getName(),
+                'template' => $this->getParam('template'),
+                'di'       => $this->di,
+            ]
+        );
         $model->sendEmail($user->getEmail());
         $this->redirect('users');
     }

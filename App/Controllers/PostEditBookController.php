@@ -19,7 +19,7 @@ class PostEditBookController extends AbstractController
             }
         }
 
-        $resource = new BookResource();
+        $resource = $this->di->get(BookResource::class);
         $bookModel = $resource->editBook(
             $this->getPostParam('bookName'),
             $this->getPostParam('bookDate'),

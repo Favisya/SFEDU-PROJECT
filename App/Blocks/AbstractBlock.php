@@ -2,12 +2,18 @@
 
 namespace App\Blocks;
 
-use App\Models\AbstractModel;
 use App\Models\SessionModel;
+use Laminas\Di\Di;
 
 abstract class AbstractBlock
 {
     protected $template;
+    protected $di;
+
+    public function __construct(Di $di)
+    {
+        $this->di = $di;
+    }
 
     public function render()
     {
@@ -16,7 +22,8 @@ abstract class AbstractBlock
 
     public function isLoggedIn(): bool
     {
-        $sessionId = SessionModel::getInstance()->getUserId();
+        $sessionId = $this->di->get(SessionModel::class);
+        $sessionId->getUserId();
         return isset($sessionId);
     }
 
@@ -27,7 +34,8 @@ abstract class AbstractBlock
 
     public function getToken(): string
     {
-        return SessionModel::getInstance()->getToken();
+        $session = $this->di->get(SessionModel::class);
+        return $session->getToken();
     }
 
     public function renderToken(): void

@@ -6,12 +6,14 @@ use App\Database\Database;
 use App\Models\UserModel;
 use App\Models\UsersModel;
 
-class UsersResource
+class UsersResource extends AbstractResource
 {
     public function getUsers()
     {
         $query = 'SELECT * FROM users';
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
+
         $stmt = $db->query($query);
 
         $data = [];
@@ -22,12 +24,12 @@ class UsersResource
                 'email'   => $user['email'],
                 'id'      => $user['id'],
             ];
-            $userModel = new UserModel();
+            $userModel = $this->di->newInstance(UserModel::class);
             $userModel->setData($item);
             $data[] = $userModel;
         }
 
-        $usersModel = new UsersModel();
+        $usersModel = $this->di->get(UsersModel::class);
         $usersModel->setData($data);
 
         return $usersModel;

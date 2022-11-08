@@ -4,20 +4,9 @@ namespace App\Models;
 
 class SessionModel extends AbstractModel
 {
-    private static $instance;
-
     public function __construct()
     {
         session_save_path(APP_ROOT . '/var/Sessions');
-    }
-
-    public static function getInstance(): self
-    {
-        if (empty(self::$instance)) {
-            self::$instance = new SessionModel();
-        }
-
-        return self::$instance;
     }
 
     public function runSession()

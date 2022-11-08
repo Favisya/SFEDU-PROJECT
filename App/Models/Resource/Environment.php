@@ -27,7 +27,7 @@ class Environment
 
     public function getUri()
     {
-        return reset($this->cacheModel->getCache(self::CACHE_NAME)['CACHE']['URI']);
+        return $this->cacheModel->getCache(self::CACHE_NAME)['CACHE']['URI'];
     }
 
     public function getCacheType()

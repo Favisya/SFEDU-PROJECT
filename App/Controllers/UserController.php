@@ -8,7 +8,7 @@ class UserController extends AbstractController
 {
     public function execute()
     {
-        $resource = new ProfileResource();
+        $resource = $this->di->get(ProfileResource::class);
         $userModel = $resource->getUserInfo($this->getParam('id'));
         $this->renderPage('user', $userModel, 'UserBlock');
     }

@@ -8,7 +8,7 @@ class DeleteAuthorController extends AbstractController
 {
     public function execute()
     {
-        $resource = new AuthorResource();
+        $resource = $this->di->get(AuthorResource::class);
         $resource->deleteAuthor($this->getParam('id'));
         $this->redirect('authors');
     }

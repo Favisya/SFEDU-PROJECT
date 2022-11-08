@@ -6,16 +6,18 @@ use App\Database\Database;
 use App\Models\CategoriesModel;
 use App\Models\AbstractModel;
 
-class CategoriesResource
+class CategoriesResource extends AbstractResource
 {
     public function getCategories(): AbstractModel
     {
         $query = 'SELECT * FROM categories;';
 
-        $db   = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
+
         $stmt = $db->query($query);
 
-        $categoriesModel = new CategoriesModel();
+        $categoriesModel = $this->di->get(CategoriesModel::class);
         $categoriesModel->setData($stmt->fetchAll());
 
         return $categoriesModel;

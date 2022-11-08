@@ -6,16 +6,17 @@ use App\Database\Database;
 use App\Models\CountriesModel;
 use App\Models\AbstractModel;
 
-class CountriesResource
+class CountriesResource extends AbstractResource
 {
     public function getCountries(): AbstractModel
     {
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $query = 'SELECT * from countries;';
         $stmt  = $db->query($query);
 
-        $countriesModel = new CountriesModel();
+        $countriesModel = $this->di->get(CountriesModel::class);
         $countriesModel->setData($stmt->fetchAll());
 
         return $countriesModel;

@@ -9,21 +9,23 @@ class Router extends AbstractRouter
 {
     public function parseControllers(string $path): ?Controllers\AbstractController
     {
-        SessionModel::getInstance()->runSession();
-        $sessionId = SessionModel::getInstance()->getUserId();
+        $session = $this->di->get(SessionModel::class);
+        $session->runSession();
+
+        $sessionId = $session->getUserId();
 
         $uri = $this->handleUri($path);
 
         if ($uri == '') {
-            return new Controllers\HomePageController();
+            return $this->di->get(Controllers\HomePageController::class);
         }
 
         if ($uri == 'registration') {
-            return new Controllers\RegistrationController();
+            return $this->di->get(Controllers\RegistrationController::class);
         }
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && stripos($uri, 'postRegistration') !== false) {
-            return new Controllers\PostRegistrationController();
+            return $this->di->get(Controllers\PostRegistrationController::class);
         }
 
         $class = ucfirst($uri);
@@ -33,35 +35,35 @@ class Router extends AbstractRouter
 
         if (class_exists($class) && isset($sessionId)) {
             if ($_SERVER['REQUEST_METHOD'] == 'GET' && stripos($uri, 'create') !== false) {
-                return new $class();
+                return $this->di->get($class);
             } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && stripos($uri, 'create') !== false) {
                 $class = explode('\\', $class);
                 $postName = 'Post' . array_pop($class);
                 $class[] = $postName;
                 $class = implode('\\', $class);
 
-                return new $class();
+                return $this->di->get($class);
             }
 
             if ($_SERVER['REQUEST_METHOD'] == 'GET' && stripos($uri, 'edit') !== false) {
-                return new $class();
+                return $this->di->get($class);
             } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && stripos($uri, 'edit') !== false) {
                 $class = explode('\\', $class);
                 $postName = 'Post' . array_pop($class);
                 $class[] = $postName;
                 $class = implode('\\', $class);
 
-                return new $class();
+                return $this->di->get($class);
             }
 
-            return new $class();
+            return $this->di->get($class);
         } elseif (!isset($sessionId)) {
             if ($_SERVER['REQUEST_METHOD'] == 'POST' && stripos($uri, 'postLogin') !== false) {
-                return new Controllers\PostLoginController();
+                return $this->di->get(Controllers\PostLoginController::class);
             }
-            return new Controllers\LoginController();
+            return $this->di->get(Controllers\LoginController::class);
         }
 
-        return new Controllers\Error404Controller();
+        return $this->di->get(Controllers\Error404Controller::class);
     }
 }

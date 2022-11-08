@@ -8,7 +8,7 @@ class UsersController extends AbstractController
 {
     public function execute()
     {
-        $resource = new UsersResource();
+        $resource = $this->di->get(UsersResource::class);
         $model = $resource->getUsers();
 
         $this->renderPage('users', $model, 'UsersBlock');

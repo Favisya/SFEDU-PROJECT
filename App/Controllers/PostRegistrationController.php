@@ -12,11 +12,12 @@ class PostRegistrationController extends AbstractController
         $this->handleToken();
         $this->validateForm(['surname', 'login', 'name']);
 
-        $resource = new RegistrationResource();
+        $resource = $this->di->get(RegistrationResource::class);
 
         $isExist = $resource->checkLogin($this->getPostParam('login'));
         if ($isExist) {
-            SessionModel::getInstance()->setError('Логин уже занят');
+            $session = $this->di->get(SessionModel::class);
+            $session->setError('Логин уже занят');
             $this->redirect('registration');
         } else {
             $resource->createUser(

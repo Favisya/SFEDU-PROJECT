@@ -8,7 +8,8 @@ class LogOutController extends AbstractController
 {
     public function execute()
     {
-        SessionModel::getInstance()->destroySession();
+        $session = $this->di->get(SessionModel::class);
+        $session->destroySession();
         $this->redirect('createLogin');
     }
 }

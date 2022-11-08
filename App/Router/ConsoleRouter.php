@@ -4,9 +4,15 @@ namespace App\Router;
 
 use App\Exceptions\MvcException;
 use App\Controllers\Console;
+use Laminas\Di\Di;
 
 class ConsoleRouter extends AbstractRouter
 {
+    public function __construct(Di $di)
+    {
+        parent::__construct($di);
+    }
+
     public function parseControllers(string $controller): ?Console\AbstractController
     {
         $class = ucfirst($controller);
@@ -15,7 +21,7 @@ class ConsoleRouter extends AbstractRouter
         $class = 'App\Controllers\Console\\' . $class;
 
         if (class_exists($class)) {
-            return new $class();
+            return $this->di->get($class);
         }
 
         throw new MvcException('Class does not exists');

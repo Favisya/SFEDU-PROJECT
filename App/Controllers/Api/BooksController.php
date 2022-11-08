@@ -32,7 +32,7 @@ class BooksController extends AbstractApiController
 
     private function getList()
     {
-        $booksResource = new BooksResource();
+        $booksResource = $this->di->get(BooksResource::class);
         $booksModel = $booksResource->getBooks($this->param ?? 0);
 
         $data = [];
@@ -45,7 +45,7 @@ class BooksController extends AbstractApiController
 
     private function getElement()
     {
-        $bookResource = new BookResource();
+        $bookResource = $this->di->get(BookResource::class);
         $bookModel = $bookResource->getBook($this->param);
         $data = $this->getBook($bookModel);
         $this->printJson($data);
@@ -55,7 +55,7 @@ class BooksController extends AbstractApiController
     {
         $data = $this->endCodeJson();
 
-        $BookResource = new BookResource();
+        $BookResource = $this->di->get(BookResource::class);
         $authorsModel = $BookResource->createBook(
             $data['name'],
             $data['date'],
@@ -72,7 +72,7 @@ class BooksController extends AbstractApiController
     {
         $data = $this->endCodeJson();
 
-        $BookResource = new BookResource();
+        $BookResource = $this->di->get(BookResource::class);
         $authorsModel = $BookResource->editBook(
             $data['name'],
             $data['date'],
@@ -88,7 +88,7 @@ class BooksController extends AbstractApiController
 
     private function deleteElement()
     {
-        $bookResource = new bookResource();
+        $bookResource = $this->di->get(BookResource::class);
         $bookResource->deleteBook($this->param);
         header('Status: 200');
     }

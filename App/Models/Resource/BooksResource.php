@@ -8,7 +8,7 @@ use App\Models\BookModel;
 use App\Models\BooksModel;
 use App\Models\AbstractModel;
 
-class BooksResource
+class BooksResource extends AbstractResource
 {
     public function getBooks(int $id = 0): AbstractModel
     {
@@ -16,7 +16,8 @@ class BooksResource
             throw new MvcException('Id is wrong');
         }
 
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $query = 'SELECT
                         a.id,
@@ -43,12 +44,12 @@ class BooksResource
 
         $books = [];
         foreach ($stmt->fetchAll() as $book) {
-            $bookModel = new BookModel();
+            $bookModel = $this->di->newInstance(BookModel::class);
             $bookModel->setData($book);
             $books[] = $bookModel;
         }
 
-        $booksModel = new BooksModel();
+        $booksModel = $this->di->get(BooksModel::class);
         $booksModel->setData($books);
 
         return $booksModel;
@@ -60,7 +61,8 @@ class BooksResource
             throw new MvcException('Id is wrong');
         }
 
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $query = 'SELECT books.id, books.name FROM books
             JOIN books_users ON books.id = books_users.book_id
@@ -71,12 +73,12 @@ class BooksResource
 
         $books = [];
         foreach ($stmt->fetchAll() as $book) {
-            $bookModel = new BookModel();
+            $bookModel = $this->di->newInstance(BookModel::class);
             $bookModel->setData($book);
             $books[] = $bookModel;
         }
 
-        $booksModel = new BooksModel();
+        $booksModel = $this->di->get(BooksModel::class);
         $booksModel->setData($books);
 
         return $booksModel;

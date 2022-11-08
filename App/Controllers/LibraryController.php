@@ -8,7 +8,7 @@ class LibraryController extends AbstractController
 {
     public function execute()
     {
-        $libraryResource = new LibraryResource();
+        $libraryResource = $this->di->get(LibraryResource::class);
         $libraryModel = $libraryResource->getLibrary($this->getParam('id'));
 
         $this->renderPage('library', $libraryModel, 'LibraryBlock');

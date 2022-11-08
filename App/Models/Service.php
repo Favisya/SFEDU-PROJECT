@@ -7,7 +7,7 @@ use App\Models\AbstractModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class Service
+class Service extends AbstractModel
 {
     public function parseItem($item)
     {
@@ -66,11 +66,11 @@ class Service
             $data[] = $this->parseItem($item);
         }
 
-        $spreadSheet = new Spreadsheet();
+        $spreadSheet = $this->di->get(Spreadsheet::class);
         $sheet = $spreadSheet->getActiveSheet();
         $sheet->fromArray($data);
 
-        $writer = new Xlsx($spreadSheet);
+        $writer = $this->di->get(Xlsx::class, ['spreadsheet' => $spreadSheet]);
         $writer->save($path);
     }
 }

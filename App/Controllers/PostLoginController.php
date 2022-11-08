@@ -12,8 +12,8 @@ class PostLoginController extends AbstractController
     {
         $this->handleToken();
 
-        $AccountModel = new AccountService();
-        $AccountModel->setResource(new LoginResource());
+        $AccountModel = $this->di->get(AccountService::class);
+        $AccountModel->setResource($this->di->get(LoginResource::class));
 
         $isExists = $AccountModel->authenticate(
             $this->getPostParam('login'),
@@ -21,7 +21,8 @@ class PostLoginController extends AbstractController
         );
 
         if (!$isExists) {
-            SessionModel::getInstance()->setError('Неправильный логин или пароль');
+            $session = $this->di->get(SessionModel::class);
+            $session->setError('Неправильный логин или пароль');
             $this->redirect('login');
         }
         $this->redirect('profile');

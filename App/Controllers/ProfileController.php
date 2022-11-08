@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\DiC;
 use App\Models\Resource\ProfileResource;
 use App\Models\SessionModel;
 

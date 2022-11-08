@@ -5,34 +5,38 @@ namespace App\Models;
 use App\Blocks\EmailBlock;
 use App\Models\Resource\Environment;
 use GuzzleHttp;
+use Laminas\Di\Di;
 use SendinBlue\Client;
 
-class Mailer
+class Mailer extends AbstractModel
 {
     private $apiInstance;
     private $template;
     private $user;
     private $env;
 
-    public function __construct(string $name, string $template)
+    public function __construct(string $name, string $template, Di $di)
     {
-        $env = new Environment();
-        $this->env = $env;
+        parent::__construct($di);
+        $this->env = $this->di->get(Environment::class);
 
         $config = Client\Configuration::getDefaultConfiguration()->setApiKey(
             'api-key',
-            $env->getMailerKey()
+            $this->env->getMailerKey()
         );
 
-        $this->apiInstance = new Client\Api\TransactionalEmailsApi(
-            new GuzzleHttp\Client(),
-            $config
+        $this->apiInstance = $this->di->get(
+            Client\Api\TransactionalEmailsApi::class,
+            [
+                'client' => $this->di->get(GuzzleHttp\Client::class),
+                'config' => $config,
+            ]
         );
 
-        $block = new EmailBlock();
+        $block = $this->di->get(EmailBlock::class);
         $block->setTemplate($template);
 
-        $user = new UserModel();
+        $user = $this->di->get(UserModel::class);
         $user->setData(['name' => $name]);
         $block->setUser($user);
 
@@ -54,7 +58,7 @@ class Mailer
         try {
             $this->apiInstance->sendTransacEmail($sendSmtpEmail);
         } catch (\Exception $e) {
-            $logger = new LoggerModel();
+            $logger = $this->di->get(LoggerModel::class);
             $logger->printError($e);
         }
     }

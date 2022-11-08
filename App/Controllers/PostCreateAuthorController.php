@@ -9,7 +9,7 @@ class PostCreateAuthorController extends AbstractController
 {
     public function execute()
     {
-        $authorResource = new AuthorResource();
+        $authorResource = $this->di->get(AuthorResource::class);
         $this->handleToken();
 
         $this->validateForm(['authorName']);

@@ -11,7 +11,7 @@ class PostEditLibraryController extends AbstractController
         $this->handleToken();
         $this->validateForm(['libAddress', 'libName']);
 
-        $libraryResource = new LibraryResource();
+        $libraryResource = $this->di->get(LibraryResource::class);
         $libraryModel = $libraryResource->editLibrary(
             $this->getPostParam('libName'),
             $this->getPostParam('libAddress'),

@@ -6,22 +6,42 @@ use App\Blocks\AbstractBlock;
 use App\Exceptions\CsrfException;
 use App\Exceptions\MvcException;
 use App\Models\AbstractModel;
+use App\Models\Resource\AbstractResource;
+use App\Models\Resource\AuthorResource;
 use App\Models\Resource\Environment;
 use App\Models\SessionModel;
 use App\Models\TokenModel;
+use Laminas\Di\Di;
 
 abstract class AbstractController
 {
-    public function execute()
-    {
+    protected $di;
+    protected $resource;
+    protected $model;
+    protected $block;
+    protected $session;
+
+    public function __construct(
+        Di $di,
+        AbstractResource $resource = null,
+        AbstractBlock $block = null,
+        AbstractModel $model = null,
+        SessionModel $session = null
+    ) {
+        $this->di = $di;
+        $this->resource = $resource;
+        $this->block = $block;
+        $this->model = $model;
+        $this->session = $session;
     }
 
-    public function renderPage(string $template, AbstractModel $model = null, string $blockName = 'SimpleBlock')
-    {
-        $method = $blockName;
-        $blockName = '\App\Blocks\\' . $blockName;
+    abstract public function execute();
 
-        $block = new $blockName();
+    public function renderPage(string $template, AbstractBlock $block, AbstractModel $model = null)
+    {
+        $method = explode('\\', get_class($block));
+        $method = end($method);
+
         $block->setTemplate($template);
         if ($model != null) {
             $method = explode('Block', $method);
@@ -44,17 +64,19 @@ abstract class AbstractController
 
     public function redirect(string $path)
     {
-        $environment = new Environment();
+        $environment = $this->di->get(Environment::class);
         header("Location: " . $environment->getUri() . $path);
     }
 
     public function isLoggedIn(): bool
     {
-        $session = SessionModel::getInstance()->getUserId();
+        $session = $this->di->get(SessionModel::class);
+        $session = $session->getUserId();
+
         return isset($session);
     }
 
-    public function validateForm(array $keys)
+    public function validateForm(array $keys): void
     {
         $patternName = '/^[a-zA-Z0-9 ]*$/';
         foreach ($keys as $key) {
@@ -65,20 +87,21 @@ abstract class AbstractController
         }
     }
 
-    public function setToken()
+    public function setToken(): void
     {
-        $token = new TokenModel();
-        SessionModel::getInstance()->setToken($token->generateToken());
+        $token = $this->di->get(TokenModel::class);
+        $session = $this->di->get(SessionModel::class);
+        $session->setToken($token->generateToken());
     }
 
-    public function handleToken()
+    public function handleToken(): void
     {
         if (!$this->checkToken($this->getPostParam('token'))) {
             throw new CsrfException('Invalid token');
         }
     }
 
-    public function handleModels(array $models, AbstractBlock $block)
+    public function handleModels(array $models, AbstractBlock $block): void
     {
         foreach ($models as $model) {
             $methodName = ucfirst("$model");
@@ -93,6 +116,7 @@ abstract class AbstractController
 
     private function checkToken(string $token): bool
     {
-        return SessionModel::getInstance()->getToken() === $token;
+        $session = $this->di->get(SessionModel::class);
+        return $session->getToken() === $token;
     }
 }

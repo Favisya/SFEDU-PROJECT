@@ -20,7 +20,7 @@ class PostCreateBookController extends AbstractController
 
         $this->validateForm(['bookName']);
 
-        $resource = new BookResource();
+        $resource = $this->di->get(BookResource::class);
         $bookModel = $resource->createBook(
             $this->getPostParam('bookName'),
             $this->getPostParam('bookDate'),

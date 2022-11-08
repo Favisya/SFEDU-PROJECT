@@ -22,7 +22,13 @@ class ApiRouter extends AbstractRouter
         $class = 'App\Controllers\Api\\' . $class;
 
         if (class_exists($class)) {
-            return new $class($id);
+            return $this->di->get(
+                $class,
+                [
+                    'di'    => $this->di,
+                    'param' => $id,
+                ]
+            );
         }
 
         header('Status: 404');

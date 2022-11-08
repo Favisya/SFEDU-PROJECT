@@ -11,14 +11,15 @@ class PostEditUserController extends AbstractController
     {
         $this->handleToken();
         $this->validateForm(['surname', 'name']);
+        $session = $this->di->get(SessionModel::class);
 
-        $resource = new ModifyUserResource();
+        $resource = $this->di->get(ModifyUserResource::class);
         $resource->editUser(
             $this->getPostParam('password'),
             $this->getPostParam('name'),
             $this->getPostParam('surname'),
             $this->getPostParam('email'),
-            SessionModel::getInstance()->getUserId()
+            $session->getUserId()
         );
 
         $this->redirect('profile');

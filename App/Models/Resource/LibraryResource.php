@@ -8,11 +8,12 @@ use App\Models\BookModel;
 use App\Models\LibraryModel;
 use App\Models\AbstractModel;
 
-class LibraryResource
+class LibraryResource extends AbstractResource
 {
     public function getLibrary(int $id, int $limit = 3): AbstractModel
     {
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $query = 'SELECT * from libraries WHERE id = ?;';
 
@@ -36,12 +37,12 @@ class LibraryResource
         $books = [];
 
         foreach ($stmtSecond->fetchAll() as $book) {
-            $bookModel = new BookModel();
+            $bookModel = $this->di->newInstance(BookModel::class);
             $bookModel->setData($book);
             $books[] = $bookModel;
         }
 
-        $libraryModel = new LibraryModel();
+        $libraryModel = $this->di->get(LibraryModel::class);
         $libraryModel->setData($data['info']);
         $libraryModel->setBooks($books);
 
@@ -57,7 +58,7 @@ class LibraryResource
             throw new MvcException('input is empty');
         }
 
-        $db   = Database::getInstance();
+        $db = $this->di->get(Database::class);
         $stmt = $db->getConnection();
 
         $query = 'INSERT INTO libraries (name, address) values (?, ?)';
@@ -69,7 +70,7 @@ class LibraryResource
         $stmtSecond = $stmt->prepare($query);
         $stmtSecond->execute([$libName, $libAddress]);
 
-        $libraryModel = new LibraryModel();
+        $libraryModel = $this->di->get(LibraryModel::class);
         $libraryModel->setData($stmtSecond->fetch());
 
         return $libraryModel;
@@ -84,7 +85,7 @@ class LibraryResource
             throw new MvcException('input is empty');
         }
 
-        $db   = Database::getInstance();
+        $db = $this->di->get(Database::class);
         $stmt = $db->getConnection();
 
         $query = 'UPDATE libraries SET name = ?, address = ? WHERE id = ?;';
@@ -95,7 +96,7 @@ class LibraryResource
         $stmtSecond = $stmt->prepare($query);
         $stmtSecond->execute([$name, $address]);
 
-        $libraryModel = new LibraryModel();
+        $libraryModel = $this->di->get(LibraryModel::class);
         $libraryModel->setData($stmtSecond->fetch());
 
         return $libraryModel;
@@ -103,7 +104,8 @@ class LibraryResource
 
     public function deleteLibrary(int $id)
     {
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $query = 'DELETE FROM books_libraries where library_id = ?';
 

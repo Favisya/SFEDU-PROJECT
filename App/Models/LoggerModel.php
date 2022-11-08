@@ -2,33 +2,44 @@
 
 namespace App\Models;
 
+use Laminas\Di\Di;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
 class LoggerModel
 {
-    private static $instance;
+    private $di;
+    private $log;
 
-    public static function getInstance(): self
+    public function __construct(Di $di)
     {
-        if (empty(self::$instance)) {
-            self::$instance = new LoggerModel();
-        }
-
-        return self::$instance;
+        $this->di  = $di;
+        $this->log = $di->get(Logger::class, ['name' => 'problem']);
     }
 
     public function printWarning(string $msg)
     {
-        $log = new Logger('warning');
-        $log->pushHandler(new StreamHandler(APP_ROOT . '/var/logs/warnings.log'), Logger::WARNING);
+        $log = $this->log;
+        $log->pushHandler(
+            $this->di->get(
+                StreamHandler::class,
+                ['stream' => APP_ROOT . '/var/logs/warnings.log']
+            ),
+            Logger::WARNING
+        );
         $log->warning($msg);
     }
 
     public function printError(string $msg)
     {
-        $log = new Logger('error');
-        $log->pushHandler(new StreamHandler(APP_ROOT . '/var/logs/errors.log'), Logger::ERROR);
+        $log = $this->log;
+        $log->pushHandler(
+            $this->di->get(
+                StreamHandler::class,
+                ['stream' => APP_ROOT . '/var/logs/errors.log']
+            ),
+            Logger::ERROR
+        );
         $log->error($msg);
     }
 }

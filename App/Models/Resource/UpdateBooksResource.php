@@ -5,7 +5,7 @@ namespace App\Models\Resource;
 use App\Database\Database;
 use GuzzleHttp;
 
-class UpdateBooksResource
+class UpdateBooksResource extends AbstractResource
 {
     public function parseNewBooks()
     {
@@ -14,9 +14,9 @@ class UpdateBooksResource
         $data = json_decode($data->getBody(), true);
         $books = $data['books'];
 
-        $bookResource = new BookResource();
+        $bookResource = $this->di->get(BookResource::class);
         foreach ($books as $book) {
-            $client = new GuzzleHttp\Client();
+            $client = $this->di->get(GuzzleHttp\Client::class);
             $bookDetailed = $client->request(
                 'GET',
                 'https://api.itbook.store/1.0/books/' . $book['isbn13']
@@ -49,7 +49,9 @@ class UpdateBooksResource
             $category = 'unnamed';
         }
 
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
+
         $query = 'SELECT * FROM categories WHERE name = ?';
         $stmt1 = $db->prepare($query);
         $stmt1->execute([$category]);
@@ -66,7 +68,9 @@ class UpdateBooksResource
 
     private function checkAuthor(string $author): int
     {
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
+
         $query = 'SELECT * FROM authors WHERE name = ?';
         $stmt1 = $db->prepare($query);
         $stmt1->execute([$author]);
@@ -83,7 +87,9 @@ class UpdateBooksResource
 
     private function checkPublisher(string $publisher): int
     {
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
+
         $query = 'SELECT * FROM publishers WHERE name = ?';
         $stmt1 = $db->prepare($query);
         $stmt1->execute([$publisher]);
@@ -100,7 +106,9 @@ class UpdateBooksResource
 
     private function checkCountry(): int
     {
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
+
         $query = 'SELECT * FROM countries where name = ?';
         $name = 'none';
 
@@ -128,7 +136,7 @@ class UpdateBooksResource
         $price = trim($price, '$');
         $price = (int) $price;
 
-        $client = new GuzzleHttp\Client();
+        $client = $this->di->get(GuzzleHttp\Client::class);
         $headers = ['Content-Type' => 'text/plain', 'apikey' => 'vgIAGheWd9xztZDUFpQxHwiSgrytJYH6'];
         $options = ['headers' => $headers];
         $uri = "https://api.apilayer.com/fixer/convert?to=RUB&from=USD&amount=$price";

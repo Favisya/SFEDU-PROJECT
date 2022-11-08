@@ -6,17 +6,6 @@ use App\Models\Resource\Environment;
 
 class Database
 {
-    private static $instance;
-
-    public static function getInstance(): self
-    {
-        if (empty(self::$instance)) {
-            self::$instance = new Database();
-        }
-
-        return self::$instance;
-    }
-
     public function getConnection(): \PDO
     {
         $databaseInfo = new Environment();

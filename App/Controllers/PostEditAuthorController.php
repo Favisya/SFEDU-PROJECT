@@ -11,7 +11,7 @@ class PostEditAuthorController extends AbstractController
         $this->handleToken();
         $this->validateForm(['authorName']);
 
-        $authorResource = new AuthorResource();
+        $authorResource = $this->di->get(AuthorResource::class);
         $authorModel = $authorResource->editAuthor(
             $this->getPostParam('authorName'),
             $this->getParam('id')

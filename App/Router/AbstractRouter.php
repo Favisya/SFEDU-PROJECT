@@ -2,8 +2,17 @@
 
 namespace App\Router;
 
+use Laminas\Di\Di;
+
 abstract class AbstractRouter
 {
+    protected $di;
+
+    public function __construct(Di $di)
+    {
+        $this->di = $di;
+    }
+
     public function handleUri(string $path): string
     {
         $slashSymbol  = strpos($path, '/');
@@ -13,18 +22,5 @@ abstract class AbstractRouter
             return substr($path, $slashSymbol + 1);
         }
         return substr($path, $slashSymbol + 1, $questionMark - 1);
-    }
-
-    public function isApi(string $path): bool
-    {
-        return stripos($path, 'api/') === false;
-    }
-
-    public function routerFactory(string $path): ?AbstractRouter
-    {
-        if ($this->isApi($path)) {
-            return new Router();
-        }
-        return new ApiRouter();
     }
 }

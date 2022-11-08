@@ -8,14 +8,15 @@ use App\Models\AuthorModel;
 use App\Models\AbstractModel;
 use App\Models\BookModel;
 
-class AuthorResource
+class AuthorResource extends AbstractResource
 {
     public function getAuthor(int $id, int $limit = 3): AbstractModel
     {
         if ($id == 0 || $id < 0 || !isset($id)) {
             throw new MvcException('id is wrong');
         }
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $query = 'SELECT * FROM authors WHERE id = ?';
         $stmtFirst = $db->prepare($query);
@@ -32,12 +33,12 @@ class AuthorResource
 
         $books = [];
         foreach ($stmtSecond->fetchAll() as $book) {
-            $bookModel = new BookModel();
+            $bookModel = $this->di->get(BookModel::class);
             $bookModel->setData($book);
             $books[] = $bookModel;
         }
 
-        $authorModel = new AuthorModel();
+        $authorModel = $this->di->get(AuthorModel::class);
         $authorModel->setData($data['info']);
         $authorModel->setBooks($books);
 
@@ -52,7 +53,7 @@ class AuthorResource
 
         $authorName = htmlspecialchars($authorName);
 
-        $db = Database::getInstance();
+        $db = $this->di->get(Database::class);
         $stmt = $db->getConnection();
 
         $query = 'INSERT INTO authors (name) values (?)';
@@ -78,7 +79,7 @@ class AuthorResource
 
         $authorName = htmlspecialchars($authorName);
 
-        $db = Database::getInstance();
+        $db = $this->di->get(Database::class);
         $stmt = $db->getConnection();
 
         $query = 'UPDATE authors SET name = ? WHERE id = ?;';
@@ -97,7 +98,8 @@ class AuthorResource
 
     public function deleteAuthor(int $id): void
     {
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $query = 'DELETE FROM books WHERE author_id = ?';
         $stmt = $db->prepare($query);

@@ -14,7 +14,7 @@ use App\Models\LibraryModel;
 use App\Models\PublisherModel;
 use App\Models\PublishersModel;
 
-class BookResource
+class BookResource extends AbstractResource
 {
     public function getBook(int $id, int $limit = 6): AbstractModel
     {
@@ -22,7 +22,8 @@ class BookResource
             throw new MvcException('id is wrong');
         }
 
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $query = 'SELECT
                     a.id,
@@ -57,12 +58,12 @@ class BookResource
 
         $libraries = [];
         foreach ($stmtSecond->fetchAll() as $library) {
-            $libModel = new LibraryModel();
+            $libModel = $this->di->newInstance(LibraryModel::class);
             $libModel->setData($library);
             $libraries[] = $libModel;
         }
 
-        $bookModel = new BookModel();
+        $bookModel = $this->di->get(BookModel::class);
         $bookModel->setData($data['info']);
         $bookModel->setLibs($libraries);
 
@@ -86,7 +87,7 @@ class BookResource
         $date        = htmlspecialchars($date);
         $categoryId  = htmlspecialchars($categoryId);
 
-        $db = Database::getInstance();
+        $db = $this->di->get(Database::class);
         $stmt = $db->getConnection();
 
         $query = 'INSERT INTO books (name, price, year, author_id, publisher_id, country_id) VALUES (?, ?, ?, ?, ?, ?)';
@@ -105,7 +106,7 @@ class BookResource
         $stmtThird = $stmt->prepare($query);
         $stmtThird->execute([$data['id'], $categoryId]);
 
-        $bookModel = new BookModel();
+        $bookModel = $this->di->get(BookModel::class);
         $bookModel->setData($data);
 
         return $bookModel;
@@ -113,15 +114,16 @@ class BookResource
 
     public function getBookInfo(int $id = null): array
     {
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $query = 'SELECT * FROM authors';
         $stmt = $db->query($query);
-        $authorsModel = new AuthorsModel();
+        $authorsModel = $this->di->get(AuthorsModel::class);
 
         $authors = [];
         foreach ($stmt->fetchAll() as $author) {
-            $authorModel = new AuthorModel();
+            $authorModel = $this->di->newInstance(AuthorModel::class);
             $authorModel->setData($author);
             $authors[] = $authorModel;
         }
@@ -130,27 +132,27 @@ class BookResource
 
         $query = 'SELECT * FROM categories';
         $stmt = $db->query($query);
-        $categoriesModel = new CategoriesModel();
+        $categoriesModel = $this->di->get(CategoriesModel::class);
         $categoriesModel->setData($stmt->fetchAll());
 
         $query = 'SELECT * FROM countries';
         $stmt = $db->query($query);
-        $countriesModel = new CountriesModel();
+        $countriesModel = $this->di->get(CountriesModel::class);
         $countriesModel->setData($stmt->fetchAll());
 
         $query = 'SELECT * FROM publishers';
         $stmt = $db->query($query);
-        $publishersModel = new PublishersModel();
+        $publishersModel = $this->di->get(PublishersModel::class);
 
         $publishers = [];
         foreach ($stmt->fetchAll() as $publisher) {
-            $publisherModel = new PublisherModel();
+            $publisherModel = $this->di->newInstance(PublisherModel::class);
             $publisherModel->setData($publisher);
             $publishers[] = $publisherModel;
         }
         $publishersModel->setData($publishers);
 
-        $bookModel = new BookModel();
+        $bookModel = $this->di->get(BookModel::class);
 
         if ($id != null) {
             $query = 'SELECT * FROM books WHERE id = ?';
@@ -187,7 +189,7 @@ class BookResource
         $categoryId  = htmlspecialchars($categoryId);
         $id          = htmlspecialchars($id);
 
-        $db = Database::getInstance();
+        $db = $this->di->get(Database::class);
         $stmt = $db->getConnection();
 
         $query = 'UPDATE books SET
@@ -211,7 +213,7 @@ class BookResource
         $stmtThird = $stmt->prepare($query);
         $stmtThird->execute([$id]);
 
-        $bookModel = new BookModel();
+        $bookModel = $this->di->get(BookModel::class);
         $bookModel->setData($stmtThird->fetch());
 
         return $bookModel;
@@ -219,7 +221,8 @@ class BookResource
 
     public function deleteBook(int $id): void
     {
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $query = 'DELETE FROM books WHERE id = ?';
         $stmt = $db->prepare($query);
@@ -228,7 +231,8 @@ class BookResource
 
     public function takeBook(int $book_id, int $user_id): void
     {
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $query = 'INSERT INTO books_users (book_id, user_id) VALUES (?, ?)';
         $stmt = $db->prepare($query);

@@ -8,7 +8,7 @@ class EditAuthorController extends AbstractController
 {
     public function execute()
     {
-        $authorResource = new AuthorResource();
+        $authorResource = $this->di->get(AuthorResource::class);
         $authorModel = $authorResource->getAuthor($this->getParam('id'));
 
         $this->renderPage('createAuthor', $authorModel, 'AuthorBlock');

@@ -9,7 +9,7 @@ class NewBooksController extends AbstractController
 {
     public function execute()
     {
-        $resource = new UpdateBooksResource();
+        $resource = $this->di->get(UpdateBooksResource::class);
         $resource->parseNewBooks();
     }
 }

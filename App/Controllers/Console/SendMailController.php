@@ -13,7 +13,13 @@ class SendMailController extends AbstractController
         $name     = array_shift($arguments);
         $template = array_shift($arguments);
 
-        $model = new Mailer($name, $template);
+        $model = $this->di->get(
+            Mailer::class,
+            [
+                'name'     => $name,
+                'template' => $template,
+            ]
+        );
         $model->sendEmail($email);
     }
 }

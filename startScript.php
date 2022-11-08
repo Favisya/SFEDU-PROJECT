@@ -6,7 +6,10 @@ require_once 'vendor/autoload.php';
 define('APP_ROOT', dirname(__FILE__));
 define('CSV_FORMAT', 'csv');
 
-$router = new \App\Router\ConsoleRouter();
+$di = new \Laminas\Di\Di();
+$Dic = new \App\Models\DiC($di);
+
+$router = $di->get(\App\Router\ConsoleRouter::class, [$di]);
 
 if (isset($argv[1])) {
     $controller = $router->parseControllers($argv[1]);

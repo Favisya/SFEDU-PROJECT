@@ -19,7 +19,8 @@ class ModifyUserResource extends AbstractResource
         $password = $this->hashPassword($password);
 
         $query = 'UPDATE users set password = ?, name = ?, surname = ?, email = ? WHERE id = ?';
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $stmt = $db->prepare($query);
         $stmt->execute([$password, $name, $surname, $email, $id]);
@@ -28,12 +29,13 @@ class ModifyUserResource extends AbstractResource
     public function getUser(int $id): AbstractModel
     {
         $query = 'SELECT name, surname, email FROM users WHERE id = ?';
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
 
         $stmt = $db->prepare($query);
         $stmt->execute([$id]);
 
-        $userModel = new UserModel();
+        $userModel = $this->di->get(UserModel::class);
         $userModel->setData($stmt->fetch());
 
         return $userModel;

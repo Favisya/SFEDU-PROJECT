@@ -49,7 +49,7 @@ class LibrariesController extends AbstractApiController
             return true;
         }
 
-        $librariesResource = new LibrariesResource();
+        $librariesResource = $this->di->get(LibrariesResource::class);
         $librariesModel = $librariesResource->getLibraries();
         $data = [];
         foreach ($librariesModel->getList() as $library) {
@@ -69,7 +69,7 @@ class LibrariesController extends AbstractApiController
         }
 
 
-        $libraryResource = new LibraryResource();
+        $libraryResource = $this->di->get(LibraryResource::class);
         $libraryModel = $libraryResource->getLibrary($this->param);
 
         $data = $this->getLibrary($libraryModel);
@@ -82,7 +82,7 @@ class LibrariesController extends AbstractApiController
     private function createElement()
     {
         $data = $this->endCodeJson();
-        $libraryResource = new LibraryResource();
+        $libraryResource = $this->di->get(LibraryResource::class);
         $libraryModel = $libraryResource->createLibrary($data['name'], $data['address']);
         header('Status: 200');
 
@@ -94,7 +94,7 @@ class LibrariesController extends AbstractApiController
     private function editElement()
     {
         $data = $this->endCodeJson();
-        $libraryResource = new LibraryResource();
+        $libraryResource = $this->di->get(LibraryResource::class);
         $libraryModel = $libraryResource->editLibrary($data['name'], $data['address'], $this->param);
         header('Status: 200');
 
@@ -105,7 +105,7 @@ class LibrariesController extends AbstractApiController
 
     private function deleteElement()
     {
-        $resource = new LibraryResource();
+        $resource = $this->di->get(LibraryResource::class);
         $resource->deleteLibrary($this->param);
         header('Status: 200');
 

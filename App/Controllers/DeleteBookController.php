@@ -8,7 +8,7 @@ class DeleteBookController extends AbstractController
 {
     public function execute()
     {
-        $resource = new BookResource();
+        $resource = $this->di->get(BookResource::class);
         $resource->deleteBook($this->getParam('id'));
         $this->redirect('books');
     }

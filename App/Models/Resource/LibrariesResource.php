@@ -8,20 +8,22 @@ use App\Models\LibrariesModel;
 use App\Models\AbstractModel;
 use App\Models\LibraryModel;
 
-class LibrariesResource
+class LibrariesResource extends AbstractResource
 {
     public function getLibraries(): AbstractModel
     {
-        $db = Database::getInstance()->getConnection();
+        $db = $this->di->get(Database::class);
+        $db = $db->getConnection();
+
         $query = 'SELECT * FROM libraries;';
 
         $stmt = $db->query($query);
 
-        $librariesModel = new LibrariesModel();
+        $librariesModel = $this->di->get(LibrariesModel::class);
 
         $libraries = [];
         foreach ($stmt->fetchAll() as $author) {
-            $libModel = new LibraryModel();
+            $libModel = $this->di->newInstance(LibraryModel::class);
             $libModel->setData($author);
             $libraries[] = $libModel;
         }

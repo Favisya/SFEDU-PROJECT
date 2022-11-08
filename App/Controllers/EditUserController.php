@@ -11,12 +11,14 @@ class EditUserController extends AbstractController
 {
     public function execute()
     {
-        $resource = new ModifyUserResource();
-        $userModel = $resource->getUser(SessionModel::getInstance()->getUserId());
+        $resource = $this->di->get(ModifyUserResource::class);
 
-        $block = new EditUserBlock();
+        $session = $this->di->get(SessionModel::class);
+        $userModel = $resource->getUser($session->getUserId());
+
+        $block = $this->di->get(EditUserBlock::class);
         $block->setUser($userModel);
-        $block->setSession(SessionModel::getInstance());
+        $block->setSession($this->di->get(SessionModel::class));
         $block->setTemplate('editUser');
 
         $block->render();
