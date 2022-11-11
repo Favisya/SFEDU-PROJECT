@@ -2,9 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\Resource\LoginResource;
-use App\Models\SessionModel;
-
 class LoginController extends AbstractController
 {
     public function execute()
@@ -15,6 +12,6 @@ class LoginController extends AbstractController
             $this->redirect('profile');
         }
 
-        $this->renderPage('login', $this->di->get(SessionModel::class), 'SessionBlock');
+        $this->renderPage('login', $this->block, $this->session);
     }
 }

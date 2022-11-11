@@ -31,7 +31,7 @@ class FileCacheModel implements CacheInterface
     public function isCacheEmpty(string $fileName): bool
     {
         if (file_exists(APP_ROOT . $this->path . $fileName . '.json')) {
-            return filesize(APP_ROOT . $this->path . $fileName . '.json') != 0;
+            return  filesize(APP_ROOT . $this->path . $fileName . '.json') == 0;
         }
 
         return true;

@@ -8,9 +8,9 @@ class RedisCacheModel implements CacheInterface
 {
     private $client;
 
-    public function __construct()
+    public function __construct(Client $client)
     {
-        $this->client = new Client();
+        $this->client = $client;
     }
 
     public function toCache(array $data, string $fileName, bool $isEntity = false)

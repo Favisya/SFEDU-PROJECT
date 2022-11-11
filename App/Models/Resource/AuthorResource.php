@@ -5,12 +5,11 @@ namespace App\Models\Resource;
 use App\Database\Database;
 use App\Exceptions\MvcException;
 use App\Models\AuthorModel;
-use App\Models\AbstractModel;
 use App\Models\BookModel;
 
 class AuthorResource extends AbstractResource
 {
-    public function getAuthor(int $id, int $limit = 3): AbstractModel
+    public function getAuthor(int $id, int $limit = 3): AuthorModel
     {
         if ($id == 0 || $id < 0 || !isset($id)) {
             throw new MvcException('id is wrong');
@@ -45,7 +44,7 @@ class AuthorResource extends AbstractResource
         return $authorModel;
     }
 
-    public function createAuthor(string $authorName): AbstractModel
+    public function createAuthor(string $authorName): AuthorModel
     {
         if (empty($authorName)) {
             throw new MvcException('Input is empty');
@@ -71,7 +70,7 @@ class AuthorResource extends AbstractResource
         return $authorModel;
     }
 
-    public function editAuthor(string $authorName, int $id): AbstractModel
+    public function editAuthor(string $authorName, int $id): AuthorModel
     {
         if (!isset($authorName, $id)) {
             throw new MvcException('Input is empty');
@@ -90,7 +89,7 @@ class AuthorResource extends AbstractResource
         $stmtSecond = $stmt->prepare($query);
         $stmtSecond->execute([$id]);
 
-        $authorModel = new AuthorModel();
+        $authorModel = $this->di->get(AuthorModel::class);
         $authorModel->setData($stmtSecond->fetch());
 
         return $authorModel;

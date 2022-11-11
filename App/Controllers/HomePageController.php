@@ -6,6 +6,6 @@ class HomePageController extends AbstractController
 {
     public function execute()
     {
-        $this->renderPage('homepage');
+        $this->renderPage('homepage', $this->block);
     }
 }

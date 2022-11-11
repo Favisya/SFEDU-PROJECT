@@ -2,17 +2,22 @@
 
 namespace App\Controllers;
 
-use App\Blocks\AbstractBlock;
 use App\Blocks\AuthorBlock;
-use App\Models\Resource\AbstractResource;
 use App\Models\Resource\AuthorResource;
-use Laminas\Di\Di;
+use App\Models\Resource\Environment;
+use App\Models\SessionModel;
+use App\Models\TokenModel;
 
 class AuthorController extends AbstractController
 {
-    public function __construct(Di $di, AbstractResource $resource, AbstractBlock $block)
-    {
-        parent::__construct($di, $resource, $block);
+    public function __construct(
+        SessionModel $session,
+        TokenModel $tokenModel,
+        Environment $environment,
+        AuthorBlock $block,
+        AuthorResource $resource
+    ) {
+        parent::__construct($session, $tokenModel, $environment, $resource, $block);
     }
 
     public function execute()
@@ -20,6 +25,6 @@ class AuthorController extends AbstractController
         $authorResource = $this->resource;
         $authorModel = $authorResource->getAuthor($this->getParam('id'));
 
-        $this->renderPage('author', $authorModel, $this->block);
+        $this->renderPage('author', $this->block, $authorModel);
     }
 }

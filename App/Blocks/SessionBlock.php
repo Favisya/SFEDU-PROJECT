@@ -6,7 +6,7 @@ use App\Models\AbstractModel;
 
 class SessionBlock extends AbstractBlock
 {
-    private $session;
+    protected $session;
 
     public function setSession(AbstractModel $models)
     {

@@ -6,11 +6,16 @@ use App\Models\Resource\Environment;
 
 class Database
 {
+    private $environment;
+
+    public function __construct(Environment $env)
+    {
+        $this->environment = $env;
+    }
+
     public function getConnection(): \PDO
     {
-        $databaseInfo = new Environment();
-
-        $info = $databaseInfo->getDatabase();
+        $info = $this->environment->getDatabase();
 
         $host    = $info['HOST'];
         $db      = $info['DB'];

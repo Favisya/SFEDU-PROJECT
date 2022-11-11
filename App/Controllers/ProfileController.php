@@ -2,16 +2,27 @@
 
 namespace App\Controllers;
 
-use App\Models\DiC;
+use App\Blocks\UserBlock;
+use App\Models\Resource\Environment;
 use App\Models\Resource\ProfileResource;
 use App\Models\SessionModel;
+use App\Models\TokenModel;
 
 class ProfileController extends AbstractController
 {
+    public function __construct(
+        SessionModel $session,
+        TokenModel $tokenModel,
+        Environment $environment,
+        UserBlock $block,
+        ProfileResource $resource
+    ) {
+        parent::__construct($session, $tokenModel, $environment, $resource, $block);
+    }
+
     public function execute()
     {
-        $resource = new ProfileResource();
-        $userModel = $resource->getUserInfo(SessionModel::getInstance()->getUserId());
-        $this->renderPage('profile', $userModel, 'UserBlock');
+        $userModel = $this->resource->getUserInfo($this->session->getUserId());
+        $this->renderPage('profile', $this->block, $userModel);
     }
 }

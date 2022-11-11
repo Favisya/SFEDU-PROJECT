@@ -6,33 +6,38 @@ use App\Blocks\AbstractBlock;
 use App\Exceptions\CsrfException;
 use App\Exceptions\MvcException;
 use App\Models\AbstractModel;
+use App\Models\AbstractService;
 use App\Models\Resource\AbstractResource;
-use App\Models\Resource\AuthorResource;
 use App\Models\Resource\Environment;
 use App\Models\SessionModel;
 use App\Models\TokenModel;
-use Laminas\Di\Di;
 
 abstract class AbstractController
 {
-    protected $di;
     protected $resource;
+    protected $service;
     protected $model;
     protected $block;
+    protected $tokenModel;
     protected $session;
+    protected $environment;
 
     public function __construct(
-        Di $di,
+        SessionModel $session,
+        TokenModel $tokenModel,
+        Environment $environment,
         AbstractResource $resource = null,
-        AbstractBlock $block = null,
-        AbstractModel $model = null,
-        SessionModel $session = null
+        AbstractBlock $block       = null,
+        AbstractService $service   = null,
+        AbstractModel $model       = null
     ) {
-        $this->di = $di;
-        $this->resource = $resource;
-        $this->block = $block;
-        $this->model = $model;
-        $this->session = $session;
+        $this->resource     = $resource;
+        $this->service      = $service;
+        $this->block        = $block;
+        $this->model        = $model;
+        $this->session      = $session;
+        $this->environment  = $environment;
+        $this->tokenModel   = $tokenModel;
     }
 
     abstract public function execute();
@@ -64,13 +69,13 @@ abstract class AbstractController
 
     public function redirect(string $path)
     {
-        $environment = $this->di->get(Environment::class);
+        $environment = $this->environment;
         header("Location: " . $environment->getUri() . $path);
     }
 
     public function isLoggedIn(): bool
     {
-        $session = $this->di->get(SessionModel::class);
+        $session = $this->session;
         $session = $session->getUserId();
 
         return isset($session);
@@ -89,8 +94,8 @@ abstract class AbstractController
 
     public function setToken(): void
     {
-        $token = $this->di->get(TokenModel::class);
-        $session = $this->di->get(SessionModel::class);
+        $token = $this->tokenModel;
+        $session = $this->session;
         $session->setToken($token->generateToken());
     }
 
@@ -116,7 +121,7 @@ abstract class AbstractController
 
     private function checkToken(string $token): bool
     {
-        $session = $this->di->get(SessionModel::class);
+        $session = $this->session;
         return $session->getToken() === $token;
     }
 }

@@ -5,34 +5,29 @@ namespace App\Models;
 use App\Router\AbstractRouter;
 use App\Router\ApiRouter;
 use App\Router\Router;
-use Laminas\Di\Di;
 
 class RouterFactory
 {
-    private $di;
+    private $webRouter;
+    private $apiRouter;
 
-    public function __construct(Di $di)
+    public function __construct(Router $webRouter, ApiRouter $apiRouter)
     {
-        $this->di = $di;
+        $this->webRouter = $webRouter;
+        $this->apiRouter = $apiRouter;
     }
 
     public function isApi(string $path): bool
     {
-        $var = stripos($path, 'api/') !== false;
-        return $var;
+        return stripos($path, 'api/') !== false;
     }
 
     public function routerFactory(string $path): AbstractRouter
     {
         if (!$this->isApi($path)) {
-            /**
-             * @return AbstractRouter
-             */
-            return $this->di->get(Router::class);
+            return $this->webRouter;
         }
-        /**
-         * @return AbstractRouter
-         */
-        return $this->di->get(ApiRouter::class);
+
+        return $this->apiRouter;
     }
 }

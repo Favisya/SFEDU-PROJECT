@@ -2,19 +2,21 @@
 
 namespace App\Controllers;
 
-use App\Blocks\CountriesBlock;
-use App\Models\Resource\BookResource;
 use App\Models\Resource\CountriesResource;
+use App\Models\Resource\Environment;
 use App\Models\SessionModel;
-use Laminas\Di\Di;
+use App\Models\TokenModel;
 
 class CountriesController extends AbstractController
 {
-    public function __construct(Di $di, CountriesResource $resource)
-    {
-        parent::__construct($di, $resource);
+    public function __construct(
+        SessionModel $session,
+        TokenModel $tokenModel,
+        Environment $environment,
+        CountriesResource $resource
+    ) {
+        parent::__construct($session, $tokenModel, $environment, $resource);
     }
-
     public function execute()
     {
         $countriesResource = $this->resource;

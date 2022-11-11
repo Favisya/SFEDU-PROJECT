@@ -5,7 +5,7 @@ namespace App;
 use App\Controllers\Error404Controller;
 use App\Controllers\Error500Controller;
 use App\Exceptions\MvcException;
-use App\Models\DiC;
+use App\Models\DiContainer\DiC;
 use App\Models\LoggerModel;
 use App\Models\RouterFactory;
 use Laminas\Di\Di;

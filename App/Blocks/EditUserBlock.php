@@ -6,7 +6,7 @@ use App\Models\AbstractModel;
 
 class EditUserBlock extends AbstractBlock
 {
-    private $session;
+    protected $session;
     private $user;
 
     public function setSession(AbstractModel $models)

@@ -2,11 +2,25 @@
 
 namespace App\Controllers;
 
+use App\Blocks\CategoriesBlock;
 use App\Exceptions\MvcException;
 use App\Models\Resource\BookResource;
+use App\Models\Resource\CategoriesResource;
+use App\Models\Resource\Environment;
+use App\Models\SessionModel;
+use App\Models\TokenModel;
 
 class PostCreateBookController extends AbstractController
 {
+    public function __construct(
+        SessionModel $session,
+        TokenModel $tokenModel,
+        Environment $environment,
+        BookResource $resource
+    ) {
+        parent::__construct($session, $tokenModel, $environment, $resource);
+    }
+
     public function execute()
     {
         $keys = array_keys($_POST);
@@ -20,8 +34,7 @@ class PostCreateBookController extends AbstractController
 
         $this->validateForm(['bookName']);
 
-        $resource = $this->di->get(BookResource::class);
-        $bookModel = $resource->createBook(
+        $bookModel = $this->resource->createBook(
             $this->getPostParam('bookName'),
             $this->getPostParam('bookDate'),
             $this->getPostParam('bookPrice'),

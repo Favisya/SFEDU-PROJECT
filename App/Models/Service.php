@@ -3,12 +3,20 @@
 namespace App\Models;
 
 use App\Exceptions\MvcException;
-use App\Models\AbstractModel;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class Service extends AbstractModel
+class Service extends AbstractService
 {
+    private $xslx;
+    private $spreadsheet;
+
+    public function __construct(Spreadsheet $spreadsheet, Xlsx $xlsx)
+    {
+        $this->spreadsheet = $spreadsheet;
+        $this->xslx        = $xlsx;
+    }
+
     public function parseItem($item)
     {
         $data = [];
@@ -66,11 +74,9 @@ class Service extends AbstractModel
             $data[] = $this->parseItem($item);
         }
 
-        $spreadSheet = $this->di->get(Spreadsheet::class);
-        $sheet = $spreadSheet->getActiveSheet();
+        $sheet = $this->spreadsheet->getActiveSheet();
         $sheet->fromArray($data);
 
-        $writer = $this->di->get(Xlsx::class, ['spreadsheet' => $spreadSheet]);
-        $writer->save($path);
+        $this->xslx->save($path);
     }
 }

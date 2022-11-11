@@ -8,11 +8,11 @@ use Laminas\Di\Di;
 abstract class AbstractBlock
 {
     protected $template;
-    protected $di;
+    protected $session;
 
-    public function __construct(Di $di)
+    public function __construct(SessionModel $session)
     {
-        $this->di = $di;
+        $this->session = $session;
     }
 
     public function render()
@@ -22,8 +22,8 @@ abstract class AbstractBlock
 
     public function isLoggedIn(): bool
     {
-        $sessionId = $this->di->get(SessionModel::class);
-        $sessionId->getUserId();
+        $sessionId = $this->session;
+        $sessionId = $sessionId->getUserId();
         return isset($sessionId);
     }
 
@@ -34,7 +34,7 @@ abstract class AbstractBlock
 
     public function getToken(): string
     {
-        $session = $this->di->get(SessionModel::class);
+        $session = $this->session;
         return $session->getToken();
     }
 

@@ -7,7 +7,8 @@ define('APP_ROOT', dirname(__FILE__));
 define('CSV_FORMAT', 'csv');
 
 $di = new \Laminas\Di\Di();
-$Dic = new \App\Models\DiC($di);
+$DiC = new \App\Models\DiContainer\DiC($di);
+$DiC->assemble();
 
 $router = $di->get(\App\Router\ConsoleRouter::class, [$di]);
 

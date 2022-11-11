@@ -7,17 +7,16 @@ use App\Models\AuthorModel;
 use App\Models\BookModel;
 use App\Models\CacheInterface;
 use App\Models\LibraryModel;
-use Laminas\Di\Di;
 
 abstract class AbstractApiController extends AbstractController
 {
     protected $param;
     protected $cacheModel;
 
-    public function __construct(Di $di, $param = null)
+    public function __construct(CacheInterface $cacheModel, $param = null)
     {
-        parent::__construct($di);
         $this->param = $param;
+        $this->cacheModel = $cacheModel;
     }
 
     /**

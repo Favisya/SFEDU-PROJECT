@@ -3,7 +3,6 @@
 namespace App\Models\Resource;
 
 use App\Database\Database;
-use App\Models\SessionModel;
 
 class LoginResource extends AbstractResource
 {

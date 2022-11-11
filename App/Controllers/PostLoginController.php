@@ -2,9 +2,12 @@
 
 namespace App\Controllers;
 
-use App\Models\AccountService;
+use App\Blocks\CategoriesBlock;
+use App\Models\Resource\CategoriesResource;
+use App\Models\Resource\Environment;
 use App\Models\Resource\LoginResource;
 use App\Models\SessionModel;
+use App\Models\TokenModel;
 
 class PostLoginController extends AbstractController
 {
@@ -12,19 +15,22 @@ class PostLoginController extends AbstractController
     {
         $this->handleToken();
 
-        $AccountModel = $this->di->get(AccountService::class);
-        $AccountModel->setResource($this->di->get(LoginResource::class));
+        $this->service->setResource($this->resource);
 
-        $isExists = $AccountModel->authenticate(
-            $this->getPostParam('login'),
-            $this->getPostParam('password')
-        );
-
-        if (!$isExists) {
-            $session = $this->di->get(SessionModel::class);
+        if (!$this->isUserExist()) {
+            $session = $this->session;
             $session->setError('Неправильный логин или пароль');
             $this->redirect('login');
         }
+
         $this->redirect('profile');
+    }
+
+    protected function isUserExist(): bool
+    {
+        return $this->service->authenticate(
+            $this->getPostParam('login'),
+            $this->getPostParam('password')
+        );
     }
 }

@@ -3,9 +3,17 @@
 namespace App\Controllers\Console;
 
 use App\Models\Mailer;
+use Laminas\Di\Di;
 
 class SendMailController extends AbstractController
 {
+    private $di;
+
+    public function __construct(Di $di)
+    {
+        $this->di = $di;
+    }
+
     public function execute()
     {
         $arguments = $this->getArguments();

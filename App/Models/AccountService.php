@@ -2,17 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Resource\AbstractResource;
-use Laminas\Di\Di;
-
-class AccountService
+class AccountService extends AbstractService
 {
-    private $resource;
-    private $di;
-
-    public function __construct(Di $di)
+    public function __construct(SessionModel $session)
     {
-        $this->di = $di;
+        $this->session = $session;
     }
 
     public function authenticate($login, $password): bool
@@ -26,12 +20,6 @@ class AccountService
         return true;
     }
 
-    public function setResource(AbstractResource $resource): void
-    {
-        $this->resource = $resource;
-    }
-
-
     protected function isPasswordValid(string $hash, string $password): bool
     {
         return password_verify($password, $hash);
@@ -40,7 +28,7 @@ class AccountService
 
     private function setUserToSession(array $user): void
     {
-        $sessionModel = $this->di->get(SessionModel::class);
+        $sessionModel = $this->session;
         $sessionModel->setUserData($user);
     }
 }

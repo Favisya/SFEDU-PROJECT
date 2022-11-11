@@ -3,19 +3,19 @@
 namespace App\Models\Resource;
 
 use App\Models\CacheFactory;
+use App\Models\CacheInterface;
 
 class Environment
 {
-    protected $settings;
     private const CACHE_NAME = 'environment';
     private $cacheModel;
+    protected $settings;
 
-    public function __construct()
+    public function __construct(CacheInterface $cacheModel)
     {
-        $factory = new CacheFactory();
-        $this->settings = parse_ini_file(APP_ROOT . '/.env', true);
-        $this->cacheModel = $factory->factory($this->settings['CACHE']['TYPE']);
+        $this->cacheModel = $cacheModel;
         if ($this->cacheModel->isCacheEmpty(self::CACHE_NAME)) {
+            $this->settings = parse_ini_file(APP_ROOT . '/.env', true);
             $this->cacheModel->toCache($this->settings, self::CACHE_NAME, true);
         }
     }

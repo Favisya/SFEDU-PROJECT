@@ -2,17 +2,20 @@
 
 namespace App\Controllers\Console;
 
-use App\Models\CacheFactory;
+use App\Models\CacheInterface;
 
 class ClearCacheController extends AbstractController
 {
+    private $cacheModel;
+
+    public function __construct(CacheInterface $cacheModel)
+    {
+        $this->cacheModel = $cacheModel;
+    }
+
     public function execute()
     {
-        $cacheModels = new CacheFactory();
-
-        foreach ($cacheModels->getAll() as $cacheModel) {
-            $arguments = $this->getArguments();
-            $cacheModel->clearCache(reset($arguments));
-        }
+        $arguments = $this->getArguments();
+        $this->cacheModel->clearCache(reset($arguments));
     }
 }

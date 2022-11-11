@@ -1,12 +1,14 @@
 <?php
 /**
- * @var App\Blocks\Block $this->model $this of block class for books
+ * @var App\Blocks\BookBlock $this->model $this of block class for books
  */
+
+$model = $this->getBooks();
 ?>
 
 <div class="content-container content-container_list">
     <div class="entity-container entity-container_list">
-        <?php foreach ($this->getBooks()->getList() as $book): ?>
+        <?php foreach ($model->getList() as $book): ?>
             <a href="/book?id=<?= $this->secureText($book->getId()) ?>" class="entity-container__button">
                 <h2><?= $this->secureText($book->getName()) ?></h2>
             </a>

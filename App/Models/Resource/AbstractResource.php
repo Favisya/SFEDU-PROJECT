@@ -18,7 +18,7 @@ abstract class AbstractResource
     {
         $query = 'SELECT EXISTS(SELECT login FROM users WHERE login = ?)';
         $db = $this->di->get(Database::class);
-        $db->getConnection();
+        $db = $db->getConnection();
 
         $stmt = $db->prepare($query);
         $stmt->execute([$login]);

@@ -2,22 +2,27 @@
 
 namespace App\Controllers;
 
-use App\Blocks\AuthorsBlock;
+use App\Blocks\BookBlock;
 use App\Blocks\CreateBookBlock;
-use App\Models\AuthorModel;
 use App\Models\Resource\BookResource;
-use Laminas\Di\Di;
+use App\Models\Resource\Environment;
+use App\Models\SessionModel;
+use App\Models\TokenModel;
 
 class CreateBookController extends AbstractController
 {
-    public function __construct(Di $di, BookResource $resource, CreateBookBlock $block)
-    {
-        parent::__construct($di, $resource, $block);
+    public function __construct(
+        SessionModel $session,
+        TokenModel $tokenModel,
+        Environment $environment,
+        CreateBookBlock $block,
+        BookResource $resource
+    ) {
+        parent::__construct($session, $tokenModel, $environment, $resource, $block);
     }
 
     public function execute()
     {
-
         $this->block->setTemplate('createBook');
 
         $models = $this->resource->getBookInfo();

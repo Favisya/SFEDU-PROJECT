@@ -2,64 +2,59 @@
 
 namespace App\Models;
 
+use SendinBlue\Client;
 use App\Blocks\EmailBlock;
 use App\Models\Resource\Environment;
-use GuzzleHttp;
-use Laminas\Di\Di;
-use SendinBlue\Client;
 
 class Mailer extends AbstractModel
 {
-    private $apiInstance;
-    private $template;
     private $user;
-    private $env;
+    private $block;
+    private $logger;
+    private $template;
+    private $smtpEmail;
+    private $environment;
+    private $apiInstance;
 
-    public function __construct(string $name, string $template, Di $di)
-    {
-        parent::__construct($di);
-        $this->env = $this->di->get(Environment::class);
+    public function __construct(
+        string $name,
+        string $template,
+        UserModel $user,
+        EmailBlock $block,
+        LoggerModel $logger,
+        Environment $environment,
+        Client\Model\SendSmtpEmail $smtpEmail,
+        Client\Api\TransactionalEmailsApi $apiInstance
+    ) {
+        $this->user        = $user;
+        $this->block       = $block;
+        $this->logger      = $logger;
+        $this->smtpEmail   = $smtpEmail;
+        $this->environment = $environment;
+        $this->apiInstance = $apiInstance;
 
-        $config = Client\Configuration::getDefaultConfiguration()->setApiKey(
-            'api-key',
-            $this->env->getMailerKey()
-        );
-
-        $this->apiInstance = $this->di->get(
-            Client\Api\TransactionalEmailsApi::class,
-            [
-                'client' => $this->di->get(GuzzleHttp\Client::class),
-                'config' => $config,
-            ]
-        );
-
-        $block = $this->di->get(EmailBlock::class);
-        $block->setTemplate($template);
-
-        $user = $this->di->get(UserModel::class);
-        $user->setData(['name' => $name]);
-        $block->setUser($user);
-
-        $this->user = $user;
-
-        $this->template = $block->getHtml();
+        $this->block->setTemplate($template);
+        $this->user->setData(['name' => $name]);
+        $this->block->setUser($user);
+        $this->template = $this->block->getHtml();
     }
 
     public function sendEmail(string $email)
     {
-        $sendSmtpEmail = new Client\Model\SendSmtpEmail();
-        $sendSmtpEmail['subject'] = 'Notification';
-        $sendSmtpEmail['htmlContent'] = $this->template;
-        $sendSmtpEmail['sender'] = ['name' => 'Admin group of Super Books', 'email' => $this->env->getEmail()];
-        $sendSmtpEmail['to'] = [
+        $this->smtpEmail['subject'] = 'Notification';
+        $this->smtpEmail['htmlContent'] = $this->template;
+        $this->smtpEmail['sender'] = [
+            'name' => 'Admin group of Super Books',
+            'email' => $this->environment->getEmail()
+        ];
+        $this->smtpEmail['to'] = [
             ['email' => $email, 'name' => $this->user->getName()]
         ];
 
         try {
-            $this->apiInstance->sendTransacEmail($sendSmtpEmail);
+            $this->apiInstance->sendTransacEmail($this->smtpEmail);
         } catch (\Exception $e) {
-            $logger = $this->di->get(LoggerModel::class);
-            $logger->printError($e);
+            $this->logger->printError($e);
         }
     }
 }

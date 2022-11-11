@@ -2,11 +2,26 @@
 
 namespace App\Controllers\Api;
 
+use App\Models\CacheInterface;
 use App\Models\Resource\BookResource;
 use App\Models\Resource\BooksResource;
 
 class BooksController extends AbstractApiController
 {
+    private $bookResource;
+    private $booksResource;
+
+    public function __construct(
+        CacheInterface $cacheModel,
+        BookResource $bookResource,
+        BooksResource $booksResource,
+        $param = null
+    ) {
+        parent::__construct($cacheModel, $param);
+        $this->bookResource  = $bookResource;
+        $this->booksResource = $booksResource;
+    }
+
     public function execute()
     {
         if ($this->getRequestMethod() == 'GET') {
@@ -32,8 +47,7 @@ class BooksController extends AbstractApiController
 
     private function getList()
     {
-        $booksResource = $this->di->get(BooksResource::class);
-        $booksModel = $booksResource->getBooks($this->param ?? 0);
+        $booksModel = $this->booksResource->getBooks($this->param ?? 0);
 
         $data = [];
         foreach ($booksModel->getList() as $book) {
@@ -45,8 +59,7 @@ class BooksController extends AbstractApiController
 
     private function getElement()
     {
-        $bookResource = $this->di->get(BookResource::class);
-        $bookModel = $bookResource->getBook($this->param);
+        $bookModel = $this->bookResource->getBook($this->param);
         $data = $this->getBook($bookModel);
         $this->printJson($data);
     }
@@ -55,8 +68,7 @@ class BooksController extends AbstractApiController
     {
         $data = $this->endCodeJson();
 
-        $BookResource = $this->di->get(BookResource::class);
-        $authorsModel = $BookResource->createBook(
+        $authorsModel = $this->bookResource->createBook(
             $data['name'],
             $data['date'],
             $data['price'],
@@ -72,8 +84,7 @@ class BooksController extends AbstractApiController
     {
         $data = $this->endCodeJson();
 
-        $BookResource = $this->di->get(BookResource::class);
-        $authorsModel = $BookResource->editBook(
+        $authorsModel = $this->bookResource->editBook(
             $data['name'],
             $data['date'],
             $data['price'],
@@ -88,8 +99,7 @@ class BooksController extends AbstractApiController
 
     private function deleteElement()
     {
-        $bookResource = $this->di->get(BookResource::class);
-        $bookResource->deleteBook($this->param);
+        $this->bookResource->deleteBook($this->param);
         header('Status: 200');
     }
 }

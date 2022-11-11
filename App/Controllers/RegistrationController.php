@@ -2,10 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Models\Resource\RegistrationResource;
-use App\Models\SessionModel;
-use App\Models\UserModel;
-
 class RegistrationController extends AbstractController
 {
     public function execute()
@@ -16,6 +12,6 @@ class RegistrationController extends AbstractController
             $this->redirect('profile');
         }
 
-        $this->renderPage('registration', $this->di->get(SessionModel::class), 'SessionBlock');
+        $this->renderPage('registration', $this->block, $this->session);
     }
 }

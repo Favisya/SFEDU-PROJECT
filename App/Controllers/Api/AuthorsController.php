@@ -2,21 +2,25 @@
 
 namespace App\Controllers\Api;
 
+use App\Models\CacheInterface;
 use App\Models\Resource\AuthorResource;
 use App\Models\Resource\AuthorsResource;
-use App\Models\Resource\Environment;
-use App\Models\CacheFactory;
 
 class AuthorsController extends AbstractApiController
 {
     private const CACHE_NAME = 'Authors';
+    protected $authorsResource;
+    protected $authorResource;
 
-    public function __construct($param = null)
-    {
-        parent::__construct($param);
-        $cacheModel = new CacheFactory();
-        $env = new Environment();
-        $this->cacheModel = $cacheModel->factory($env->getCacheType());
+    public function __construct(
+        CacheInterface $cacheModel,
+        AuthorsResource $libraryResource,
+        AuthorResource $librariesResource,
+        $param = null
+    ) {
+        parent::__construct($cacheModel, $param);
+        $this->authorResource = $librariesResource;
+        $this->authorsResource = $libraryResource;
     }
 
     public function execute()
@@ -48,8 +52,7 @@ class AuthorsController extends AbstractApiController
             return true;
         }
 
-        $authorsResource = $this->di->get(AuthorsResource::class);
-        $authorsModel = $authorsResource->getAuthors();
+        $authorsModel = $this->authorsResource->getAuthors();
 
         $data = [];
         foreach ($authorsModel->getList() as $author) {
@@ -68,8 +71,7 @@ class AuthorsController extends AbstractApiController
             return false;
         }
 
-        $authorResource = $this->di->get(AuthorResource::class);
-        $authorModel = $authorResource->getAuthor($this->param);
+        $authorModel = $this->authorResource->getAuthor($this->param);
 
         $data = $this->getAuthor($authorModel);
         $this->updateCache(self::CACHE_NAME, $data);
@@ -82,8 +84,7 @@ class AuthorsController extends AbstractApiController
     {
         $data = $this->endCodeJson();
         $name = $data['name'];
-        $authorResource = $this->di->get(AuthorResource::class);
-        $authorModel = $authorResource->createAuthor($name);
+        $authorModel = $this->authorResource->createAuthor($name);
         header('Status: 200');
 
         $data = $this->getAuthor($authorModel);
@@ -94,8 +95,7 @@ class AuthorsController extends AbstractApiController
     {
         $data = $this->endCodeJson();
         $name = $data['name'];
-        $authorResource = $this->di->get(AuthorResource::class);
-        $authorModel = $authorResource->editAuthor($name, $this->param);
+        $authorModel = $this->authorResource->editAuthor($name, $this->param);
         header('Status: 200');
 
         $data = $this->getAuthor($authorModel);
@@ -104,8 +104,7 @@ class AuthorsController extends AbstractApiController
 
     private function deleteElement()
     {
-        $resource = $this->di->get(AuthorResource::class);
-        $resource->deleteAuthor($this->param);
+        $this->authorResource->deleteAuthor($this->param);
         header('Status: 200');
 
         $this->cacheModel->clearCache(self::CACHE_NAME, true, $this->param);
