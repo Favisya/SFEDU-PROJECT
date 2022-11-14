@@ -11,7 +11,8 @@ There is few step:
 - Go to the .env.sample and fill empty fields
 - rename to .env
 - run `composer install`
-- run `php -S localhost:3000`
+- install and config nginx
+- choose start file for nginx /pub/index.php
 
 ### What the task?
 
