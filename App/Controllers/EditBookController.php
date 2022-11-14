@@ -2,9 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Blocks\BookBlock;
 use App\Blocks\CreateBookBlock;
-use App\Models\Resource\BookResource;
+use App\Models\Resource\BooksResource;
 use App\Models\Resource\Environment;
 use App\Models\SessionModel;
 use App\Models\TokenModel;
@@ -16,7 +15,7 @@ class EditBookController extends AbstractController
         TokenModel $tokenModel,
         Environment $environment,
         CreateBookBlock $block,
-        BookResource $resource
+        BooksResource $resource
     ) {
         parent::__construct($session, $tokenModel, $environment, $resource, $block);
     }

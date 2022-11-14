@@ -14,7 +14,7 @@ class UpdateBooksResource extends AbstractResource
         $data = json_decode($data->getBody(), true);
         $books = $data['books'];
 
-        $bookResource = $this->di->get(BookResource::class);
+        $BooksResource = $this->di->get(BooksResource::class);
         foreach ($books as $book) {
             $client = $this->di->get(GuzzleHttp\Client::class);
             $bookDetailed = $client->request(
@@ -30,7 +30,7 @@ class UpdateBooksResource extends AbstractResource
             $publisherId  = $this->checkPublisher($bookDetailed['publisher']);
             $categoryId   = $this->checkCategory($bookDetailed['subtitle']);
 
-            $bookResource->createBook(
+            $BooksResource->createBook(
                 $bookDetailed['title'],
                 $date,
                 $price,
@@ -49,8 +49,7 @@ class UpdateBooksResource extends AbstractResource
             $category = 'unnamed';
         }
 
-        $db = $this->di->get(Database::class);
-        $db = $db->getConnection();
+        $db = $this->database->getConnection();
 
         $query = 'SELECT * FROM categories WHERE name = ?';
         $stmt1 = $db->prepare($query);
@@ -68,8 +67,7 @@ class UpdateBooksResource extends AbstractResource
 
     private function checkAuthor(string $author): int
     {
-        $db = $this->di->get(Database::class);
-        $db = $db->getConnection();
+        $db = $this->database->getConnection();
 
         $query = 'SELECT * FROM authors WHERE name = ?';
         $stmt1 = $db->prepare($query);
@@ -87,8 +85,7 @@ class UpdateBooksResource extends AbstractResource
 
     private function checkPublisher(string $publisher): int
     {
-        $db = $this->di->get(Database::class);
-        $db = $db->getConnection();
+        $db = $this->database->getConnection();
 
         $query = 'SELECT * FROM publishers WHERE name = ?';
         $stmt1 = $db->prepare($query);
@@ -106,8 +103,7 @@ class UpdateBooksResource extends AbstractResource
 
     private function checkCountry(): int
     {
-        $db = $this->di->get(Database::class);
-        $db = $db->getConnection();
+        $db = $this->database->getConnection();
 
         $query = 'SELECT * FROM countries where name = ?';
         $name = 'none';

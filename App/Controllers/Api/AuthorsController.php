@@ -3,24 +3,23 @@
 namespace App\Controllers\Api;
 
 use App\Models\CacheInterface;
-use App\Models\Resource\AuthorResource;
 use App\Models\Resource\AuthorsResource;
 
 class AuthorsController extends AbstractApiController
 {
     private const CACHE_NAME = 'Authors';
-    protected $authorsResource;
+    protected $AuthorResource;
     protected $authorResource;
 
     public function __construct(
-        CacheInterface $cacheModel,
-        AuthorsResource $libraryResource,
-        AuthorResource $librariesResource,
-        $param = null
+        CacheInterface  $cacheModel,
+        AuthorsResource $LibrariesResource,
+        AuthorsResource $librariesResource,
+                        $param = null
     ) {
         parent::__construct($cacheModel, $param);
         $this->authorResource = $librariesResource;
-        $this->authorsResource = $libraryResource;
+        $this->AuthorResource = $LibrariesResource;
     }
 
     public function execute()
@@ -52,7 +51,7 @@ class AuthorsController extends AbstractApiController
             return true;
         }
 
-        $authorsModel = $this->authorsResource->getAuthors();
+        $authorsModel = $this->AuthorResource->getAuthors();
 
         $data = [];
         foreach ($authorsModel->getList() as $author) {

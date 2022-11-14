@@ -8,11 +8,6 @@ use Laminas\Di\Di;
 
 class ConsoleRouter extends AbstractRouter
 {
-    public function __construct(Di $di)
-    {
-        parent::__construct($di);
-    }
-
     public function parseControllers(string $controller): ?Console\AbstractController
     {
         $class = ucfirst($controller);

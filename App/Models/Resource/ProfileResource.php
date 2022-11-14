@@ -10,8 +10,7 @@ class ProfileResource extends AbstractResource
     public function getUserInfo(int $id)
     {
         $query = 'SELECT name, surname, login, email, id FROM users WHERE id = ?';
-        $db = $this->di->get(Database::class);
-        $db = $db->getConnection();
+        $db = $this->database->getConnection();
 
         $stmt = $db->prepare($query);
         $stmt->execute([$id]);

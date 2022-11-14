@@ -2,11 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Blocks\CategoriesBlock;
 use App\Blocks\LibrariesBlock;
-use App\Models\Resource\CategoriesResource;
 use App\Models\Resource\Environment;
-use App\Models\Resource\AuthorResource;
 use App\Models\Resource\LibrariesResource;
 use App\Models\SessionModel;
 use App\Models\TokenModel;

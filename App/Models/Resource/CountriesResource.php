@@ -10,8 +10,7 @@ class CountriesResource extends AbstractResource
 {
     public function getCountries(): AbstractModel
     {
-        $db = $this->di->get(Database::class);
-        $db = $db->getConnection();
+        $db = $this->database->getConnection();
 
         $query = 'SELECT * from countries;';
         $stmt  = $db->query($query);

@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Resource\Environment;
-use App\Models\Resource\LibraryResource;
+use App\Models\Resource\LibrariesResource;
 use App\Models\SessionModel;
 use App\Models\TokenModel;
 
@@ -13,7 +13,7 @@ class DeleteLibraryController extends AbstractController
         SessionModel $session,
         TokenModel $tokenModel,
         Environment $environment,
-        LibraryResource $resource
+        LibrariesResource $resource
     ) {
         parent::__construct($session, $tokenModel, $environment, $resource);
     }

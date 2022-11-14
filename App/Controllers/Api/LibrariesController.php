@@ -4,22 +4,21 @@ namespace App\Controllers\Api;
 
 use App\Models\CacheInterface;
 use App\Models\Resource\LibrariesResource;
-use App\Models\Resource\LibraryResource;
 
 class LibrariesController extends AbstractApiController
 {
     private const CACHE_NAME = 'libraries';
     protected $librariesResource;
-    protected $libraryResource;
+    protected $LibrariesResource;
 
     public function __construct(
         CacheInterface $cacheModel,
-        LibraryResource $libraryResource,
+        LibrariesResource $LibrariesResource,
         LibrariesResource $librariesResource,
         $param = null
     ) {
         parent::__construct($cacheModel, $param);
-        $this->libraryResource   = $libraryResource;
+        $this->LibrariesResource   = $LibrariesResource;
         $this->librariesResource = $librariesResource;
     }
 
@@ -71,7 +70,7 @@ class LibrariesController extends AbstractApiController
             return false;
         }
 
-        $libraryModel = $this->libraryResource->getLibrary($this->param);
+        $libraryModel = $this->LibrariesResource->getLibrary($this->param);
 
         $data = $this->getLibrary($libraryModel);
         $this->updateCache(self::CACHE_NAME, $data);
@@ -83,7 +82,7 @@ class LibrariesController extends AbstractApiController
     private function createElement()
     {
         $data = $this->endCodeJson();
-        $libraryModel = $this->libraryResource->createLibrary($data['name'], $data['address']);
+        $libraryModel = $this->LibrariesResource->createLibrary($data['name'], $data['address']);
         header('Status: 200');
 
         $data = $this->getLibrary($libraryModel);
@@ -94,7 +93,7 @@ class LibrariesController extends AbstractApiController
     private function editElement()
     {
         $data = $this->endCodeJson();
-        $libraryModel = $this->libraryResource->editLibrary($data['name'], $data['address'], $this->param);
+        $libraryModel = $this->LibrariesResource->editLibrary($data['name'], $data['address'], $this->param);
         header('Status: 200');
 
         $data = $this->getLibrary($libraryModel);
@@ -104,7 +103,7 @@ class LibrariesController extends AbstractApiController
 
     private function deleteElement()
     {
-        $this->libraryResource->deleteLibrary($this->param);
+        $this->LibrariesResource->deleteLibrary($this->param);
         header('Status: 200');
 
         $this->cacheModel->clearCache(self::CACHE_NAME, true, $this->param);

@@ -8,16 +8,18 @@ use Laminas\Di\Di;
 abstract class AbstractResource
 {
     protected $di;
+    protected $database;
 
-    public function __construct(Di $di)
+    public function __construct(Di $di, Database $database)
     {
-        $this->di = $di;
+        $this->di       = $di;
+        $this->database = $database;
     }
 
     public function checkLogin(string $login): bool
     {
         $query = 'SELECT EXISTS(SELECT login FROM users WHERE login = ?)';
-        $db = $this->di->get(Database::class);
+        $db = $this->database;
         $db = $db->getConnection();
 
         $stmt = $db->prepare($query);
