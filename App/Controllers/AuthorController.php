@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Blocks\AuthorBlock;
-use App\Models\Resource\AuthorResource;
+use App\Models\Resource\AuthorsResource;
 use App\Models\Resource\Environment;
 use App\Models\SessionModel;
 use App\Models\TokenModel;
@@ -15,7 +15,7 @@ class AuthorController extends AbstractController
         TokenModel $tokenModel,
         Environment $environment,
         AuthorBlock $block,
-        AuthorResource $resource
+        AuthorsResource $resource
     ) {
         parent::__construct($session, $tokenModel, $environment, $resource, $block);
     }

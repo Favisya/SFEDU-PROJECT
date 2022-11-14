@@ -2,9 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Blocks\CategoriesBlock;
-use App\Models\Resource\BookResource;
-use App\Models\Resource\CategoriesResource;
+use App\Models\Resource\BooksResource;
 use App\Models\Resource\Environment;
 use App\Models\SessionModel;
 use App\Models\TokenModel;
@@ -15,7 +13,7 @@ class TakeBookController extends AbstractController
         SessionModel $session,
         TokenModel $tokenModel,
         Environment $environment,
-        BookResource $resource
+        BooksResource $resource
     ) {
         parent::__construct($session, $tokenModel, $environment, $resource);
     }

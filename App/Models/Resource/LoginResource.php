@@ -10,9 +10,8 @@ class LoginResource extends AbstractResource
     {
         $login = htmlspecialchars($login);
 
+        $db = $this->database->getConnection();
         $query = 'SELECT password, id FROM users WHERE login = ?';
-        $db = $this->di->get(Database::class);
-        $db = $db->getConnection();
 
         $stmt = $db->prepare($query);
         $stmt->execute([$login]);

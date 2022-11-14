@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Blocks\LibraryBlock;
 use App\Models\Resource\Environment;
-use App\Models\Resource\LibraryResource;
+use App\Models\Resource\LibrariesResource;
 use App\Models\SessionModel;
 use App\Models\TokenModel;
 
@@ -15,7 +15,7 @@ class EditLibraryController extends AbstractController
         TokenModel $tokenModel,
         Environment $environment,
         LibraryBlock $block,
-        LibraryResource $resource
+        LibrariesResource $resource
     ) {
         parent::__construct($session, $tokenModel, $environment, $resource, $block);
     }

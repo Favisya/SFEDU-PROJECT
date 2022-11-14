@@ -3,22 +3,18 @@
 namespace App\Controllers\Api;
 
 use App\Models\CacheInterface;
-use App\Models\Resource\BookResource;
 use App\Models\Resource\BooksResource;
 
 class BooksController extends AbstractApiController
 {
-    private $bookResource;
     private $booksResource;
 
     public function __construct(
         CacheInterface $cacheModel,
-        BookResource $bookResource,
         BooksResource $booksResource,
         $param = null
     ) {
         parent::__construct($cacheModel, $param);
-        $this->bookResource  = $bookResource;
         $this->booksResource = $booksResource;
     }
 
@@ -59,7 +55,7 @@ class BooksController extends AbstractApiController
 
     private function getElement()
     {
-        $bookModel = $this->bookResource->getBook($this->param);
+        $bookModel = $this->booksResource->getBook($this->param);
         $data = $this->getBook($bookModel);
         $this->printJson($data);
     }
@@ -68,7 +64,7 @@ class BooksController extends AbstractApiController
     {
         $data = $this->endCodeJson();
 
-        $authorsModel = $this->bookResource->createBook(
+        $authorsModel = $this->booksResource->createBook(
             $data['name'],
             $data['date'],
             $data['price'],
@@ -84,7 +80,7 @@ class BooksController extends AbstractApiController
     {
         $data = $this->endCodeJson();
 
-        $authorsModel = $this->bookResource->editBook(
+        $authorsModel = $this->booksResource->editBook(
             $data['name'],
             $data['date'],
             $data['price'],
@@ -99,7 +95,7 @@ class BooksController extends AbstractApiController
 
     private function deleteElement()
     {
-        $this->bookResource->deleteBook($this->param);
+        $this->booksResource->deleteBook($this->param);
         header('Status: 200');
     }
 }

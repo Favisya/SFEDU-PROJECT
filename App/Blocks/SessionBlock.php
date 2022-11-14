@@ -2,13 +2,13 @@
 
 namespace App\Blocks;
 
-use App\Models\AbstractModel;
+use App\Models\SessionModel;
 
 class SessionBlock extends AbstractBlock
 {
     protected $session;
 
-    public function setSession(AbstractModel $models)
+    public function setSession(SessionModel $models)
     {
         $this->session = $models;
     }

@@ -10,8 +10,7 @@ class PublishersResource extends AbstractResource
 {
     public function getPublishers(): AbstractModel
     {
-        $db = $this->di->get(Database::class);
-        $db = $db->getConnection();
+        $db = $this->database->getConnection();
 
         $query = 'SELECT name, id from publishers;';
         $stmt  = $db->query($query);

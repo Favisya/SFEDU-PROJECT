@@ -11,8 +11,7 @@ class UsersResource extends AbstractResource
     public function getUsers()
     {
         $query = 'SELECT * FROM users';
-        $db = $this->di->get(Database::class);
-        $db = $db->getConnection();
+        $db = $this->database->getConnection();
 
         $stmt = $db->query($query);
 

@@ -12,8 +12,7 @@ class CategoriesResource extends AbstractResource
     {
         $query = 'SELECT * FROM categories;';
 
-        $db = $this->di->get(Database::class);
-        $db = $db->getConnection();
+        $db = $this->database->getConnection();
 
         $stmt = $db->query($query);
 

@@ -17,8 +17,7 @@ class RegistrationResource extends AbstractResource
         $password = $this->hashPassword($password);
 
         $query = 'INSERT INTO users (login, password, name, surname, email) VALUES (?, ?, ?, ?, ?)';
-        $db = $this->di->get(Database::class);
-        $db = $db->getConnection();
+        $db = $this->database->getConnection();
 
         $stmt = $db->prepare($query);
         $stmt->execute([$login, $password, $name, $surname, $email]);

@@ -3,24 +3,20 @@
 namespace App\Controllers\Api;
 
 use App\Models\CacheInterface;
-use App\Models\Resource\AuthorResource;
 use App\Models\Resource\AuthorsResource;
 
 class AuthorsController extends AbstractApiController
 {
     private const CACHE_NAME = 'Authors';
     protected $authorsResource;
-    protected $authorResource;
 
     public function __construct(
-        CacheInterface $cacheModel,
-        AuthorsResource $libraryResource,
-        AuthorResource $librariesResource,
-        $param = null
+        CacheInterface  $cacheModel,
+        AuthorsResource $authorsResource,
+                        $param = null
     ) {
         parent::__construct($cacheModel, $param);
-        $this->authorResource = $librariesResource;
-        $this->authorsResource = $libraryResource;
+        $this->authorsResource = $authorsResource;
     }
 
     public function execute()
@@ -71,7 +67,7 @@ class AuthorsController extends AbstractApiController
             return false;
         }
 
-        $authorModel = $this->authorResource->getAuthor($this->param);
+        $authorModel = $this->authorsResource->getAuthor($this->param);
 
         $data = $this->getAuthor($authorModel);
         $this->updateCache(self::CACHE_NAME, $data);
@@ -84,7 +80,7 @@ class AuthorsController extends AbstractApiController
     {
         $data = $this->endCodeJson();
         $name = $data['name'];
-        $authorModel = $this->authorResource->createAuthor($name);
+        $authorModel = $this->authorsResource->createAuthor($name);
         header('Status: 200');
 
         $data = $this->getAuthor($authorModel);
@@ -95,7 +91,7 @@ class AuthorsController extends AbstractApiController
     {
         $data = $this->endCodeJson();
         $name = $data['name'];
-        $authorModel = $this->authorResource->editAuthor($name, $this->param);
+        $authorModel = $this->authorsResource->editAuthor($name, $this->param);
         header('Status: 200');
 
         $data = $this->getAuthor($authorModel);
@@ -104,7 +100,7 @@ class AuthorsController extends AbstractApiController
 
     private function deleteElement()
     {
-        $this->authorResource->deleteAuthor($this->param);
+        $this->authorsResource->deleteAuthor($this->param);
         header('Status: 200');
 
         $this->cacheModel->clearCache(self::CACHE_NAME, true, $this->param);

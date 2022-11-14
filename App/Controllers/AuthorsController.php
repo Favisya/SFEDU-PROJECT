@@ -22,8 +22,8 @@ class AuthorsController extends AbstractController
 
     public function execute()
     {
-        $authorsResource = $this->resource;
-        $authorsModel = $authorsResource->getAuthors();
+        $AuthorResource = $this->resource;
+        $authorsModel = $AuthorResource->getAuthors();
 
         $this->renderPage('authors', $this->block, $authorsModel);
     }
