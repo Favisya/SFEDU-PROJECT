@@ -48,7 +48,7 @@ class AuthorsController extends AbstractApiController
             return true;
         }
 
-        $authorsModel = $this->authorsResource->getAuthors();
+        $authorsModel = $this->AuthorResource->getAuthors();
 
         $data = [];
         foreach ($authorsModel->getList() as $author) {

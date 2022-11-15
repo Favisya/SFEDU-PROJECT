@@ -56,6 +56,7 @@ class BooksController extends AbstractApiController
     private function getElement()
     {
         $bookModel = $this->booksResource->getBook($this->param);
+
         $data = $this->getBook($bookModel);
         $this->printJson($data);
     }

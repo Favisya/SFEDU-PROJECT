@@ -9,14 +9,14 @@ class LibrariesController extends AbstractApiController
 {
     private const CACHE_NAME = 'libraries';
     protected $librariesResource;
-
+  
     public function __construct(
         CacheInterface    $cacheModel,
         LibrariesResource $librariesResource,
                           $param = null
     ) {
         parent::__construct($cacheModel, $param);
-        $this->librariesResource = $librariesResource;
+        $this->LibrariesResource   = $LibrariesResource;
     }
 
     public function execute()
@@ -66,7 +66,7 @@ class LibrariesController extends AbstractApiController
         if ($this->getCacheElement(self::CACHE_NAME, $this->cacheModel)) {
             return false;
         }
-
+      
         $libraryModel = $this->librariesResource->getLibrary($this->param);
 
         $data = $this->getLibrary($libraryModel);
