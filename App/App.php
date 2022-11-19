@@ -2,21 +2,23 @@
 
 namespace App;
 
-use App\Controllers\Error404Controller;
-use App\Controllers\Error500Controller;
-use App\Exceptions\MvcException;
-use App\Models\DiContainer\DiC;
-use App\Models\LoggerModel;
-use App\Models\RouterFactory;
+use App\Core\Controllers\Error404Controller;
+use App\Core\Controllers\Error500Controller;
+use App\Core\Exceptions\MvcException;
+use App\Core\Models\DiContainer\DiC;
+use App\Core\Models\LoggerModel;
+use App\Core\Models\RouterFactory;
 use Laminas\Di\Di;
 
-class App
+class  App
 {
     protected $di;
+    protected $logger;
 
     public function __construct(Di $di)
     {
         $this->di = $di;
+
     }
 
     public function runApp(): void
@@ -25,19 +27,20 @@ class App
         $diC = new DiC($this->di);
         $diC->assemble();
 
+        $this->logger = $this->di->get(LoggerModel::class);
+
         $controller = $this->getController($requestPath);
-        $logger = $this->di->get(LoggerModel::class);
 
         try {
             if ($controller !== false) {
                 $controller->execute();
             }
         } catch (MvcException $e) {
-            $logger->printWarning($e->getMessage());
+            $this->logger->printWarning($e->getMessage());
             $controller = $this->di->get(Error404Controller::class);
             $controller->execute();
         } catch (\Exception $e) {
-            $logger->printError($e->getMessage());
+            $this->logger->printError($e->getMessage());
             $controller = $this->di->get(Error500Controller::class);
             $controller->execute();
         }

@@ -7,10 +7,10 @@ define('APP_ROOT', dirname(__FILE__));
 define('CSV_FORMAT', 'csv');
 
 $di = new \Laminas\Di\Di();
-$DiC = new \App\Models\DiContainer\DiC($di);
+$DiC = new \App\Core\Models\DiContainer\DiC($di);
 $DiC->assemble();
 
-$router = $di->get(\App\Router\ConsoleRouter::class, [$di]);
+$router = $di->get(\App\Core\Router\ConsoleRouter::class, [$di]);
 
 if (isset($argv[1])) {
     $controller = $router->parseControllers($argv[1]);
@@ -19,7 +19,7 @@ if (isset($argv[1])) {
         $controller->setArguments([CSV_FORMAT]);
     }
 
-    $arguments = [$argv[2], $argv[3], $argv[4]];
+    $arguments = [$argv[2], $argv[3] ?? null, $argv[4] ?? null];
     $arguments = array_diff($arguments, [0, null]);
 
     $controller->setArguments($arguments);
