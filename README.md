@@ -14,27 +14,6 @@ There is few step:
 - install and config nginx
 - choose start file for nginx /pub/index.php
 
-### What the task?
-
-- connect DB to project
-- make forms for DB. Edit, add and delete.
-- make webservice for DB
-- Write normal README
-
-### Directory architecture
-- App the main dir with code
-- AppFacade       - facade for run app
-- Block           - here blocks for views
-- Controllers     - here controllers
-- Database        - here database connection
-- Exceptions      - here exceptions
-- Models          - here models and resource
-- Models/Resource - here resources for models
-- Router          - here is router for switching pages
-- Styles          - here is all styles
-- templates       - here templates for all pages
-- View            - here all phtml pages
-
 ### Classes
 #### AppFacade
 Facade for run app
