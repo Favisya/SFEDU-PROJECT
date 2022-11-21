@@ -12,9 +12,9 @@ class LibrariesController extends AbstractApiController
     protected $librariesResource;
 
     public function __construct(
-        CacheInterface    $cacheModel,
+        CacheInterface $cacheModel,
         LibrariesResource $librariesResource,
-                          $param = null
+        $param = null
     ) {
         parent::__construct($cacheModel, $param);
         $this->librariesResource = $librariesResource;

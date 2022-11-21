@@ -29,6 +29,6 @@ class ApiRouter extends AbstractRouter
             return null;
         }
 
-        return $this->di->get($controllerClass, ['param'=> $id]);
+        return $this->di->get($controllerClass, ['param' => $id]);
     }
 }

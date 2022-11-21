@@ -4,7 +4,6 @@ namespace App\Core\Router;
 
 use App\Core\Controllers;
 use App\Core\Models\SessionModel;
-use App\Core\Exceptions\MvcException;
 use App\ModuleSettingsAggregator;
 
 class Router extends AbstractRouter

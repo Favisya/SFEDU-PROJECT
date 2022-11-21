@@ -8,28 +8,8 @@ use App\Core\Router\ApiRouter;
 use App\Core\Router\ConsoleRouter;
 use App\Core\Router\Router;
 
-class DiC
+class DiC extends AbstractDiC
 {
-    protected $di;
-    protected $instanceManager;
-
-    public function __construct(\Laminas\Di\Di $di)
-    {
-        $this->di = $di;
-        $this->instanceManager = $this->di->instanceManager();
-    }
-
-    public function assemble()
-    {
-        $reflection = new \ReflectionClass($this);
-        foreach ($reflection->getMethods(\ReflectionMethod::IS_PROTECTED) as $method) {
-            if (strpos($method->getName(), 'assemble') === 0) {
-                $method->setAccessible(true);
-                $method->invoke($this);
-            }
-        }
-    }
-
     protected function assembleEnvironment()
     {
         $this->instanceManager->addTypePreference(
@@ -38,59 +18,6 @@ class DiC
         );
     }
 
-    protected function assembleResource()
-    {
-        $this->instanceManager->setParameters(
-            \App\Books\Models\Resource\AuthorsResource::class,
-            ['di' => $this->di]
-        );
-
-        $this->instanceManager->setParameters(
-            \App\Books\Models\Resource\BooksResource::class,
-            ['di' => $this->di]
-        );
-
-        $this->instanceManager->setParameters(
-            \App\Books\Models\Resource\CategoriesResource::class,
-            ['di' => $this->di]
-        );
-        $this->instanceManager->setParameters(
-            \App\Books\Models\Resource\CountriesResource::class,
-            ['di' => $this->di]
-        );
-
-        $this->instanceManager->setParameters(
-            \App\Books\Models\Resource\LibrariesResource::class,
-            ['di' => $this->di]
-        );
-
-        $this->instanceManager->setParameters(
-            \App\Books\Models\Resource\PublishersResource::class,
-            ['di' => $this->di]
-        );
-
-        $this->instanceManager->setParameters(
-            \App\Books\Models\Resource\RegistrationResource::class,
-            ['di' => $this->di]
-        );
-
-
-        $this->instanceManager->setParameters(
-            \App\Books\Models\Resource\UpdateBooksResource::class,
-            ['di' => $this->di]
-        );
-
-
-        $this->instanceManager->setParameters(
-            \App\Account\Models\Resource\ClientsBooksResource::class,
-            ['di' => $this->di]
-        );
-
-        $this->instanceManager->setParameters(
-            \App\Account\Models\Resource\UsersResource::class,
-            ['di' => $this->di]
-        );
-    }
 
     protected function assembleLogger()
     {
@@ -114,7 +41,7 @@ class DiC
     {
         $spreadSheet = $this->di->get(\PhpOffice\PhpSpreadsheet\Spreadsheet::class);
         $this->instanceManager->setParameters(
-            \App\Books\Models\Service::class,
+            \App\Core\Models\Service::class,
             [
                 'spreadsheet' => $spreadSheet,
                 'xlsx'        => $this->di->get(
@@ -149,44 +76,6 @@ class DiC
     protected function assembleWebControllers()
     {
         $this->instanceManager->setParameters(
-            \App\Account\Controllers\LoginController::class,
-            [
-                'block'    => $this->di->get(\App\Account\Blocks\SessionBlock::class),
-            ]
-        );
-
-        $this->instanceManager->setParameters(
-            \App\Account\Controllers\PostLoginController::class,
-            [
-                'resource' => $this->di->get(\App\Account\Models\Resource\UsersResource::class),
-                'service'  => $this->di->get(\App\Account\Models\AccountService::class),
-            ]
-        );
-
-        $this->instanceManager->setParameters(
-            \App\Account\Controllers\RegistrationController::class,
-            [
-                'block'    => $this->di->get(\App\Account\Blocks\SessionBlock::class),
-            ]
-        );
-
-        $this->instanceManager->setParameters(
-            \App\Books\Controllers\CreateAuthorController::class,
-            [
-                'block'    => $this->di->get(\App\Books\Blocks\AuthorBlock::class),
-                'model'    => $this->di->get(\App\Books\Models\AuthorModel::class),
-            ]
-        );
-
-        $this->instanceManager->setParameters(
-            \App\Books\Controllers\CreateLibraryController::class,
-            [
-                'model'     => $this->di->get(\App\Books\Models\LibraryModel::class),
-                'block'     => $this->di->get(\App\Books\Blocks\LibraryBlock::class),
-            ]
-        );
-
-        $this->instanceManager->setParameters(
             Error404Controller::class,
             [
                 'block'    => $this->di->get(\App\Core\Blocks\SimpleBlock::class),
@@ -211,31 +100,6 @@ class DiC
             \App\Core\Controllers\HomePageController::class,
             [
                 'block'     => $this->di->get(\App\Core\Blocks\SimpleBlock::class)
-            ]
-        );
-
-        $this->instanceManager->setParameters(
-            \App\Account\Controllers\PostLoginController::class,
-            [
-                'resource'     => $this->di->get(\App\Account\Models\Resource\UsersResource::class),
-                'service'      => $this->di->get(\App\Account\Models\AccountService::class),
-            ]
-        );
-
-        $this->instanceManager->setParameters(
-            \App\Account\Controllers\SendMailController::class,
-            [
-                'di' => $this->di,
-            ]
-        );
-    }
-
-    protected function assembleConsoleControllers()
-    {
-        $this->instanceManager->setParameters(
-            \App\Account\Controllers\Console\SendMailController::class,
-            [
-                'di' => $this->di,
             ]
         );
     }

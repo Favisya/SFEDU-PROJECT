@@ -7,8 +7,14 @@ define('APP_ROOT', dirname(__FILE__));
 define('CSV_FORMAT', 'csv');
 
 $di = new \Laminas\Di\Di();
-$DiC = new \App\Core\Models\DiContainer\DiC($di);
-$DiC->assemble();
+
+$moduleAggregator = $di->get(\App\ModuleSettingsAggregator::class);
+$diContainers = $moduleAggregator->getDiContainers();
+
+foreach ($diContainers as $container) {
+    $dic = new $container($di);
+    $dic->assemble();
+}
 
 $router = $di->get(\App\Core\Router\ConsoleRouter::class, [$di]);
 

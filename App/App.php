@@ -5,12 +5,12 @@ namespace App;
 use App\Core\Controllers\Error404Controller;
 use App\Core\Controllers\Error500Controller;
 use App\Core\Exceptions\MvcException;
-use App\Core\Models\DiContainer\DiC;
+use App\Core\Models\DiContainer\AbstractDiC;
 use App\Core\Models\LoggerModel;
 use App\Core\Models\RouterFactory;
 use Laminas\Di\Di;
 
-class  App
+class App
 {
     protected $di;
     protected $logger;
@@ -18,14 +18,13 @@ class  App
     public function __construct(Di $di)
     {
         $this->di = $di;
-
     }
 
     public function runApp(): void
     {
         $requestPath = $_SERVER['REQUEST_URI'] ?? '';
-        $diC = new DiC($this->di);
-        $diC->assemble();
+
+        $this->prepareDiContainers();
 
         $this->logger = $this->di->get(LoggerModel::class);
 
@@ -52,5 +51,16 @@ class  App
         $routerFactory = $this->di->get(RouterFactory::class);
         $router = $routerFactory->routerFactory($requestPath);
         return $router->parseControllers($requestPath);
+    }
+
+    private function prepareDiContainers(): void
+    {
+        $moduleAggregator = $this->di->get(ModuleSettingsAggregator::class);
+        $diContainers = $moduleAggregator->getDiContainers();
+
+        foreach ($diContainers as $container) {
+            $dic = new $container($this->di);
+            $dic->assemble();
+        }
     }
 }

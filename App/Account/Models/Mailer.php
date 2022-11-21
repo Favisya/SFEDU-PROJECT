@@ -2,8 +2,9 @@
 
 namespace App\Account\Models;
 
+use App\Core\Models\LoggerModel;
 use SendinBlue\Client;
-use App\Core\Blocks\EmailBlock;
+use App\Account\Blocks\EmailBlock;
 use App\Core\Models\Resource\Environment;
 use App\Core\Models\AbstractModel;
 

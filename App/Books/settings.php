@@ -39,4 +39,8 @@ return[
       'Books'       =>  \App\Books\Controllers\Api\BooksController::class,
       'Libraries'   =>  \App\Books\Controllers\Api\LibrariesController::class,
     ],
+
+    'di_containers' => [
+        'BooksDiC'  =>  \App\Books\Models\DiContainer\DiC::class,
+    ],
 ];

@@ -6,16 +6,18 @@ namespace App;
 
 class ModuleSettingsAggregator
 {
-    public const SETTINGS_WEB_ROUTES = 'web_routes';
-    public const SETTINGS_API_ROUTES = 'api_routes';
-    public const SETTINGS_CON_ROUTES = 'console_routes';
+    public const SETTINGS_WEB_ROUTES   = 'web_routes';
+    public const SETTINGS_API_ROUTES   = 'api_routes';
+    public const SETTINGS_CON_ROUTES   = 'console_routes';
+    public const SETTINGS_DI_CONTAINER = 'di_containers';
 
-    protected static $mergedSettings;
     protected static $allowedSections = [
         self::SETTINGS_WEB_ROUTES,
         self::SETTINGS_API_ROUTES,
         self::SETTINGS_CON_ROUTES,
+        self::SETTINGS_DI_CONTAINER,
     ];
+    protected static $mergedSettings;
 
     public function getWebRoutes(): array
     {
@@ -30,6 +32,11 @@ class ModuleSettingsAggregator
     public function getApiRoutes(): array
     {
         return self::getMergedSettings()[self::SETTINGS_API_ROUTES] ?? [];
+    }
+
+    public function getDiContainers()
+    {
+        return self::getMergedSettings()[self::SETTINGS_DI_CONTAINER] ?? null;
     }
 
     protected function getMergedSettings(): array

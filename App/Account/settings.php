@@ -18,8 +18,12 @@ return[
     ],
 
     'console_routes' => [
-        'SendMail'      => \App\Books\Controllers\Console\BooksController::class,
+        'SendMail'      => \App\Account\Controllers\Console\SendMailController::class,
     ],
 
     'api_routes' => [],
+
+    'di_containers' => [
+       'AccountDiC' => \App\Account\Models\DiContainer\DiC::class,
+    ],
 ];

@@ -12,9 +12,9 @@ class AuthorsController extends AbstractApiController
     protected $authorsResource;
 
     public function __construct(
-        CacheInterface  $cacheModel,
+        CacheInterface $cacheModel,
         AuthorsResource $authorsResource,
-                        $param = null
+        $param = null
     ) {
         parent::__construct($cacheModel, $param);
         $this->authorsResource = $authorsResource;
