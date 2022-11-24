@@ -1,4 +1,4 @@
-7-MVC 
+Vikulin Dmitriy KTbo3-1
 ==========
 Webservice with MVC pattern
 ----------------------------------
